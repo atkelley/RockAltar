@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>RockAltar</title>
     <link rel="shortcut icon" href="/images/favicon.ico" />
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/blog-home.css" rel="stylesheet">
