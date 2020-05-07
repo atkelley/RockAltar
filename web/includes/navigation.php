@@ -30,7 +30,7 @@
           <li><a href="/login.php">Login</a></li>
         <?php endif; ?>                
           
-        <li><a href="/registration.php">Registration</a></li>
+        <li><a href="/registration">Registration</a></li>
                                                     
         <?php 
           if(isset($_SESSION['user_role'])) {
