@@ -1,13 +1,126 @@
 .pager li .active_link {
-
-background: #000 !important;
-
+  background: #000 !important;
 }
 
-
 .form-control.pwd {
+  background: black !important;
+  width: 30%;
+}
 
-background: black !important;
-width: 30%;
+.dropdown-menu {
+  background-color: #101010!important;
+  border-radius: 10px;
+}
 
+.navbar-search {
+  margin: 8px 0 0 0!important;
+  padding: 0 0 0 0!important;
+}
+
+.forgot {
+  font-size: 1.25rem;
+  margin: 10px 0 0 0!important;
+}
+
+.post-section {
+  margin: 40px 0px; 
+}
+
+.post-title {
+  margin: 5px 0px;
+  font-size: 2rem;
+}
+
+.post-date {
+  margin: 5px 0px;
+}
+
+.post-desc {
+  margin: 5px 0px;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.post-title a:hover, .post-desc a:hover {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.post-button {
+  margin: 5px 0px;
+}
+
+.post-image {
+  max-width: 100%;
+  height: 250px;
+}
+
+.post-image:hover {
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+.newsletter {
+  margin-top: 40px;
+}
+
+.newsletter-section-title, .video-section-title, .album-section-title, .podcast-section-title {
+  font-weight: 600;
+  padding-bottom: 5px;
+  border-bottom: 2px solid black;
+}
+
+.video-box {
+  position: relative;
+}
+
+.video-play-button, .podcast-play-button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: 42.5%;
+  top: 39.5%;
+}
+
+.video-text, .podcast-text {
+  position: absolute;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  left: 7%;
+  top: 90%;
+}
+
+.album-image {
+  height: 100px;
+  width: auto;
+  background-color: black;
+}
+
+.video-image:hover, .podcast-image:hover, .album-image:hover  {
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+.video-play-button:hover, .podcast-play-button:hover {
+  cursor: pointer;
+}
+
+.album-text {
+  padding: 0 0 0 0;
+}
+
+.album-band-name, .album-title, .album-rating {
+  margin-top: 0px;
+}
+
+.album-band-name:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.album-rating-punch {
+  color: red;
 }

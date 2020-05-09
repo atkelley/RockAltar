@@ -22,29 +22,39 @@
           $select_all_posts_query = mysqli_query($connection,$query);
 
           while($row = mysqli_fetch_assoc($select_all_posts_query)) {
-          $post_id = $row['post_id'];
-          $post_title = $row['post_title'];
-          $post_author = $row['post_user'];
-          $post_date = $row['post_date'];
-          $post_image = $row['post_image'];
-          $post_content = substr($row['post_content'],0,400);
-          $post_status = $row['post_status'];
+            $post_id = $row['post_id'];
+            $post_title = $row['post_title'];
+            $post_author = $row['post_user'] ? $row['post_user'] : "Staff Writer";
+            $date = date_create($row['post_date']);
+            $post_date = date_format($date, "l, F dS, Y");
+            $post_image = $row['post_image'];
+            $pos = strpos($row['post_content'], ' ', 250);
+            $post_content = substr($row['post_content'], 0, $pos) . "...";
+            $post_status = $row['post_status'];
       ?>
-    
-      <h2><a href="post/<?php echo $post_id; ?>"><?php echo $post_title ?></a></h2>
-      <p class="lead">
-          by <a href="author_posts.php?author=<?php echo $post_author ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author ?></a>
-      </p>
-      <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?></p>
-      <hr> 
-      <a href="post.php?p_id=<?php echo $post_id; ?>">
-      <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
-      </a>       
-      <hr>
-      <p><?php echo $post_content ?></p>
-      <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-      <hr>
-              
+          <div class="row post-section">
+            <div class="col-md-6">
+              <a href="post.php?p_id=<?php echo $post_id; ?>">
+                <img class="img-responsive post-image" src="images/<?php echo $post_image;?>" alt="">
+              </a>  
+            </div>
+            <div class="col-md-6">
+              <div class="row post-title">
+                <a href="post/<?php echo $post_id; ?>"><?php echo $post_title ?></a>
+                by <a href="author_posts.php?author=<?php echo $post_author ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author ?></a>
+              </div>
+              <div class="row post-date">
+              <strong>on <?php echo $post_date ?></strong>
+              </div>
+              <div class="row post-desc">
+                <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_content ?></a><br>
+              </div>
+              <!-- <div class="row post-button">
+                <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> 
+              </div> -->
+            </div>
+          </div>
+          <hr>
   <?php }  } ?>
     </div>
       

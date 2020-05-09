@@ -1,7 +1,7 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
 <?php
-  require 'vendor/autoload.php';
+  require '../vendor/autoload.php';
 
   $dotenv = new \Dotenv\Dotenv(__DIR__);
   $dotenv->load();
