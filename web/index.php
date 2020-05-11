@@ -18,7 +18,7 @@
           echo "<h1 class='text-center'>No posts available</h1>";
         } else {
           $count  = ceil($count /$per_page); 
-          $query = "SELECT * FROM articles WHERE category = 53 LIMIT $page_1, $per_page";
+          $query = "SELECT * FROM articles WHERE category = 53 ORDER BY date DESC LIMIT $page_1, $per_page";
           $select_all_articles_query = mysqli_query($connection, $query);
 
           while($row = mysqli_fetch_assoc($select_all_articles_query)) {
@@ -28,7 +28,7 @@
             $date = date_create($row['date']);
             $date = date_format($date, "l, F dS, Y");
             $image = $row['image'];
-            $description = (strlen($row['description']) > 250) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'] . "..";
+            $description = (strlen($row['description']) > 250) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
             // $pos = strpos($row['description'], ' ', 200);
             // $description = substr($row['description'], 0, $pos) . "...";
             $status = $row['status'];
