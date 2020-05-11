@@ -28,21 +28,8 @@
             $date = date_create($row['date']);
             $date = date_format($date, "l, F dS, Y");
             $image = $row['image'];
-            $description = (strlen($row['description']) > 250) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
-            // $pos = strpos($row['description'], ' ', 200);
-            // $description = substr($row['description'], 0, $pos) . "...";
+            $description = (strlen($row['description']) > 200) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
             $status = $row['status'];
-
-          // while($row = mysqli_fetch_assoc($select_all_posts_query)) {
-          //   $post_id = $row['post_id'];
-          //   $post_title = $row['post_title'];
-          //   $post_author = $row['post_user'] ? $row['post_user'] : "Staff Writer";
-          //   $date = date_create($row['post_date']);
-          //   $post_date = date_format($date, "l, F dS, Y");
-          //   $post_image = $row['post_image'];
-          //   $pos = strpos($row['post_desc'], ' ', 250);
-          //   $post_desc = substr($row['post_desc'], 0, $pos) . "...";
-          //   $post_status = $row['post_status'];
       ?>
           <div class="row news-section">
             <div class="col-md-6 news-section-left">
@@ -65,21 +52,20 @@
           </div>
           <hr>
   <?php }  } ?>
+      <ul class="pager">
+        <?php 
+          for($i = 1; $i <= $count; $i++) {
+            if($i == $page) {
+              echo "<li'><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
+            } else {
+              echo "<li'><a href='index.php?page={$i}'>{$i}</a></li>";
+            }
+          }
+        ?>
+      </ul>
     </div>
       
     <?php include "includes/sidebar.php";?>
   </div>
-  <ul class="pager">
-    <?php 
-      $number_list = array();
 
-      for($i =1; $i <= $count; $i++) {
-        if($i == $page) {
-          echo "<li '><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
-        } else {
-          echo "<li '><a href='index.php?page={$i}'>{$i}</a></li>";
-        }
-      }
-    ?>
-  </ul>
 <?php include "includes/footer.php";?>
