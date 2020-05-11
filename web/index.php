@@ -28,7 +28,7 @@
             $date = date_create($row['date']);
             $date = date_format($date, "l, F dS, Y");
             $image = $row['image'];
-            $description = (strlen($row['description']) > 250) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
+            $description = (strlen($row['description']) > 250) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'] . "..";
             // $pos = strpos($row['description'], ' ', 200);
             // $description = substr($row['description'], 0, $pos) . "...";
             $status = $row['status'];
@@ -44,26 +44,23 @@
           //   $post_desc = substr($row['post_desc'], 0, $pos) . "...";
           //   $post_status = $row['post_status'];
       ?>
-          <div class="row post-section">
-            <div class="col-md-6">
-              <a href="post.php?p_id=<?php echo $id; ?>">
-                <img class="img-responsive post-image" src="<?php echo $image;?>" alt="">
+          <div class="row news-section">
+            <div class="col-md-6 news-section-left">
+              <a href="article.php?id=<?php echo $id; ?>">
+                <img class="img-responsive news-image" src="<?php echo $image;?>" alt="">
               </a>  
             </div>
-            <div class="col-md-6">
-              <div class="row post-title">
-                <a href="post/<?php echo $id; ?>"><?php echo $title ?></a>
+            <div class="col-md-6 news-section-right">
+              <div class="row news-title">
+                <a href="article.php?id=<?php echo $id; ?>"><?php echo $title ?></a>
+              </div>
+              <div class="row news-author-date">
                 by <a href="author_posts.php?author=<?php echo $author ?>&p_id=<?php echo $id; ?>"><?php echo $author ?></a>
+                <span class="glyphicon glyphicon-time"></span> on <?php echo $date ?>
               </div>
-              <div class="row post-date">
-              <strong>on <?php echo $date ?></strong>
+              <div class="row news-description">
+                <a href="article.php?id=<?php echo $id; ?>"><?php echo $description ?></a><br>
               </div>
-              <div class="row post-desc">
-                <a href="post.php?p_id=<?php echo $id; ?>"><?php echo $description ?></a><br>
-              </div>
-              <!-- <div class="row post-button">
-                <a class="btn btn-primary" href="post.php?p_id=<?php echo $id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> 
-              </div> -->
             </div>
           </div>
           <hr>

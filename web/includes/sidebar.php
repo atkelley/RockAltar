@@ -28,7 +28,7 @@
 
   <div class="well">     
     <?php 
-      $query = "SELECT * FROM articles WHERE category = 57";
+      $query = "SELECT * FROM articles WHERE category = 57 LIMIT 1";
       $select_videos_sidebar_query = mysqli_query($connection, $query);   
       
       while($row = mysqli_fetch_assoc($select_videos_sidebar_query)) {
@@ -41,16 +41,20 @@
     <h4 class="video-section-title">Top Video</h4>
     <div class="row">
       <div class="col-lg-12 video-box">
-        <img class="img-responsive video-image" src="<?php echo $image; ?>" alt="<?php echo $name; ?>">
-        <img src="images/blue-play-button.png" alt="blue-play-button" class="video-play-button">
-        <p class="video-text"><?php echo $name; ?> - <?php echo $title; ?></p>
+        <a href="article.php?id=<?php echo $id; ?>">
+          <img class="img-responsive video-image" src="<?php echo $image; ?>" alt="<?php echo $name; ?>">
+          <img src="images/blue-play-button.png" alt="blue-play-button" class="video-play-button">
+        </a>
+        <a href="article.php?id=<?php echo $id; ?>">
+          <p class="video-text"><?php echo $name; ?> - <?php echo $title; ?></p>
+        </a>
       </div>
     </div>
   </div>
 
   <div class="well">     
     <?php 
-      $query = "SELECT * FROM articles WHERE category = 56";
+      $query = "SELECT * FROM articles WHERE category = 56 LIMIT 1";
       $select_podcasts_sidebar_query = mysqli_query($connection, $query);   
       
       while($row = mysqli_fetch_assoc($select_podcasts_sidebar_query)) {
@@ -62,16 +66,20 @@
     <h4 class="podcast-section-title">Top Podcast</h4>
     <div class="row">
       <div class="col-lg-12">
-        <img class="img-responsive podcast-image" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
-        <img src="images/blue-play-button.png" alt="blue-play-button" class="podcast-play-button">
-        <p class="podcast-text"><?php echo $title; ?></p>
+        <a href="article.php?id=<?php echo $id; ?>">
+          <img class="img-responsive podcast-image" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
+          <img src="images/blue-play-button.png" alt="blue-play-button" class="podcast-play-button">
+        </a>
+        <a href="article.php?id=<?php echo $id; ?>">
+          <p class="podcast-text"><?php echo $title; ?></p>
+        </a>
       </div>
     </div>
   </div>
 
   <div class="well">     
   <?php 
-      $query = "SELECT * FROM articles WHERE category = 55";
+      $query = "SELECT * FROM articles WHERE category = 55 LIMIT 1";
       $select_albums_sidebar_query = mysqli_query($connection, $query);   
       
       while($row = mysqli_fetch_assoc($select_albums_sidebar_query)) {
@@ -85,12 +93,18 @@
     <h4 class="album-section-title">Top Album</h4>
     <div class="row">
       <div class="col-md-5 album-image-box">
-        <img class="img-responsive album-image" src="<?php echo $image; ?>" alt="<?php echo $name; ?>">
+        <a href="article.php?id=<?php echo $id; ?>">
+          <img class="img-responsive album-image" src="<?php echo $image; ?>" alt="<?php echo $name; ?>">
+        </a>
       </div>
       <div class="col-md-7 album-text">
-        <h4 class="album-band-name"><strong><?php echo $name; ?></strong></h4>
+        <a href="article.php?id=<?php echo $id; ?>">
+          <h4 class="album-band-name"><strong><?php echo $name; ?></strong></h4>
+        </a>
         <h5 class="album-title"><em><?php echo $title; ?></em></h5>
-        <h5 class="album-description"><?php echo $description; ?></h5>
+        <a href="article.php?id=<?php echo $id; ?>">
+          <h5 class="album-description"><?php echo $description; ?></h5>
+        </a>
       </div>
     </div>
   </div>
