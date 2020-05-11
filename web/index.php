@@ -18,39 +18,51 @@
           echo "<h1 class='text-center'>No posts available</h1>";
         } else {
           $count  = ceil($count /$per_page); 
-          $query = "SELECT * FROM posts LIMIT $page_1, $per_page";
-          $select_all_posts_query = mysqli_query($connection,$query);
+          $query = "SELECT * FROM articles WHERE category = 53 LIMIT $page_1, $per_page";
+          $select_all_articles_query = mysqli_query($connection, $query);
 
-          while($row = mysqli_fetch_assoc($select_all_posts_query)) {
-            $post_id = $row['post_id'];
-            $post_title = $row['post_title'];
-            $post_author = $row['post_user'] ? $row['post_user'] : "Staff Writer";
-            $date = date_create($row['post_date']);
-            $post_date = date_format($date, "l, F dS, Y");
-            $post_image = $row['post_image'];
-            $pos = strpos($row['post_content'], ' ', 250);
-            $post_content = substr($row['post_content'], 0, $pos) . "...";
-            $post_status = $row['post_status'];
+          while($row = mysqli_fetch_assoc($select_all_articles_query)) {
+            $id = $row['id'];
+            $title = $row['title'];
+            $author = $row['author'] ? $row['author'] : "Staff Writer";
+            $date = date_create($row['date']);
+            $date = date_format($date, "l, F dS, Y");
+            $image = $row['image'];
+            $description = (strlen($row['description']) > 250) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
+            // $pos = strpos($row['description'], ' ', 200);
+            // $description = substr($row['description'], 0, $pos) . "...";
+            $status = $row['status'];
+
+          // while($row = mysqli_fetch_assoc($select_all_posts_query)) {
+          //   $post_id = $row['post_id'];
+          //   $post_title = $row['post_title'];
+          //   $post_author = $row['post_user'] ? $row['post_user'] : "Staff Writer";
+          //   $date = date_create($row['post_date']);
+          //   $post_date = date_format($date, "l, F dS, Y");
+          //   $post_image = $row['post_image'];
+          //   $pos = strpos($row['post_desc'], ' ', 250);
+          //   $post_desc = substr($row['post_desc'], 0, $pos) . "...";
+          //   $post_status = $row['post_status'];
       ?>
           <div class="row post-section">
             <div class="col-md-6">
-              <a href="post.php?p_id=<?php echo $post_id; ?>">
-                <img class="img-responsive post-image" src="images/<?php echo $post_image;?>" alt="">
+              <a href="post.php?p_id=<?php echo $id; ?>">
+                <img class="img-responsive post-image" src="<?php echo $image;?>" alt="">
               </a>  
             </div>
             <div class="col-md-6">
               <div class="row post-title">
-                <a href="post/<?php echo $post_id; ?>"><?php echo $post_title ?></a>
-                by <a href="author_posts.php?author=<?php echo $post_author ?>&p_id=<?php echo $post_id; ?>"><?php echo $post_author ?></a>
+                <a href="post/<?php echo $id; ?>"><?php echo $title ?></a>
+                by <a href="author_posts.php?author=<?php echo $author ?>&p_id=<?php echo $id; ?>"><?php echo $author ?></a>
               </div>
               <div class="row post-date">
-              <strong>on <?php echo $post_date ?></strong>
+              <strong>on <?php echo $date ?></strong>
               </div>
               <div class="row post-desc">
-                <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_content ?></a><br>
+                <a href="post.php?p_id=<?php echo $id; ?>"><?php echo $description ?></a><br>
               </div>
               <!-- <div class="row post-button">
-                <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> 
+                <a class="btn btn-primary" href="post.php?p_id=<?php echo $id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> 
               </div> -->
             </div>
           </div>
@@ -60,7 +72,6 @@
       
     <?php include "includes/sidebar.php";?>
   </div>
-  <hr>
   <ul class="pager">
     <?php 
       $number_list = array();

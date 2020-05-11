@@ -54,6 +54,7 @@
 .post-image {
   max-width: 100%;
   height: 250px;
+  border-radius: 10px;
 }
 
 .post-image:hover {
@@ -80,21 +81,30 @@
   width: 50px;
   height: 50px;
   left: 42.5%;
-  top: 39.5%;
+  top: 30%;
+}
+
+.video-image, .podcast-image {
+  border-radius: 10px;
+  border: 2px solid grey;
+  max-width: 100%;
+  height: auto;
 }
 
 .video-text, .podcast-text {
-  position: absolute;
+  margin: 10px 0 0 0;
   font-size: 1.5rem;
   font-weight: 600;
-  color: white;
-  text-shadow: 2px 2px 4px #000000;
-  left: 7%;
-  top: 90%;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 1px 1px 2px black, 0 0 5px grey, 0 0 3px red;
+}
+
+.album-image-box {
+  padding-right: 0!important;
 }
 
 .album-image {
-  height: 100px;
+  height: 125px;
   width: auto;
   background-color: black;
 }
@@ -109,18 +119,24 @@
 }
 
 .album-text {
-  padding: 0 0 0 0;
+  padding: 0 0 0 10px;
 }
 
-.album-band-name, .album-title, .album-rating {
-  margin-top: 0px;
+.album-band-name, .album-title {
+  margin: 0 0 5px 0;
+}
+
+.album-title {
+  padding-bottom: 10px;
+  margin-right: 15px;
+  border-bottom: 1px solid lightgray;
+}
+
+.album-description {
+  margin: 10px 0 5px 0;
 }
 
 .album-band-name:hover {
   color: red;
   cursor: pointer;
-}
-
-.album-rating-punch {
-  color: red;
 }

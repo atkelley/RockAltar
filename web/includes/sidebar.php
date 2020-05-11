@@ -28,51 +28,69 @@
 
   <div class="well">     
     <?php 
-      $query = "SELECT * FROM categories";
-      $select_categories_sidebar = mysqli_query($connection,$query);         
+      $query = "SELECT * FROM articles WHERE category = 57";
+      $select_videos_sidebar_query = mysqli_query($connection, $query);   
+      
+      while($row = mysqli_fetch_assoc($select_videos_sidebar_query)) {
+        $id = $row['id'];
+        $title = $row['title'];
+        $image = $row['image'];
+        $name = $row['name'];
+      }
     ?>
     <h4 class="video-section-title">Top Video</h4>
     <div class="row">
       <div class="col-lg-12 video-box">
-        <!-- <img class="img-responsive post-image" src="images/<?php echo $post_image;?>" alt=""> -->
-        <img class="img-responsive video-image" src="https://picsum.photos/320/200" alt="">
-        <img src="images/blue-play-button.png" alt="red-play-button" class="video-play-button">
-        <p class="video-text">Band Name - Song Name</p>
+        <img class="img-responsive video-image" src="<?php echo $image; ?>" alt="<?php echo $name; ?>">
+        <img src="images/blue-play-button.png" alt="blue-play-button" class="video-play-button">
+        <p class="video-text"><?php echo $name; ?> - <?php echo $title; ?></p>
       </div>
     </div>
   </div>
 
   <div class="well">     
     <?php 
-      $query = "SELECT * FROM categories";
-      $select_categories_sidebar = mysqli_query($connection,$query);         
+      $query = "SELECT * FROM articles WHERE category = 56";
+      $select_podcasts_sidebar_query = mysqli_query($connection, $query);   
+      
+      while($row = mysqli_fetch_assoc($select_podcasts_sidebar_query)) {
+        $id = $row['id'];
+        $title = $row['title'];
+        $image = $row['image'];
+      }
     ?>
     <h4 class="podcast-section-title">Top Podcast</h4>
     <div class="row">
       <div class="col-lg-12">
-        <!-- <img class="img-responsive post-image" src="images/<?php echo $post_image;?>" alt=""> -->
-        <img class="img-responsive podcast-image" src="https://picsum.photos/320/200" alt="">
-        <img src="images/blue-play-button.png" alt="red-play-button" class="podcast-play-button">
-        <p class="podcast-text">Band Name - Song Name</p>
+        <img class="img-responsive podcast-image" src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
+        <img src="images/blue-play-button.png" alt="blue-play-button" class="podcast-play-button">
+        <p class="podcast-text"><?php echo $title; ?></p>
       </div>
     </div>
   </div>
 
   <div class="well">     
-    <?php 
-      $query = "SELECT * FROM categories";
-      $select_categories_sidebar = mysqli_query($connection,$query);         
+  <?php 
+      $query = "SELECT * FROM articles WHERE category = 55";
+      $select_albums_sidebar_query = mysqli_query($connection, $query);   
+      
+      while($row = mysqli_fetch_assoc($select_albums_sidebar_query)) {
+        $id = $row['id'];
+        $title = $row['title'];
+        $image = $row['image'];
+        $name = $row['name'];
+        $description = $row['description'];
+      }
     ?>
     <h4 class="album-section-title">Top Album</h4>
     <div class="row">
-      <div class="col-md-5">
-        <!-- <img class="img-responsive post-image" src="images/<?php echo $post_image;?>" alt=""> -->
-        <img class="img-responsive album-image" src="https://picsum.photos/" alt="">
+      <div class="col-md-5 album-image-box">
+        <img class="img-responsive album-image" src="<?php echo $image; ?>" alt="<?php echo $name; ?>">
       </div>
       <div class="col-md-7 album-text">
-        <h5 class="album-band-name"><strong>Band Name</strong></h5>
-        <h5 class="album-title"><strong>Album Title</strong></h5>
-        <h5 class="album-rating"><strong>Rating: <span class="album-rating-punch">4.0 / 5.0</span></strong></h5>
+        <h4 class="album-band-name"><strong><?php echo $name; ?></strong></h4>
+        <h5 class="album-title"><em><?php echo $title; ?></em></h5>
+        <h5 class="album-description"><?php echo $description; ?></h5>
       </div>
     </div>
   </div>
