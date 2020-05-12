@@ -7,46 +7,57 @@
     <div class="col-md-8">
       <?php
         if(isset($_GET['id'])){
-          $id = $_GET['id'];
-          // CLEAN UP UNDER HERE
-          $update_statement = mysqli_prepare($connection, "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = ?");
-          mysqli_stmt_bind_param($update_statement, "i", $the_post_id);
-          mysqli_stmt_execute($update_statement);
-          // mysqli_stmt_bind_result($stmt1, $post_id, $post_title, $post_author, $post_date, $post_image, $post_content);
 
-          if(!$update_statement) {
-            die("Query failed." );
-          }
+          $query = "SELECT * FROM articles WHERE id = " . $_GET['id'];
+          $select_article_query = mysqli_query($connection, $query);
 
-          if(isset($_SESSION['username']) && is_admin($_SESSION['username']) ) {
-            $stmt1 = mysqli_prepare($connection, "SELECT post_title, post_author, post_date, post_image, post_content FROM posts WHERE post_id = ?");
-          } else {
-            $stmt2 = mysqli_prepare($connection , "SELECT post_title, post_author, post_date, post_image, post_content FROM posts WHERE post_id = ? AND post_status = ? ");
-            $published = 'published';
-          }
+          while($row = mysqli_fetch_assoc($select_article_query)) {
+            $title = $row['title'];
+            $author = $row['author'] ? $row['author'] : "Staff Writer";
+            $date = date_create($row['date']);
+            $date = date_format($date, "l, F dS, Y");
+            $image = $row['image'];
+            $description = (strlen($row['description']) > 200) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
+            $content = $row['content'];
+            $status = $row['status'];
 
-          if(isset($stmt1)){
-            mysqli_stmt_bind_param($stmt1, "i", $the_post_id);
-            mysqli_stmt_execute($stmt1);
-            mysqli_stmt_bind_result($stmt1, $post_title, $post_author, $post_date, $post_image, $post_content);
-            $stmt = $stmt1;
-          } else {
-            mysqli_stmt_bind_param($stmt2, "is", $the_post_id, $published);
-            mysqli_stmt_execute($stmt2);
-            mysqli_stmt_bind_result($stmt2, $post_title, $post_author, $post_date, $post_image, $post_content);
-            $stmt = $stmt2;
-          }
 
-          while(mysqli_stmt_fetch($stmt)) {
+          // $id = $_GET['id'];
+          // $update_statement = mysqli_prepare($connection, "UPDATE articles SET views = views + 1 WHERE id = ?");
+          // mysqli_stmt_bind_param($update_statement, "i", $id);
+          // mysqli_stmt_execute($update_statement);
+          // // mysqli_stmt_bind_result($stmt1, $post_id, $post_title, $post_author, $post_date, $post_image, $post_content);
+
+          // if(!$update_statement) {
+          //   die("Query failed." );
+          // }
+
+          // if(isset($_SESSION['username']) && is_admin($_SESSION['username']) ) {
+          //   $stmt1 = mysqli_prepare($connection, "SELECT title, author, date, image, content FROM articles WHERE id = ?");
+          // } else {
+          //   $stmt2 = mysqli_prepare($connection , "SELECT title, author, date, image, content FROM articles WHERE id = ? AND status = ? ");
+          //   $published = 'published';
+          // }
+
+          // if(isset($stmt1)){
+          //   mysqli_stmt_bind_param($stmt1, "i", $id);
+          //   mysqli_stmt_execute($stmt1);
+          //   mysqli_stmt_bind_result($stmt1, $title, $author, $date, $image, $content);
+          //   $stmt = $stmt1;
+          // } else {
+          //   mysqli_stmt_bind_param($stmt2, "is", $id, $published);
+          //   mysqli_stmt_execute($stmt2);
+          //   mysqli_stmt_bind_result($stmt2, $title, $author, $date, $image, $content);
+          //   $stmt = $stmt2;
+          // }
+          // echo get_object_vars($stmt);
+          // while(mysqli_stmt_fetch($stmt)) {
       ?>
             <h1 class="page-header">Posts</h1>
-            <h2><a href="#"><?php echo $post_title ?></a></h2>
-            <p class="lead"> by <a href="index.php"><?php echo $post_author ?></a></p>
-            <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?></p>
-            <hr>
-            <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
-            <hr>
-            <p><?php echo $post_content ?></p>
+            <h2><?php echo $title ?></h2>
+            <p class="lead"> by <a href="index.php"><?php echo $author ?></a> on <span class="glyphicon glyphicon-time"></span> <?php echo $date ?></p>
+            <img class="img-responsive" src="<?php echo $image;?>" alt="">
+            <p><?php echo $content ?></p>
             <hr>         
     <?php } ?>
 
@@ -92,7 +103,7 @@
       <hr>
                 
       <?php 
-        $query = "SELECT * FROM comments WHERE comment_post_id = {$the_post_id} ";
+        $query = "SELECT * FROM comments WHERE comment_post_id = {$id} ";
         $query .= "AND comment_status = 'approved' ";
         $query .= "ORDER BY comment_id DESC ";
         $select_comment_query = mysqli_query($connection, $query);
