@@ -53,7 +53,6 @@
           // echo get_object_vars($stmt);
           // while(mysqli_stmt_fetch($stmt)) {
       ?>
-            <h1 class="page-header">Posts</h1>
             <h2><?php echo $title ?></h2>
             <p class="lead"> by <a href="index.php"><?php echo $author ?></a> on <span class="glyphicon glyphicon-time"></span> <?php echo $date ?></p>
             <img class="img-responsive" src="<?php echo $image;?>" alt="">

@@ -27,6 +27,21 @@ a:hover {
   margin: 10px 0 0 0!important;
 }
 
+.article-video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+.article-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .news-section {
   margin: 40px 0px; 
 }
