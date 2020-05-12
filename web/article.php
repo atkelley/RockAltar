@@ -7,7 +7,6 @@
     <div class="col-md-8">
       <?php
         if(isset($_GET['id'])){
-
           $query = "SELECT * FROM articles WHERE id = " . $_GET['id'];
           $select_article_query = mysqli_query($connection, $query);
 

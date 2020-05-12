@@ -28,7 +28,7 @@
 
   <div class="well">     
     <?php 
-      $query = "SELECT * FROM articles WHERE category = 57 LIMIT 1";
+      $query = "SELECT * FROM articles WHERE category = 4 LIMIT 1";
       $select_videos_sidebar_query = mysqli_query($connection, $query);   
       
       while($row = mysqli_fetch_assoc($select_videos_sidebar_query)) {
@@ -54,7 +54,7 @@
 
   <div class="well">     
     <?php 
-      $query = "SELECT * FROM articles WHERE category = 56 LIMIT 1";
+      $query = "SELECT * FROM articles WHERE category = 5 LIMIT 1";
       $select_podcasts_sidebar_query = mysqli_query($connection, $query);   
       
       while($row = mysqli_fetch_assoc($select_podcasts_sidebar_query)) {
@@ -79,7 +79,7 @@
 
   <div class="well">     
   <?php 
-      $query = "SELECT * FROM articles WHERE category = 55 LIMIT 1";
+      $query = "SELECT * FROM articles WHERE category = 3 LIMIT 1";
       $select_albums_sidebar_query = mysqli_query($connection, $query);   
       
       while($row = mysqli_fetch_assoc($select_albums_sidebar_query)) {

@@ -6,30 +6,36 @@
   <div class="row">     
     <div class="col-md-8">
       <?php
-        $per_page = 10;
+        $per_page = 5;
         $page = (isset($_GET['page'])) ? $_GET['page'] : "";
         $page_1 = ($page == "" || $page == 1) ? 0 : ($page * $per_page) - $per_page;
 
-        $post_query_count = (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin' ) ? "SELECT * FROM posts" : "SELECT * FROM posts WHERE post_status = 'published'"; 
-        $find_count = mysqli_query($connection,$post_query_count);
-        $count = mysqli_num_rows($find_count);
+        $query = "SELECT articles.id, articles.title, articles.date, articles.image, 
+                  articles.description, articles.user, users.firstname, users.lastname 
+                  FROM articles 
+                  INNER JOIN users ON articles.user = users.id
+                  WHERE articles.category = 1 
+                  AND articles.status = 'published'
+                  ORDER BY date DESC LIMIT $page_1, $per_page";
+
+        $select_published_articles_query = mysqli_query($connection, $query);
+        $count = mysqli_num_rows($select_published_articles_query);
+        echo $count;
 
         if($count < 1) {
-          echo "<h1 class='text-center'>No posts available</h1>";
+          echo "<h1 class='text-center'>No articles found.</h1>";
         } else {
-          $count  = ceil($count /$per_page); 
-          $query = "SELECT * FROM articles WHERE category = 53 ORDER BY date DESC LIMIT $page_1, $per_page";
-          $select_all_articles_query = mysqli_query($connection, $query);
+          $count  = ceil($count / $per_page); 
 
-          while($row = mysqli_fetch_assoc($select_all_articles_query)) {
+          while($row = mysqli_fetch_assoc($select_published_articles_query)) {
             $id = $row['id'];
             $title = $row['title'];
-            $author = $row['author'] ? $row['author'] : "Staff Writer";
+            $author = $row['firstname'] . " " . $row['lastname'];
+            $user = $row['user'];
             $date = date_create($row['date']);
             $date = date_format($date, "l, F dS, Y");
             $image = $row['image'];
             $description = (strlen($row['description']) > 200) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
-            $status = $row['status'];
       ?>
           <div class="row news-section">
             <div class="col-md-6 news-section-left">
@@ -42,7 +48,7 @@
                 <a href="article.php?id=<?php echo $id; ?>"><?php echo $title ?></a>
               </div>
               <div class="row news-author-date">
-                by <a href="author_posts.php?author=<?php echo $author ?>&p_id=<?php echo $id; ?>"><?php echo $author ?></a>
+                by <a href="author.php?user=<?php echo $user ?>"><?php echo $author ?></a>
                 <span class="glyphicon glyphicon-time"></span> on <?php echo $date ?>
               </div>
               <div class="row news-description">
