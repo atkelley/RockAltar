@@ -23,9 +23,10 @@
             $image = $row['image'];
             $description = (strlen($row['description']) > 200) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
             $content = $row['content'];
+            $user = $row['user'];
       ?>
             <h2><?php echo $title ?></h2>
-            <p class="lead"> by <a href="index.php"><?php echo $author ?></a> on <span class="glyphicon glyphicon-time"></span> <?php echo $date ?></p>
+            <p class="lead"> by <a href="author.php?user=<?php echo $user ?>"><?php echo $author ?></a> on <span class="glyphicon glyphicon-time"></span> <?php echo $date ?></p>
             <img class="img-responsive" src="<?php echo $image;?>" alt="">
             <p><?php echo $content ?></p>
             <hr>         

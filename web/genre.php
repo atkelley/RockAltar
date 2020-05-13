@@ -1,29 +1,30 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
 <?php  include "includes/navigation.php"; ?>
-
+    
 <div class="container">
   <div class="row">
     <div class="col-md-8">
       <?php
-        if(isset($_GET['user'])){
+        if(isset($_GET['genre'])){
           $per_page = 5;
           $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
           $offset = ($page == 1) ? 0 : ($page * $per_page) - $per_page;
+          $genres = array("rock" => "1", "alternative" => "2", "indie" => "3", "punk" => "4", "metal" => "5");
   
           $query = "SELECT articles.id, articles.title, articles.date, articles.image, articles.content,
                     articles.description, articles.user, users.firstname, users.lastname 
                     FROM articles 
                     INNER JOIN users ON articles.user = users.id
                     WHERE articles.status = 'published'
-                    AND articles.user = " . $_GET['user'];
+                    AND articles.genre = ". $genres[$_GET['genre']];
   
           $select_published_articles_query = mysqli_query($connection, $query);
           $count = mysqli_num_rows($select_published_articles_query);
           $count  = ceil($count / $per_page); 
 
           if($count < 1) {
-            echo "<h1 class='text-center'>No articles found.</h1>";
+            echo "<h1 class='text-center'>No " . $_GET['genre'] . " articles found.</h1>";
           } else {
             $select_published_articles_query->data_seek($offset);
       
@@ -51,7 +52,7 @@
                       <a href="article.php?id=<?php echo $id; ?>"><?php echo $title ?></a>
                     </div>
                     <div class="row news-author-date">
-                      by <?php echo $author ?>
+                      by <a href="author.php?user=<?php echo $user ?>"><?php echo $author ?></a>
                       <span class="glyphicon glyphicon-time"></span> on <?php echo $date ?>
                     </div>
                     <div class="row news-description">
@@ -64,6 +65,7 @@
             } 
           } 
         } else {
+          $count = 0;
           echo "<h1 class='text-center'>No articles found.</h1>";
         } 
       ?>
@@ -77,9 +79,9 @@
               $link .= " class='active-link'>{$i}</a></li>";
             } else {
               if ($i == 1) {
-                $link .= " href='author.php?user={$_GET['user']}'>{$i}</a></li>";
+                $link .= " href='genre.php?genre={$_GET['genre']}'>{$i}</a></li>";
               } else {
-                $link .= " href='author.php?user={$_GET['user']}&page={$i}'>{$i}</a></li>";
+                $link .= " href='genre.php?genre={$_GET['genre']}&page={$i}'>{$i}</a></li>";
               }
             }
             

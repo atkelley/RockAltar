@@ -52,6 +52,47 @@ a:hover {
 
 .news-section-left {
   padding-right: 0px!important;
+  position: relative;
+}
+
+.album-section-title-container {
+  position: relative;
+}
+
+.badge-category {
+  position: absolute;
+  bottom: 2%;
+  right: 10%;
+  background-color: rgba(25, 200, 0, 0.65);
+  color: white;
+}
+
+.badge-category:hover {
+  box-shadow: 0 0 10px rgba(25, 200, 0, 0.85), 0 0 10px rgba(25, 200, 0, 0.85);
+}
+
+.album-badge-genre {
+  position: absolute;
+  top: 2%;
+  right: 0%;
+  background-color: rgba(255, 0, 0, 0.65);
+  color: white;
+}
+
+.album-badge-genre:hover {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.85), 0 0 10px rgba(255, 0, 0, 0.85);
+}
+
+.badge-genre {
+  position: absolute;
+  top: 2%;
+  left: 5%;
+  background-color: rgba(255, 0, 0, 0.65);
+  color: white;
+}
+
+.badge-genre:hover {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.85), 0 0 10px rgba(255, 0, 0, 0.85);
 }
 
 .news-section-right {
@@ -89,6 +130,10 @@ a:hover {
 
 .newsletter {
   margin-top: 40px;
+}
+
+.album-section-title {
+  margin-top: 0px;
 }
 
 .newsletter-section-title, .video-section-title, .album-section-title, .podcast-section-title {
@@ -161,7 +206,7 @@ a:hover {
   border-bottom: 1px solid lightgray;
 }
 
-.album-description {
+.album-article-title {
   margin: 10px 0 5px 0;
 }
 
@@ -170,10 +215,17 @@ a:hover {
   cursor: pointer;
 }
 
+footer {
+  width: 100%;
+  margin: 50px 0 0 0;
+  padding: 20px 0px 15px 0px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+}
+
 .footer-left, .footer-right {
   margin-bottom: 0px!important;
   display: inline-block!important;
-
 }
 
 .footer-left {

@@ -24,7 +24,7 @@
                 while($row = mysqli_fetch_assoc($select_all_genres_query)) {
                   $genre_id = $row['id'];
                   $genre_name = $row['name'];
-                  echo "<li class='nav-item'><a class='dropdown-item' href='/cms/genre/{$genre_id}'>{$genre_name}</a></li><br>";
+                  echo "<li class='nav-item'><a class='dropdown-item' href='genre.php?genre=" . strtolower($genre_name) . "'>{$genre_name}</a></li><br>";
                 }           
               ?>
             </ul>
@@ -40,7 +40,7 @@
           while($row = mysqli_fetch_assoc($select_all_categories_query)) {
             $id = $row['id'];
             $name = $row['name'];
-            echo "<li><a href='/cms/category/{$id}'>{$name}</a></li>";
+            echo "<li><a href='category.php?category=" . strtolower($name) . "'>{$name}</a></li>";
           }           
         ?>
                                                     

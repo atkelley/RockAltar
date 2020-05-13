@@ -52,7 +52,6 @@
 			</div>
 		</div>
 	</div>
-	<hr>
 
 	<?php include "includes/footer.php";?>
 </div>

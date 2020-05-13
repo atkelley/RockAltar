@@ -3,55 +3,95 @@
 <?php  include "includes/navigation.php"; ?>
     
 <div class="container">
-  <div class="row">          
+  <div class="row">
     <div class="col-md-8">
       <?php
-        if(isset($_GET['category'])){   
-          $post_category_id  = $_GET['category'];
-          
-          if(isset($_SESSION['username']) && is_admin($_SESSION['username'])){  
-            $stmt1 = mysqli_prepare($connection, "SELECT post_id, post_title, post_author, post_date, post_image, post_content FROM posts WHERE post_category_id = ?");
-          } else {
-            $stmt2 = mysqli_prepare($connection, "SELECT post_id, post_title, post_author, post_date, post_image, post_content FROM posts WHERE post_category_id = ? AND post_status = ? ");
-            $published = 'published';
-          }
+        if(isset($_GET['category'])){
+          $per_page = 5;
+          $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+          $offset = ($page == 1) ? 0 : ($page * $per_page) - $per_page;
+          $categories = array("news" => "1", "interviews" => "2", "reviews" => "3", "videos" => "4", "podcasts" => "5");
+  
+          $query = "SELECT articles.id, articles.title, articles.date, articles.image, articles.content,
+                    articles.description, articles.user, users.firstname, users.lastname 
+                    FROM articles 
+                    INNER JOIN users ON articles.user = users.id
+                    WHERE articles.status = 'published'
+                    AND articles.category = ". $categories[$_GET['category']];
+  
+          $select_published_articles_query = mysqli_query($connection, $query);
+          $count = mysqli_num_rows($select_published_articles_query);
+          $count  = ceil($count / $per_page); 
 
-          if(isset($stmt1)){
-            mysqli_stmt_bind_param($stmt1, "i", $post_category_id);
-            mysqli_stmt_execute($stmt1);
-            mysqli_stmt_bind_result($stmt1, $post_id, $post_title, $post_author, $post_date, $post_image, $post_content);
-            $stmt = $stmt1;
+          if($count < 1) {
+            echo "<h1 class='text-center'>No " . $_GET['category'] . " found.</h1>";
           } else {
-            mysqli_stmt_bind_param($stmt2, "is", $post_category_id, $published);
-            mysqli_stmt_execute($stmt2);
-            mysqli_stmt_bind_result($stmt2, $post_id, $post_title, $post_author, $post_date, $post_image, $post_content);
-            $stmt = $stmt2;
-          }
+            $select_published_articles_query->data_seek($offset);
+      
+            for ($i = $offset; $i < $offset + 5; $i++) {
+              $row = mysqli_fetch_assoc($select_published_articles_query);
 
-          while(mysqli_stmt_fetch($stmt)){
-      ?>
-            <h1 class="page-header"><?php  ?></h1>
-            <h2>
-              <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title ?></a>
-            </h2>
-            <p class="lead">
-              by <a href="index.php"><?php echo $post_author ?></a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?></p>
-            <hr>  
-            <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
-            <hr>
-            <p><?php echo $post_content ?></p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-            <hr>             
-  <?php  }    
+              if (!empty($row)) {
+                $id = $row['id'];
+                $title = $row['title'];
+                $author = $row['firstname'] . " " . $row['lastname'];
+                $user = $row['user'];
+                $date = date_create($row['date']);
+                $date = date_format($date, "l, F dS, Y");
+                $image = $row['image'];
+                $description = (strlen($row['description']) > 200) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
+              ?>
+                <div class="row news-section">
+                  <div class="col-md-6 news-section-left">
+                    <a href="article.php?id=<?php echo $id; ?>">
+                      <img class="img-responsive news-image" src="<?php echo $image;?>" alt="">
+                    </a>  
+                  </div>
+                  <div class="col-md-6 news-section-right">
+                    <div class="row news-title">
+                      <a href="article.php?id=<?php echo $id; ?>"><?php echo $title ?></a>
+                    </div>
+                    <div class="row news-author-date">
+                      by <a href="author.php?user=<?php echo $user ?>"><?php echo $author ?></a>
+                      <span class="glyphicon glyphicon-time"></span> on <?php echo $date ?>
+                    </div>
+                    <div class="row news-description">
+                      <a href="article.php?id=<?php echo $id; ?>"><?php echo $description ?></a><br>
+                    </div>
+                  </div>
+                </div>
+                <hr><?php 
+              } 
+            } 
+          } 
         } else {
-          header("Location: index.php");
-        }?>
-    </div>
+          $count = 0;
+          echo "<h1 class='text-center'>No articles found.</h1>";
+        } 
+      ?>
 
-    <?php include "includes/sidebar.php";?>
+      <ul class="pager">
+        <?php 
+          for ($i = 1; $i <= $count; $i++) {
+            $link = "<li class='article-link'><a";
+
+            if ($i == $page) {
+              $link .= " class='active-link'>{$i}</a></li>";
+            } else {
+              if ($i == 1) {
+                $link .= " href='category.php?category={$_GET['category']}'>{$i}</a></li>";
+              } else {
+                $link .= " href='category.php?category={$_GET['category']}&page={$i}'>{$i}</a></li>";
+              }
+            }
+            
+            echo $link;
+          }
+        ?>
+      </ul>
+    </div>
+      
+    <?php include "includes/sidebar.php"; ?>
   </div>
 
-<hr>
-<?php include "includes/footer.php";?>
+  <?php include "includes/footer.php"; ?>
