@@ -3,8 +3,12 @@ a:hover {
   cursor: pointer!important;
 }
 
-.pager li .active_link {
-  background: #000 !important;
+.article-link {
+  margin: 10px 0px!important;
+}
+
+.pager li .active-link {
+  background: rgba(0, 0, 0, 0.1)!important;
 }
 
 .form-control.pwd {
