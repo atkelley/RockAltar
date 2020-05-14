@@ -117,6 +117,5 @@
     </div>    
     <?php include "includes/sidebar.php";?>
   </div>
-  <hr>
 
   <?php include "includes/footer.php";?>
