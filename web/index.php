@@ -2,6 +2,15 @@
 <?php  include "includes/header.php"; ?>
 <?php  include "includes/navigation.php"; ?>
 
+<div class="jumbotron jumbotron-fluid">
+  <div class="jumbo-container">
+    <h1 class="display-4 jumbo-title">Rock Altar</h1>
+    <h1 class="display-4 jumbo-title-latin">Petra Altaris</h1>
+    <p class="lead jumbo-message">May the gods of rock bless you...</p>
+    <p class="lead jumbo-message-latin">Sit de petra benedicat tibi di ...</p>
+  </div>
+</div>
+
 <div class="container">
   <div class="row">     
     <div class="col-md-8">
@@ -93,7 +102,7 @@
       </ul>
     </div>
       
-    <?php include "includes/sidebar.php";?>
+    <?php include "includes/sidebar.php"; ?>
   </div>
 
-  <?php include "includes/footer.php";?>
+  <?php include "includes/footer.php"; ?>
