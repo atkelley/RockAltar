@@ -41,7 +41,7 @@
           $mail->addAddress($email);
           $mail->Subject = 'Reset Your Rock Altar Password';
           $mail->Body = '<br><p>Please click to reset your password:<br><br> 
-          <a href="http://localhost:8888/reset.php?email=' . $email . '&token=' . $token . ' ">http://localhost:8888/reset.php?email=' . $email . '&token=' . $token . '</a></p>';
+          <a href="http://rock-altar-php-project.herokuapp.com/reset.php?email=' . $email . '&token=' . $token . ' ">http://rock-altar-php-project.herokuapp.com/reset.php?email=' . $email . '&token=' . $token . '</a></p>';
 
           if($mail->send()){
             $emailSent = true;
