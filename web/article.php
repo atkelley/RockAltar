@@ -19,7 +19,7 @@
             $title = $row['title'];
             $author = $row['firstname'] . " " . $row['lastname'];;
             $date = date_create($row['date']);
-            $date = date_format($date, "l, F dS, Y");
+            $date = date_format($date, "l, F jS, Y");
             $image = $row['image'];
             $description = (strlen($row['description']) > 200) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
             $content = $row['content'];

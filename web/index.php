@@ -48,7 +48,7 @@
               $author = $row['firstname'] . " " . $row['lastname'];
               $user = $row['user'];
               $date = date_create($row['date']);
-              $date = date_format($date, "l, F dS, Y");
+              $date = date_format($date, "l, F jS, Y");
               $image = $row['image'];
               $genre = $row['genre'];
               $category = $row['category'];

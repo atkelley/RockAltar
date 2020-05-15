@@ -81,6 +81,10 @@
           </div>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav pull-right">
+        <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+      </ul>
     </div>
   </div>
 </nav>
