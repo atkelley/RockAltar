@@ -17,6 +17,23 @@ body {
   border-radius: 0px!important;
 }
 
+.navbar-nav > li {
+  float: none!important;
+}
+
+.admin {
+  padding: 15px 15px 5px 15px!important;
+}
+
+.glyphicon-navigation-user {
+  margin-right: 7px;
+}
+
+.registration-item {
+  padding-right: 50px!important;
+  border-top: 1px dashed #9d9d9d;
+}
+
 .jumbotron {
   position: relative;
   background-image: url("../images/metal-banner-2.jpg");
@@ -48,6 +65,19 @@ body {
   right: 1%;
   color: rgba(255, 255, 255, 1.0);
   text-shadow: 1px 1px 2px green, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.login-container, .forgot-container, .reset-container {
+  margin-top: 50px!important;
+}
+
+.form-group-login {
+  margin-top: 25px!important;
+  margin-bottom: 15px!important;
+}
+
+.form-group-forgot {
+  margin-bottom: 0px!important;
 }
 
 .article-link {

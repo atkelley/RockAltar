@@ -14,17 +14,37 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Genres</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres</a>
           <div class="dropdown-menu">
             <ul class="nav navbar-nav">
               <?php 
-                $query = "SELECT * FROM genres LIMIT 8";
+                $query = "SELECT * FROM genres LIMIT 5";
                 $select_all_genres_query = mysqli_query($connection, $query);
 
                 while($row = mysqli_fetch_assoc($select_all_genres_query)) {
-                  $genre_id = $row['id'];
-                  $genre_name = $row['name'];
-                  echo "<li class='nav-item'><a class='dropdown-item' href='genre.php?genre=" . strtolower($genre_name) . "'>{$genre_name}</a></li><br>";
+                  $id = $row['id'];
+                  $name = $row['name'];
+                  echo "<li class='nav-item'><a class='dropdown-item' href='genre.php?genre=" . strtolower($name) . "'>{$name}</a></li>";
+                }           
+              ?>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+          <div class="dropdown-menu">
+            <ul class="nav navbar-nav">
+              <?php 
+                $query = "SELECT * FROM categories LIMIT 5";
+                $select_all_categories_query = mysqli_query($connection, $query);
+
+                while($row = mysqli_fetch_assoc($select_all_categories_query)) {
+                  $id = $row['id'];
+                  $name = $row['name'];
+                  echo "<li class='nav-item'><a class='dropdown-item' href='category.php?category=" . strtolower($name) . "'>{$name}</a></li>";
                 }           
               ?>
             </ul>
@@ -32,27 +52,6 @@
         </li>
       </ul>
 
-      <ul class="nav navbar-nav">
-        <?php 
-          $query = "SELECT * FROM categories LIMIT 5";
-          $select_all_categories_query = mysqli_query($connection, $query);
-
-          while($row = mysqli_fetch_assoc($select_all_categories_query)) {
-            $id = $row['id'];
-            $name = $row['name'];
-            echo "<li><a href='category.php?category=" . strtolower($name) . "'>{$name}</a></li>";
-          }           
-        ?>
-                                                    
-        <?php 
-          if(isset($_SESSION['user_role'])) {
-            if(isset($_GET['p_id'])) {  
-              $the_post_id = $_GET['p_id'];
-              echo "<li><a href='/admin/posts.php?source=edit_post&p_id={$the_post_id}'>Edit Post</a></li>";
-            }
-          }
-        ?>
-      </ul>
       <nav class="nav navbar-nav navbar-light bg-light navbar-search pull-right">
         <form action="search.php" method="post" class="form-inline">
           <div class="input-group">
@@ -65,14 +64,22 @@
           </div>
         </form>
       </nav>
+
       <ul class="nav navbar-nav pull-right">
-        <?php if(isLoggedIn()): ?>
-          <li class="nav-item"><a class="nav-link" href="admin">Admin</a></li>
-          <li class="nav-item"><a class="nav-link" href="includes/logout.php">Logout</a></li>
-        <?php else: ?>
-          <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-        <?php endif; ?>                
-        <li class="nav-item"><a class="nav-link" href="registration.php">Registration</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+          <div class="dropdown-menu">
+            <ul class="nav navbar-nav">
+              <?php if(logged_in()): ?>
+                <li class="nav-item"><a class="dropdown-item admin" href="admin"><span class="glyphicon glyphicon-user glyphicon-navigation-user"></span><?php echo $_SESSION['username'] ?></a></li>
+                <li class="nav-item"><a class="dropdown-item" href="includes/logout.php">Logout</a></li>
+              <?php else: ?>
+                <li class="nav-item"><a class="dropdown-item" href="login.php">Login</a></li>
+              <?php endif; ?>         
+                <li class="nav-item registration-item"><a class="dropdown-item" href="registration.php">Registration</a></li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
