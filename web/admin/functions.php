@@ -173,18 +173,20 @@
     return (mysqli_num_rows($result) > 0) ? true : false;
   }
 
-  function register_user($username, $email, $password){
+  function register_user($firstname, $lastname, $username, $email, $password){
     global $connection;
 
-      $username = mysqli_real_escape_string($connection, $username);
-      $email    = mysqli_real_escape_string($connection, $email);
-      $password = mysqli_real_escape_string($connection, $password);
-      $password = password_hash( $password, PASSWORD_BCRYPT, array('cost' => 12));
-          
-      $query = "INSERT INTO users (username, email, password, role) ";
-      $query .= "VALUES('{$username}','{$email}', '{$password}', 'subscriber')";
-      $register_user_query = mysqli_query($connection, $query);
-      confirm_query($register_user_query);
+    $firstname = mysqli_real_escape_string($connection, $firstname);
+    $lastname  = mysqli_real_escape_string($connection, $lastname);
+    $username  = mysqli_real_escape_string($connection, $username);
+    $email     = mysqli_real_escape_string($connection, $email);
+    $password  = mysqli_real_escape_string($connection, $password);
+    $password  = password_hash( $password, PASSWORD_BCRYPT, array('cost' => 12));
+        
+    $query = "INSERT INTO users (firstname, lastname, username, email, password, role) ";
+    $query .= "VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}', '{$password}', 'subscriber')";
+    $register_user_query = mysqli_query($connection, $query);
+    confirm_query($register_user_query);
   }
 
   function login_user($username, $password) {

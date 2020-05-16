@@ -6,21 +6,26 @@
   require '../vendor/autoload.php';
 
   if(isset($_POST['submit'])) {
+    $email   = trim($_POST['email']);
+    $name    = trim($_POST['name']);
+    $subject = trim($_POST['subject']);
+    $body    = trim($_POST['body']);
+
     $email = new \SendGrid\Mail\Mail(); 
-    $email->setFrom($_POST['email'], $_POST['name']);
-    $email->setSubject($_POST['subject']);
+    $email->setFrom($email, $name);
+    $email->setSubject($subject);
     $email->addTo("kelley.andrew.t@gmail.com", "webmaster");
-    $email->addContent("text/plain", $_POST['body']);
- 
+    $email->addContent("text/plain", $body);
+
     $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
     try {
-        $response = $sendgrid->send($email);
-        redirect('thank.php');
-        // print $response->statusCode() . "\n";
-        // print_r($response->headers());
-        // print $response->body() . "\n";
+      $response = $sendgrid->send($email);
+      redirect('thank.php');
+      // print $response->statusCode() . "\n";
+      // print_r($response->headers());
+      // print $response->body() . "\n";
     } catch (Exception $e) {
-        echo 'Caught exception: '. $e->getMessage() ."\n";
+      echo 'Caught exception: '. $e->getMessage() ."\n";
     }
   }
 ?>
@@ -31,7 +36,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <h2 class="text-center contact-title"><strong>Contact</strong></h2>
-          <form role="form" action="" method="post" id="login-form" autocomplete="off">
+          <form role="form" action="contact.php" method="post" id="contact-form" autocomplete="off">
             <div class="form-group">
               <label for="name" class="sr-only">Name</label>
               <input type="name" name="name" id="name" class="form-control" placeholder="Enter name" required>
