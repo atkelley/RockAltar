@@ -7,37 +7,21 @@
 
   if(isset($_POST['submit'])) {
     $email = new \SendGrid\Mail\Mail(); 
-    $email->setFrom("test@example.com", "Example User");
-    $email->setSubject("Sending with SendGrid is Fun");
-    $email->addTo("kelley.andrew.t@gmail.com", "Example User");
-    $email->addContent("text/plain", "and easy to do anywhere, even with PHP");
-    $email->addContent(
-        "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-    );
+    $email->setFrom($_POST['email'], $_POST['name']);
+    $email->setSubject($_POST['subject']);
+    $email->addTo("kelley.andrew.t@gmail.com", "webmaster");
+    $email->addContent("text/plain", $_POST['body']);
+ 
     $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
     try {
         $response = $sendgrid->send($email);
-        print $response->statusCode() . "\n";
-        print_r($response->headers());
-        print $response->body() . "\n";
+        redirect('thank.php');
+        // print $response->statusCode() . "\n";
+        // print_r($response->headers());
+        // print $response->body() . "\n";
     } catch (Exception $e) {
         echo 'Caught exception: '. $e->getMessage() ."\n";
     }
-
-    // $from = new SendGrid\Email(null, $_POST['email']);
-    // $subject = $_POST['subject'];
-    // $to = new SendGrid\Email(null, "kelley.andrew.t@gmail.com");
-    // $content = new SendGrid\Content("text/plain", $_POST['body']);
-    // $mail = new SendGrid\Mail($from, $subject, $to, $content);
-
-    // $apiKey = getenv('SENDGRID_API_KEY');
-    // $sg = new \SendGrid($apiKey);
-
-    // $response = $sg->client->mail()->send()->post($mail);
-    // echo $response->statusCode();
-    // echo $response->headers();
-    // echo $response->body();
-    // redirect('thank.php');
   }
 ?>
     
@@ -48,6 +32,11 @@
         <div class="panel-body">
           <h2 class="text-center contact-title"><strong>Contact</strong></h2>
           <form role="form" action="" method="post" id="login-form" autocomplete="off">
+            <div class="form-group">
+              <label for="name" class="sr-only">Name</label>
+              <input type="name" name="name" id="name" class="form-control" placeholder="Enter name" required>
+            </div>
+
             <div class="form-group">
               <label for="email" class="sr-only">Email</label>
               <input type="email" name="email" id="email" class="form-control" placeholder="Enter email address" required>
