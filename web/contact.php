@@ -6,16 +6,11 @@
   require '../vendor/autoload.php';
 
   if(isset($_POST['submit'])) {
-    $email   = trim($_POST['email']);
-    $name    = trim($_POST['name']);
-    $subject = trim($_POST['subject']);
-    $body    = trim($_POST['body']);
-
     $email = new \SendGrid\Mail\Mail(); 
-    $email->setFrom($email, $name);
-    $email->setSubject($subject);
+    $email->setFrom($_POST['email'], $_POST['name']);
+    $email->setSubject($_POST['subject']);
     $email->addTo("kelley.andrew.t@gmail.com", "webmaster");
-    $email->addContent("text/plain", $body);
+    $email->addContent("text/plain", $_POST['body']);
 
     $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
     try {
@@ -26,7 +21,6 @@
       // print $response->body() . "\n";
     } catch (Exception $e) {
       echo 'Caught exception: '. $e->getMessage() ."\n";
-      redirect('index.php');
     }
   }
 ?>
