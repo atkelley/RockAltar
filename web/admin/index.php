@@ -30,13 +30,13 @@
                     
                 <div class="col-xs-9 text-right"> 
                   <?php 
-                    $query = "SELECT * FROM posts";
-                    $select_all_post = mysqli_query($connection,$query);
-                    $post_count = mysqli_num_rows($select_all_post);
-                    echo  "<div class='huge'>{$post_count}</div>"
+                    $query = "SELECT * FROM articles";
+                    $select_all_articles = mysqli_query($connection, $query);
+                    $articles_count = mysqli_num_rows($select_all_articles);
+                    echo  "<div class='huge'>{$articles_count}</div>"
                   ?>
 
-                  <div>Posts</div>
+                  <div>Articles</div>
                 </div>
               </div>
             </div>
@@ -140,20 +140,20 @@
         </div>
       </div>                         
         <?php 
-          $query = "SELECT * FROM posts WHERE post_status = 'published' ";
-          $select_all_published_posts = mysqli_query($connection,$query);
-          $post_published_count = mysqli_num_rows($select_all_published_posts);
+          $query = "SELECT * FROM articles WHERE status = 'published' ";
+          $select_all_published_articles = mysqli_query($connection, $query);
+          $article_published_count = mysqli_num_rows($select_all_published_articles);
                                                                                   
-          $query = "SELECT * FROM posts WHERE post_status = 'draft' ";
-          $select_all_draft_posts = mysqli_query($connection,$query);
-          $post_draft_count = mysqli_num_rows($select_all_draft_posts);
+          $query = "SELECT * FROM articles WHERE status = 'draft' ";
+          $select_all_draft_articles = mysqli_query($connection, $query);
+          $article_draft_count = mysqli_num_rows($select_all_draft_articles);
 
-          $query = "SELECT * FROM comments WHERE comment_status = 'unapproved' ";
-          $unapproved_comments_query = mysqli_query($connection,$query);
+          $query = "SELECT * FROM comments WHERE status = 'unapproved' ";
+          $unapproved_comments_query = mysqli_query($connection, $query);
           $unapproved_comment_count = mysqli_num_rows($unapproved_comments_query);
 
-          $query = "SELECT * FROM users WHERE user_role = 'subscriber'";
-          $select_all_subscribers = mysqli_query($connection,$query);
+          $query = "SELECT * FROM users WHERE role = 'subscriber'";
+          $select_all_subscribers = mysqli_query($connection, $query);
           $subscriber_count = mysqli_num_rows($select_all_subscribers);
         ?>
       <div class="row">       

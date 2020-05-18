@@ -217,7 +217,7 @@
         $_SESSION['firstname'] = $db_firstname;
         $_SESSION['lastname'] = $db_lastname;
         $_SESSION['role'] = $db_role;
-        redirect("admin");
+        redirect("/RockAltar/web/admin");
       } else {
         return false;
       }

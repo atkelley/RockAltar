@@ -3,7 +3,7 @@
 <?php include "functions.php"; ?>
 <?php session_start(); ?>
 <?php 
-  if(!isset($_SESSION['user_role'])) {
+  if(!isset($_SESSION['role'])) {
     header("location: ../index.php");
   }
 ?>
@@ -16,7 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>RockAltar Admin</title>
+    <link rel="shortcut icon" href="../images/favicon.ico" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
