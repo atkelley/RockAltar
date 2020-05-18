@@ -15,7 +15,7 @@
             <form action="" method="post">
               <div class="form-group">
                 <label for="cat-title">Add Category</label>
-                <input type="text" class="form-control" name="cat_title">
+                <input type="text" class="form-control" name="name">
               </div>
               <div class="form-group">
                 <input class="btn btn-primary" type="submit" name="submit" value="Add Category">
@@ -24,7 +24,7 @@
     
             <?php 
               if(isset($_GET['edit'])) {
-                $cat_id = $_GET['edit'];
+                $id = $_GET['edit'];
                 include "includes/update_categories.php";
               }         
             ?>
@@ -36,21 +36,23 @@
                 <tr>
                   <th>Id</th>
                   <th>Category Title</th>
+                  <th>Delete</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
                 <?php 
                   $query = "SELECT * FROM categories";
-                  $select_categories = mysqli_query($connection,$query);  
+                  $select_categories = mysqli_query($connection, $query);  
 
                   while($row = mysqli_fetch_assoc($select_categories)) {
-                    $cat_id = $row['cat_id'];
-                    $cat_title = $row['cat_title'];
+                    $id = $row['id'];
+                    $name = $row['name'];
                     echo "<tr>";
-                    echo "<td>{$cat_id}</td>";
-                    echo "<td>{$cat_title}</td>";
-                    echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
-                    echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
+                    echo "<td>{$id}</td>";
+                    echo "<td>{$name}</td>";
+                    echo "<td><a href='categories.php?delete={$id}'>Delete</a></td>";
+                    echo "<td><a href='categories.php?edit={$id}'>Edit</a></td>";
                     echo "</tr>";
                   }
                 ?>

@@ -11,7 +11,7 @@
   <ul class="nav navbar-right top-nav">
     <li><a href="">Users Online: <?php echo users_online(); ?></a></li>
     <li><a href="">Users Online: <span class="usersonline"></span></a></li>
-    <li><a href="../index.php">HOME SITE</a></li>
+    <li><a href="../index.php">HOME</a></li>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>            
         <?php
@@ -22,7 +22,7 @@
         <b class="caret"></b>
       </a>
       <ul class="dropdown-menu">
-        <li><a href="#"><i class="fa fa-fw fa-user"></i> Profile</a></li>
+        <li><a href="profile.php"><i class="fa fa-fw fa-user"></i> Profile</a></li>
         <li class="divider"></li>
         <li><a href="../includes/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
       </ul>
@@ -35,8 +35,8 @@
       <li>
         <a href="javascript:;" data-toggle="collapse" data-target="#articles_dropdown"><i class="fa fa-fw fa-arrows-v"></i>Articles <i class="fa fa-fw fa-caret-down"></i></a>
           <ul id="articles_dropdown" class="collapse">
-            <li><a href="./posts.php"> View All Articles</a></li>
-            <li><a href="posts.php?source=add_post">Add Articles</a></li>
+            <li><a href="./articles.php"> View All Articles</a></li>
+            <li><a href="articles.php?source=add_article">Add Articles</a></li>
           </ul>
       </li>
       <li><a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a></li>            

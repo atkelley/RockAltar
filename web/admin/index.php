@@ -33,7 +33,7 @@
                     $query = "SELECT * FROM articles";
                     $select_all_articles = mysqli_query($connection, $query);
                     $articles_count = mysqli_num_rows($select_all_articles);
-                    echo  "<div class='huge'>{$articles_count}</div>"
+                    echo "<div class='huge'>{$articles_count}</div>"
                   ?>
 
                   <div>Articles</div>
@@ -41,7 +41,7 @@
               </div>
             </div>
 
-            <a href="posts.php">
+            <a href="articles.php">
               <div class="panel-footer">
                 <span class="pull-left">View Details</span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -62,9 +62,9 @@
                 <div class="col-xs-9 text-right">
                   <?php 
                     $query = "SELECT * FROM comments";
-                    $select_all_comments = mysqli_query($connection,$query);
+                    $select_all_comments = mysqli_query($connection, $query);
                     $comment_count = mysqli_num_rows( $select_all_comments);
-                    echo  "<div class='huge'>{$comment_count}</div>"
+                    echo "<div class='huge'>{$comment_count}</div>"
                   ?>
                   <div>Comments</div>
                 </div>
@@ -91,9 +91,9 @@
                 <div class="col-xs-9 text-right">
                   <?php 
                     $query = "SELECT * FROM users";
-                    $select_all_users = mysqli_query($connection,$query);
+                    $select_all_users = mysqli_query($connection, $query);
                     $user_count = mysqli_num_rows($select_all_users);
-                    echo  "<div class='huge'>{$user_count}</div>"
+                    echo "<div class='huge'>{$user_count}</div>"
                   ?>                
                   <div> Users</div>
                 </div>
@@ -120,7 +120,7 @@
                 <div class="col-xs-9 text-right">
                   <?php 
                     $query = "SELECT * FROM categories";
-                    $select_all_categories = mysqli_query($connection,$query);
+                    $select_all_categories = mysqli_query($connection, $query);
                     $category_count = mysqli_num_rows($select_all_categories);
                     echo "<div class='huge'>{$category_count}</div>"
                   ?>
@@ -164,8 +164,8 @@
           function drawChart() {
             var data = google.visualization.arrayToDataTable([['Data', 'Count'],
               <?php                     
-                $element_text = ['All Posts','Active Posts','Draft Posts', 'Comments','Pending Comments', 'Users','Subscribers', 'Categories'];       
-                $element_count = [$post_count,$post_published_count, $post_draft_count, $comment_count,$unapproved_comment_count, $user_count,$subscriber_count,$category_count];
+                $element_text = ['All Articles','Active Articles','Draft Articles', 'Comments','Pending Comments', 'Users','Subscribers', 'Categories'];       
+                $element_count = [$article_count, $article_published_count, $article_draft_count, $comment_count, $unapproved_comment_count, $user_count, $subscriber_count, $category_count];
 
                 for($i =0;$i < 8; $i++) {
                   echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";

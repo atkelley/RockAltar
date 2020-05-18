@@ -1,23 +1,22 @@
 <?php  
   if(isset($_POST['checkBoxArray'])) {
-
     foreach($_POST['checkBoxArray'] as $commentValueId ){
       $bulk_options = $_POST['bulk_options'];
         
       switch($bulk_options) {
         case 'approved':     
-          $query = "UPDATE comments SET comment_status = '{$bulk_options}' WHERE comment_id = {$commentValueId}  "; 
-          $update_to_approved_status = mysqli_query($connection,$query);         
+          $query = "UPDATE comments SET status = '{$bulk_options}' WHERE id = {$commentValueId}  "; 
+          $update_to_approved_status = mysqli_query($connection, $query);         
           confirmQuery( $update_to_approved_status);   
           break;
         case 'unapproved':
-          $query = "UPDATE comments SET comment_status = '{$bulk_options}' WHERE comment_id = {$commentValueId}  ";    
-          $update_to_unapproved_status = mysqli_query($connection,$query);       
+          $query = "UPDATE comments SET status = '{$bulk_options}' WHERE id = {$commentValueId}  ";    
+          $update_to_unapproved_status = mysqli_query($connection, $query);       
           confirmQuery($update_to_unapproved_status);  
           break;
         case 'delete':
-          $query = "DELETE FROM comments WHERE comment_id = {$commentValueId}  ";
-          $update_to_delete = mysqli_query($connection,$query);  
+          $query = "DELETE FROM comments WHERE id = {$commentValueId}  ";
+          $update_to_delete = mysqli_query($connection, $query);  
           confirmQuery($update_to_delete); 
           break;
       }
@@ -61,45 +60,34 @@
         $select_comments = mysqli_query($connection, $query);
 
         while($row = mysqli_fetch_assoc($select_comments)) {
-          $comment_id          = $row['comment_id'];
-          $comment_post_id     = $row['comment_post_id'];
-          $comment_author      = $row['comment_author'];
-          $comment_content     = $row['comment_content'];
-          $comment_email       = $row['comment_email'];
-          $comment_status      = $row['comment_status'];
-          $comment_date        = $row['comment_date'];
+          $id          = $row['id'];
+          $post_id     = $row['post_id'];
+          $author      = $row['author'];
+          $content     = $row['content'];
+          $email       = $row['email'];
+          $status      = $row['status'];
+          $date        = $row['date'];
           echo "<tr>";
-          ?><td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $comment_id; ?>'></td><?php
-          echo "<td>$comment_id </td>";
-          echo "<td>$comment_author</td>";
-          echo "<td>$comment_content</td>";
-            
-          $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";
-          $select_categories_id = mysqli_query($connection,$query);  
-
-          while($row = mysqli_fetch_assoc($select_categories_id)) {
-            $cat_id = $row['cat_id'];
-            $cat_title = $row['cat_title'];
-            echo "<td>{$cat_title}</td>";
-          }
-
-          echo "<td>$comment_email</td>";
-          echo "<td>$comment_status</td>";
+          ?><td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $id; ?>'></td><?php
+          echo "<td>$id </td>";
+          echo "<td>$author</td>";
+          echo "<td>$content</td>";
+          echo "<td>$email</td>";
+          echo "<td>$status</td>";
         
-        
-          $query = "SELECT * FROM posts WHERE post_id = $comment_post_id ";
-          $select_post_id_query = mysqli_query($connection,$query);
+          $query = "SELECT * FROM articles WHERE id = $post_id ";
+          $select_article_id_query = mysqli_query($connection, $query);
 
-          while($row = mysqli_fetch_assoc($select_post_id_query)){
-            $post_id = $row['post_id'];
-            $post_title = $row['post_title'];
-            echo "<td><a href='../post.php?p_id=$post_id'>$post_title</a></td>";
+          while($row = mysqli_fetch_assoc($select_article_id_query)){
+            $id = $row['id'];
+            $name = $row['name'];
+            echo "<td><a href='../article.php?id=$id'>$name</a></td>";
           }
         
-          echo "<td>$comment_date</td>";
-          echo "<td><a href='comments.php?approve=$comment_id'>Approve</a></td>";
-          echo "<td><a href='comments.php?unapprove=$comment_id'>Unapprove</a></td>";
-          echo "<td><a href='comments.php?delete=$comment_id'>Delete</a></td>";
+          echo "<td>$date</td>";
+          echo "<td><a href='comments.php?approve=$id'>Approve</a></td>";
+          echo "<td><a href='comments.php?unapprove=$id'>Unapprove</a></td>";
+          echo "<td><a href='comments.php?delete=$id'>Delete</a></td>";
           echo "</tr>";
         }
       ?>

@@ -1,11 +1,11 @@
 <?php 
-  if(isset($_GET['p_id'])) {
-    $the_post_id = escape($_GET['p_id']);
-    $query = "DELETE post_views_count FROM posts WHERE post_id = $the_post_id ";
+  if(isset($_GET['id'])) {
+    $id = escape($_GET['id']);
+    $query = "UPDATE articles SET views = 0 WHERE id = $id ";
     $send_query = mysqli_query($connection, $query);
 
     if(!$send_query) {
-      die("query failed" . mysqli_error($connection));
+      die("Query failed: " . mysqli_error($connection));
     }
 
     header("Location: view_all_posts.php");
