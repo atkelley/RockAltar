@@ -38,6 +38,7 @@
     <div class="col-xs-4">
       <input type="submit" name="submit" class="btn btn-success" value="Apply">
     </div>
+    <br><br>
 
     <thead>
       <tr>

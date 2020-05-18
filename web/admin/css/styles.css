@@ -17,3 +17,19 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.category-name-field {
+  padding: 0px 0px 0px 0px!important;
+}
+
+.profile-title {
+  position: relative;
+}
+
+.profile-status-dropdown {
+  position: absolute;
+  right: 0px;
+  bottom: 10px;
+  font-size: 2rem;
+  margin: 0px 0px 0px 0px!important;
+}

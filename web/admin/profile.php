@@ -1,37 +1,25 @@
 <?php include "includes/admin_header.php" ?>
+
 <?php
    if(isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    $query = "SELECT * FROM users WHERE username = '{$username}' ";
+    $query = "SELECT * FROM users WHERE username = '{$_SESSION['username']}' ";
     $select_user_profile_query = mysqli_query($connection, $query);
     
     while($row = mysqli_fetch_array($select_user_profile_query)) {
-      $user_id = $row['id'];
-      $username = $row['username'];
-      $user_password= $row['password'];
-      $user_firstname = $row['firstname'];
-      $user_lastname = $row['lastname'];
-      $user_email = $row['email'];
-      $user_image = $row['image'];
-      $user_role= $row['role'];
+      $id        = $row['id'];
+      $username  = $row['username'];
+      $firstname = $row['firstname'];
+      $lastname  = $row['lastname'];
+      $password  = $row['password'];
+      $email     = $row['email'];
+      $image     = $row['image'];
+      $role      = $row['role'];
     }
   }
 ?>
     
 <?php 
   if(isset($_POST['edit_user'])) {
-    $user_firstname = $_POST['firstname'];
-    $user_lastname = $_POST['lastname'];
-    $user_role = $_POST['role'];
-    // $post_image = $_FILES['image']['name'];
-    // $post_image_temp = $_FILES['image']['tmp_name'];
-    
-    $username = $_POST['username'];
-    $user_email = $_POST['email'];
-    $user_password = $_POST['password'];
-    // $post_date = date('d-m-y');
-    // move_uploaded_file($post_image_temp, "./images/$post_image" );
-    
     $query = "SELECT randSalt FROM users";
     $select_randsalt_query = mysqli_query($connection, $query);
     if(!$select_randsalt_query) {
@@ -39,19 +27,18 @@
     }
        
     $row = mysqli_fetch_array($select_randsalt_query); 
-    $salt = $row['randSalt'];
-    $hashed_password = crypt($user_password, $salt);
-      
-    $query = "UPDATE users SET ";
-    $query .="firstname  = '{$user_firstname}', ";
-    $query .="lastname = '{$user_lastname}', ";
-    $query .="role   =  '{$user_role}', ";
-    $query .="username = '{$username}', ";
-    $query .="email = '{$user_email}', ";
-    $query .="password   = '{$hashed_password}' ";
-    $query .= "WHERE username = '{$username}' ";
-    $edit_user_query = mysqli_query($connection,$query);
-    confirmQuery($edit_user_query);
+    $hashed_password = crypt($_POST['password'], $row['randSalt']);
+  
+    $query = "UPDATE users SET 
+              username       = '{$_POST['username']}',
+              firstname      = '{$_POST['firstname']}', 
+              lastname       = '{$_POST['lastname']}', 
+              email          = '{$_POST['email']}', 
+              role           = '{$_POST['role']}', 
+              password       = '{$hashed_password}'
+              WHERE username = '{$username}' ";
+
+    $edit_user_query = mysqli_query($connection, $query);
   }
 ?> 
 
@@ -61,49 +48,47 @@
   <div id="page-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12">
-          <h1 class="page-header">Welcome to admin<small>Author</small></h1>
-          <form action="" method="post" enctype="multipart/form-data">    
+        <div class="col-md-12">
+          <form action="" method="post" enctype="multipart/form-data">   
+            <h1 class="page-header profile-title">Profile
+              <span class="form-group pull-right profile-status-dropdown">
+                <select name="role">
+                  <option value="subscriber"><?php echo $role; ?></option>
+                  <?php 
+                    $status = ($user_role == 'admin') ? "<option value='subscriber'>subscriber</option>" : "<option value='admin'>admin</option>";
+                    echo $status;
+                  ?>
+                </select>
+              </span>
+            </h1>
+           
             <div class="form-group">
-              <label for="title">Firstname</label>
-              <input type="text" value="<?php echo $user_firstname; ?>" class="form-control" name="firstname">
+              <label for="">First Name:</label>
+              <input type="text" value="<?php echo $firstname; ?>" class="form-control" name="firstname">
             </div>
 
             <div class="form-group">
-              <label for="post_status">Lastname</label>
-              <input type="text" value="<?php echo $user_lastname; ?>" class="form-control" name="lastname">
-            </div>
-        
-            <div class="form-group">
-              <select name="role" id="">
-                <option value="subscriber"><?php echo $user_role; ?></option>
-                <?php 
-                  if($user_role == 'admin') {
-                    echo "<option value='subscriber'>subscriber</option>";
-                  } else {
-                    echo "<option value='admin'>admin</option>";
-                  }
-                ?>
-              </select>
+              <label for="">Last Name:</label>
+              <input type="text" value="<?php echo $lastname; ?>" class="form-control" name="lastname">
             </div>
 
             <div class="form-group">
-              <label for="post_tags">Username</label>
+              <label for="">Username:</label>
               <input type="text" value="<?php echo $username; ?>" class="form-control" name="username">
             </div>
         
             <div class="form-group">
-              <label for="post_content">Email</label>
-              <input type="email" value="<?php echo $user_email; ?>" class="form-control" name="email">
+              <label for="">Email:</label>
+              <input type="email" value="<?php echo $email; ?>" class="form-control" name="email">
             </div>
       
             <div class="form-group">
-              <label for="post_content">Password</label>
-              <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="password">
+              <label for="">Password:</label>
+              <input type="password" value="<?php echo $password; ?>" class="form-control" name="password">
             </div>
 
             <div class="form-group">
-              <input class="btn btn-primary" type="submit" name="edit_user" value="Update Profile">
+              <input class="btn btn-primary" type="submit" name="edit_user" value="Update">
             </div>
           </form>
         </div>

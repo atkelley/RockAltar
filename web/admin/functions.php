@@ -76,13 +76,13 @@
     global $connection;
 
     if(isset($_POST['submit'])){
-      $cat_title = $_POST['cat_title'];
+      $name = $_POST['name'];
 
-      if($cat_title == "" || empty($cat_title)) {
-        echo "This Field should not be empty";
+      if($name == "" || empty($name)) {
+        echo "This field should not be empty.";
       } else {
-        $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title) VALUES(?) ");
-        mysqli_stmt_bind_param($stmt, 's', $cat_title);
+        $stmt = mysqli_prepare($connection, "INSERT INTO categories(name) VALUES(?) ");
+        mysqli_stmt_bind_param($stmt, 's', $name);
         mysqli_stmt_execute($stmt);
 
         if(!$stmt) {
@@ -112,12 +112,11 @@
     }
   }
 
-  function deleteCategories(){
+  function delete_categories(){
     global $connection;
 
     if(isset($_GET['delete'])){
-      $the_cat_id = $_GET['delete'];
-      $query = "DELETE FROM categories WHERE cat_id = {$the_cat_id} ";
+      $query = "DELETE FROM categories WHERE id = {$_GET['delete']} ";
       $delete_query = mysqli_query($connection,$query);
       header("Location: categories.php");
     }

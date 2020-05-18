@@ -6,22 +6,21 @@
   <div id="page-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12">
-          <h1 class="page-header">Welcome to admin<small>Author</small></h1>          
+        <div class="col-lg-12">       
           <?php
-            $source = (isset($_GET['source'])) ? escape($_GET['source']) : '';
+            $source = isset($_GET['source']) ? escape($_GET['source']) : '';
 
             switch($source) {
-              case 'add_post';
+              case "add_post";
+                echo "<h1 class='page-header'>Welcome to admin<small>Author</small></h1>";
                 include "includes/add_post.php";
                 break; 
-              case 'edit_post';
+              case "edit_post";
+                echo "<h1 class='page-header'>Welcome to admin<small>Author</small></h1>";
                 include "includes/edit_post.php";
                 break;
-              case '200';
-                echo "NICE 200";
-                break;
               default:
+                echo "<h1 class='page-header'>View All Comments</h1>";
                 include "includes/view_all_comments.php";
                 break; 
             }

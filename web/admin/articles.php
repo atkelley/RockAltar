@@ -7,29 +7,27 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">Welcome to admin<small>Author</small></h1>      
-            <?php
-              if(isset($_GET['source'])){
-                $source = $_GET['source'];
-              } else {
-                $source = '';
-              }
+          <?php
+            $source = isset($_GET['source']) ? $_GET['source'] : "";
+            $query = "SELECT * from articles";
+            $select_articles = mysqli_query($connection, $query);  
+            $count = mysqli_num_rows($select_articles);
 
-              switch($source) {
-                case 'add_article';
-                  include "includes/add_article.php";
-                  break; 
-                case 'edit_post';
-                  include "includes/edit_article.php";
-                  break;
-                case '200';
-                  echo "NICE 200";
-                  break;
-                default:
-                  include "includes/view_all_articles.php";
-                  break;
-              }
-            ?>
+            switch($source) {
+              case "add_article";
+                echo "<h1 class='page-header'>Add Article</h1>";  
+                include "includes/add_article.php";
+                break; 
+              case "edit_article";
+                echo "<h1 class='page-header'>Edit Article</h1>"; 
+                include "includes/edit_article.php";
+                break;
+              default:
+                echo "<h1 class='page-header'>View All Articles (" . $count . ")</h1>"; 
+                include "includes/view_all_articles.php";
+                break;
+            }
+          ?>
         </div>
       </div>
     </div>

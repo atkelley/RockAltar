@@ -9,17 +9,14 @@
         case 'published':   
           $query = "UPDATE articles SET status = '{$bulk_options}' WHERE id = {$postValueId}  ";    
           $update_to_published_status = mysqli_query($connection, $query);       
-          confirmQuery($update_to_published_status);
           break;
         case 'draft':
           $query = "UPDATE articles SET status = '{$bulk_options}' WHERE id = {$postValueId}  ";     
           $update_to_draft_status = mysqli_query($connection, $query);        
-          confirmQuery($update_to_draft_status);
           break;
         case 'delete':
           $query = "DELETE FROM articles WHERE id = {$postValueId}  ";  
           $update_to_delete_status = mysqli_query($connection, $query);       
-          confirmQuery($update_to_delete_status);
           break;
         case 'clone':
           $query = "SELECT * FROM articles WHERE id = '{$postValueId}' ";
@@ -64,7 +61,7 @@
       <input type="submit" name="submit" class="btn btn-success" value="Apply">
       <a class="btn btn-primary" href="articles.php?source=add_article">Add New</a>
     </div>
-    <br><br><br>
+    <br><br>
                 
     <thead>
       <tr>
@@ -77,65 +74,51 @@
         <th>Comments</th>
         <th>Views</th>
         <th>Date</th>
-        <th>View Article</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
     </thead>          
     <tbody>
       <?php 
-        $query = "SELECT * FROM articles ORDER BY id DESC ";
+        $query = "SELECT articles.id, articles.title, articles.date, 
+                  articles.image, articles.user, users.firstname, users.lastname, 
+                  articles.status, articles.views, articles.comments,
+                  categories.name AS category, genres.name AS genre
+                  FROM articles 
+                  INNER JOIN users ON articles.user = users.id
+                  INNER JOIN genres ON articles.genre = genres.id
+                  INNER JOIN categories ON articles.category = categories.id
+                  ORDER BY articles.date DESC";
+
         $select_articles = mysqli_query($connection, $query);  
 
         while($row = mysqli_fetch_assoc($select_articles)) {
-          $id            = $row['id'];
-          $user          = $row['user'];
-          $title         = $row['title'];
-          $category      = $row['category'];
-          $status        = $row['status'];
-          $image         = $row['image'];
-          $comments      = $row['comments'];
-          $date          = $row['date'];
-          $views         = $row['views'];
+          $id       = $row['id'];
+          $user     = $row['user'];
+          $author   = $row['firstname'] . " " . $row['lastname'];
+          $title    = $row['title'];
+          $category = $row['category'];
+          $genre    = $row['genre'];
+          $status   = $row['status'];
+          $image    = $row['image'];
+          $comments = isset($row['comments']) ? $row['comments'] : 0;
+          $date     = date_create($row['date']);
+          $date     = date_format($date, "F jS, Y");
+          $views    = $row['views'];
+
           echo "<tr>";
           ?><td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $id; ?>'></td><?php
-          // echo "<td>$id</td>";
-          echo "<td>$user</td>";
-          echo "<td>$title</td>";
-
-          $query = "SELECT * FROM categories WHERE id = {$category} ";
-          $select_categories_id = mysqli_query($connection, $query);  
-
-          while($row = mysqli_fetch_assoc($select_categories_id)) {
-            $id = $row['id'];
-            $name = $row['name'];
-            echo "<td>$name</td>"; 
-          }
-
+          echo "<td><a href='../author.php?user={$user}'>$author</td>";
+          echo "<td><a href='../article.php?id={$id}'>" . substr($title, 0, 50) . "...</a></td>";
+          echo "<td>$category</td>";
           echo "<td>$status</td>";
           echo "<td><img width='100' src='$image' alt='image'></td>";
-          $query = "SELECT * FROM comments WHERE post_id = $id";
-          $send_comment_query = mysqli_query($connection, $query);
-          $row = mysqli_fetch_array($send_comment_query);
-          $comment_id = isset($row['id']) ? $row['id'] : 0;
-          $count_comments = mysqli_num_rows($send_comment_query);
-          echo "<td><a href='post_comments.php?id=$id'>$count_comments</a></td>";
+          echo "<td><a href='post_comments.php?id=$id'>$comments</a></td>";
           echo "<td><a href='articles.php?reset={$id}'>{$views}</a></td>";
           echo "<td>$date</td>";
-          echo "<td><a class='btn btn-primary' href='../article.php?id={$id}'>View Article</a></td>";
-          echo "<td><a class='btn btn-info' href='articles.php?source=edit_article&p_id={$id}'>Edit</a></td>";?>
-
-          <!-- <form method="post">
-            <input type="hidden" name="post_id" value="<?php echo $id ?>">
-            <?php   
-              echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>';
-            ?>
-          </form> -->
-
-          <?php
-            echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'>Delete</a></td>";
-            // echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete'); \" href='articles.php?delete={$id}'>Delete</a></td>";
-            echo "</tr>";
+          echo "<td><a class='btn btn-warning' href='articles.php?source=edit_article&id={$id}'>Edit</a></td>";
+          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'>Delete</a></td>";
+          echo "</tr>";
         }
       ?>
     </tbody>
