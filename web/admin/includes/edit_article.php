@@ -49,7 +49,8 @@
   }
 ?>
 
-<form action="" method="post" enctype="multipart/form-data">    
+<form method="post" enctype="multipart/form-data">    
+  <h1 class='page-header'>Edit Article</h1>
   <div class="form-group">
     <label for="title">Title:</label>
     <input value="<?php echo $title; ?>"  type="text" class="form-control" name="title">

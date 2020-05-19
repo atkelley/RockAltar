@@ -20,6 +20,19 @@
     return mysqli_real_escape_string($connection, trim($string));
   }
 
+  function is_admin($username) {
+    global $connection; 
+    $query = "SELECT role FROM users WHERE username = '$username'";
+    confirm_query(mysqli_query($connection, $query));
+    $row = mysqli_fetch_array(mysqli_query($connection, $query));
+    return ($row['role'] == 'admin') ? true : false;
+  }
+
+  function get_rows_count($table) {
+    global $connection;
+    confirm_query(mysqli_query($connection, "SELECT * FROM " . $table));
+    echo mysqli_num_rows(mysqli_query($connection, "SELECT * FROM " . $table));
+  }
 
 
 
@@ -79,11 +92,6 @@
   users_online();
 
 
-  function get_categories_count() {
-    global $connection;
-    confirm_query(mysqli_query($connection, "SELECT * FROM categories"));
-    echo mysqli_num_rows(mysqli_query($connection, "SELECT * FROM categories"));
-  }
 
   function insert_categories(){
     global $connection;
@@ -143,20 +151,7 @@
     }
   }
 
-  function is_admin($username) {
-    global $connection; 
 
-    $query = "SELECT role FROM users WHERE username = '$username'";
-    $result = mysqli_query($connection, $query);
-    confirm_query($result);
-    $row = mysqli_fetch_array($result);
-
-    if($row['role'] == 'admin'){
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   function username_exists($username){
     global $connection;
@@ -219,13 +214,15 @@
       $db_password  = $row['password'];
       $db_firstname = $row['firstname'];
       $db_lastname  = $row['lastname'];
+      $db_email     = $row['email'];
       $db_role      = $row['role'];
 
       if (password_verify($password, $db_password)) {
-        $_SESSION['username'] = $db_username;
+        $_SESSION['username']  = $db_username;
         $_SESSION['firstname'] = $db_firstname;
-        $_SESSION['lastname'] = $db_lastname;
-        $_SESSION['role'] = $db_role;
+        $_SESSION['lastname']  = $db_lastname;
+        $_SESSION['email']     = $db_email;
+        $_SESSION['role']      = $db_role;
 
         $url = getenv("CLEARDB_DATABASE_URL") ? "/admin" : "/RockAltar/web/admin";
         redirect($url);

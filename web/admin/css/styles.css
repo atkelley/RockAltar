@@ -1,3 +1,33 @@
+a:hover {
+  text-decoration: none!important;
+  cursor: pointer!important;
+}
+
+.panel-heading-blue {
+  color: white;
+  background-color: #337ab7;
+}
+
+.panel-heading-blue:hover {
+  color: white;
+  background-color: #23527c;
+}
+
+.panel-heading-red:hover {
+  color: white;
+  background-color: #b52b27;
+}
+
+.panel-heading-yellow:hover {
+  color: white;
+  background-color: #df8a13;
+}
+
+.panel-heading-green:hover {
+  color: white;
+  background-color: #3d8b3d;
+}
+
 #load-screen {
   background: url(../images/header-back.png);
   position: fixed;
@@ -6,7 +36,6 @@
   width: 100%;
   height: 1600px;
 }
-
 
 #loading {
   width: 500px;
@@ -22,16 +51,20 @@
   padding: 0px 0px 0px 0px!important;
 }
 
-.profile-header, .category-header {
+.profile-header, .category-header, .comment-header {
   position: relative;
 }
 
-.profile-header-dropdown {
+.profile-header-dropdown, .comment-header-dropdown {
   position: absolute;
   right: 0px;
   bottom: 10px;
   font-size: 2rem;
   margin: 0px 0px 0px 0px!important;
+}
+
+.profile-link {
+  margin-top: 5px!important;
 }
 
 .category-header-input, .category-header-button {

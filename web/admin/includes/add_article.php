@@ -20,7 +20,8 @@
   }
 ?>
 
-<form action="" method="post">    
+<form method="post">    
+  <h1 class='page-header'>Add Article</h1>
   <div class="form-group">
     <label for="title">Article Title</label>
     <input type="text" class="form-control" name="title">
@@ -80,6 +81,6 @@
   </div>
 
   <div class="form-group">
-    <input class="btn btn-primary" type="submit" name="create_article" value="Publish Article">
+    <input class="btn btn-primary" type="submit" name="create_article" value="Submit">
   </div>
 </form>

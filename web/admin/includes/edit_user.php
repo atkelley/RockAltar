@@ -53,7 +53,8 @@
   }  
 ?>
 
-<form action="" method="post" enctype="multipart/form-data">    
+<form method="post" enctype="multipart/form-data">    
+  <h1 class='page-header'>Edit User</h1>
   <div class="form-group">
     <label for="title">First Name:</label>
     <input type="text" value="<?php echo $firstname; ?>" class="form-control" name="firstname">
@@ -93,6 +94,6 @@
   </div>
 
   <div class="form-group">
-    <input class="btn btn-primary" type="submit" name="edit_user" value="Update User">
+    <input class="btn btn-primary" type="submit" name="edit" value="Update">
   </div>
 </form>

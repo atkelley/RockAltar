@@ -39,6 +39,7 @@
               WHERE username = '{$username}' ";
 
     $edit_user_query = mysqli_query($connection, $query);
+    header("Location: index.php");
   }
 ?> 
 
@@ -49,17 +50,20 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <form action="" method="post" enctype="multipart/form-data">   
+          <form method="post" enctype="multipart/form-data">   
             <h1 class="page-header profile-header">Profile
-              <span class="form-group pull-right profile-header-dropdown">
-                <select name="role">
-                  <option value="subscriber"><?php echo $role; ?></option>
-                  <?php 
-                    $status = ($role == 'admin') ? "<option value='subscriber'>subscriber</option>" : "<option value='admin'>admin</option>";
-                    echo $status;
-                  ?>
-                </select>
-              </span>
+              <?php if(is_admin($_SESSION['username'])): ?> 
+                <span class="form-group pull-right profile-header-dropdown">
+                  <label for="role">Role:</label>
+                  <select name="role">
+                    <option value="subscriber"><?php echo $role; ?></option>
+                    <?php 
+                      $status = ($role == 'admin') ? "<option value='subscriber'>subscriber</option>" : "<option value='admin'>admin</option>";
+                      echo $status;
+                    ?>
+                  </select>
+                </span>
+              <?php endif; ?>
             </h1>
            
             <div class="form-group">

@@ -15,7 +15,8 @@
    }  
 ?>
 
-<form action="" method="post" enctype="multipart/form-data">    
+<form method="post" enctype="multipart/form-data">  
+  <h1 class='page-header'>Add User</h1>
   <div class="form-group">
     <label for="title">Firstname</label>
     <input type="text" class="form-control" name="user_firstname">
@@ -50,7 +51,7 @@
   </div>
 
   <div class="form-group">
-    <input class="btn btn-primary" type="submit" name="create_user" value="Add User">
+    <input class="btn btn-primary" type="submit" name="create_user" value="Submit">
   </div>
 </form>
     

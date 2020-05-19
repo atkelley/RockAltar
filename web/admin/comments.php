@@ -6,21 +6,18 @@
   <div id="page-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12">       
+        <div class="col-md-12">       
           <?php
             $source = isset($_GET['source']) ? escape($_GET['source']) : '';
 
             switch($source) {
-              case "add_post";
-                echo "<h1 class='page-header'>Welcome to admin<small>Author</small></h1>";
-                include "includes/add_post.php";
+              case "add";
+                include "includes/add_comment.php";
                 break; 
-              case "edit_post";
-                echo "<h1 class='page-header'>Welcome to admin<small>Author</small></h1>";
-                include "includes/edit_post.php";
+              case "edit":
+                include "includes/edit_comment.php";
                 break;
               default:
-                echo "<h1 class='page-header'>View All Comments</h1>";
                 include "includes/view_all_comments.php";
                 break; 
             }

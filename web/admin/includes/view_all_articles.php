@@ -45,10 +45,11 @@
   }
 ?>
 
-<form action="" method='post'>
+<form method='post'>
+  <h1 class='page-header'>View All Articles (<?php get_rows_count('articles'); ?>)</h1>
   <table class="table table-bordered table-hover">
     <div id="bulkOptionContainer" class="col-xs-4">
-      <select class="form-control" name="bulk_options" id="">
+      <select class="form-control" name="bulk_options">
         <option value="">Select Options</option>
         <option value="published">Publish</option>
         <option value="draft">Draft</option>
@@ -59,9 +60,9 @@
           
     <div class="col-xs-4">
       <input type="submit" name="submit" class="btn btn-success" value="Apply">
-      <a class="btn btn-primary" href="articles.php?source=add_article">Add New</a>
+      <a class="btn btn-primary" href="articles.php?source=add">Add New</a>
     </div>
-    <br><br>
+    <br><br><br>
                 
     <thead>
       <tr>
@@ -116,7 +117,7 @@
           echo "<td><a href='post_comments.php?id=$id'>$comments</a></td>";
           echo "<td><a href='articles.php?reset={$id}'>{$views}</a></td>";
           echo "<td>$date</td>";
-          echo "<td><a class='btn btn-warning' href='articles.php?source=edit_article&id={$id}'>Edit</a></td>";
+          echo "<td><a class='btn btn-warning' href='articles.php?source=edit&id={$id}'>Edit</a></td>";
           echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'>Delete</a></td>";
           echo "</tr>";
         }
@@ -144,9 +145,8 @@
 <script>
   $(document).ready(function(){
     $(".delete_link").on('click', function(){
-      var id = $(this).attr("rel");
-      var delete_url = "articles.php?delete="+ id +" ";
-      $(".modal_delete_link").attr("href", delete_url);
+      $(".modal_delete_link").attr("href", "articles.php?delete=" + $(this).attr("rel"));
+      $("#myModal .modal-body h3").text("Are you sure you want to delete this article?");
       $("#myModal").modal('show');
     });
   });

@@ -8,7 +8,7 @@
     <div class="container-fluid">
       <div class="row category-header">
         <div class="col-md-6">
-          <h1 class="">View All Categories (<?php get_categories_count(); ?>)</h1>
+          <h1 class='page-header'>View All Categories (<?php get_rows_count('categories'); ?>)</h1>
         </div>
         
         <form method="post">
@@ -74,9 +74,8 @@
 <script>
   $(document).ready(function(){
     $(".delete_link").on('click', function(){
-      var id = $(this).attr("rel");
-      var delete_url = "categories.php?delete="+ id +" ";
-      $(".modal_delete_link").attr("href", delete_url);
+      $(".modal_delete_link").attr("href", "categories.php?delete=" + $(this).attr("rel"));
+      $("#myModal .modal-body h3").text("Are you sure you want to delete this category?");
       $("#myModal").modal('show');
     });
   });

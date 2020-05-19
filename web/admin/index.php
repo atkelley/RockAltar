@@ -7,39 +7,45 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">Welcome to admin
-            <small>
-              <?php 
-                if(isset($_SESSION['username'])) {
-                  echo $_SESSION['username'];
-                }
-              ?>
-            </small>
+          <h1 class="page-header">Admin Dashboard
+            <span class="pull-right">User: 
+              <strong>
+                <a href="profile.php">
+                  <?php 
+                    if(isset($_SESSION['username'])) {
+                      echo $_SESSION['username'];
+                    }
+                  ?>
+                </a>
+              </strong>
+            </span>
           </h1>
         </div>
       </div>
                 
       <div class="row">
         <div class="col-lg-3 col-md-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-xs-3">
-                  <i class="fa fa-file-text fa-5x"></i>
-                </div>
-                    
-                <div class="col-xs-9 text-right"> 
-                  <?php 
-                    $query = "SELECT * FROM articles";
-                    $select_all_articles = mysqli_query($connection, $query);
-                    $articles_count = mysqli_num_rows($select_all_articles);
-                    echo "<div class='huge'>{$articles_count}</div>"
-                  ?>
+          <div class="panel panel-green">
+            <a href="articles.php">
+              <div class="panel-heading panel-heading-green">
+                <div class="row">
+                  <div class="col-xs-3">
+                    <i class="fa fa-file-text fa-5x"></i>
+                  </div>
+                      
+                  <div class="col-xs-9 text-right"> 
+                    <?php 
+                      $query = "SELECT * FROM articles";
+                      $select_all_articles = mysqli_query($connection, $query);
+                      $articles_count = mysqli_num_rows($select_all_articles);
+                      echo "<div class='huge'>{$articles_count}</div>"
+                    ?>
 
-                  <div>Articles</div>
+                    <div>Articles</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
 
             <a href="articles.php">
               <div class="panel-footer">
@@ -52,25 +58,27 @@
         </div>
 
         <div class="col-lg-3 col-md-6">
-          <div class="panel panel-green">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-xs-3">
-                  <i class="fa fa-comments fa-5x"></i>
-                </div>
-
-                <div class="col-xs-9 text-right">
-                  <?php 
-                    $query = "SELECT * FROM comments";
-                    $select_all_comments = mysqli_query($connection, $query);
-                    $comment_count = mysqli_num_rows( $select_all_comments);
-                    echo "<div class='huge'>{$comment_count}</div>"
-                  ?>
-                  <div>Comments</div>
+          <div class="panel panel-red">
+            <a href="categories.php">
+              <div class="panel-heading panel-heading-red">
+                <div class="row">
+                  <div class="col-xs-3">
+                    <i class="fa fa-list fa-5x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                    <?php 
+                      $query = "SELECT * FROM categories";
+                      $select_all_categories = mysqli_query($connection, $query);
+                      $category_count = mysqli_num_rows($select_all_categories);
+                      echo "<div class='huge'>{$category_count}</div>"
+                    ?>
+                    <div>Categories</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <a href="comments.php">
+            </a>
+
+            <a href="categories.php">
               <div class="panel-footer">
                 <span class="pull-left">View Details</span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -82,23 +90,25 @@
 
         <div class="col-lg-3 col-md-6">
           <div class="panel panel-yellow">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-xs-3">
-                  <i class="fa fa-user fa-5x"></i>
-                </div>
+            <a href="users.php">
+              <div class="panel-heading panel-heading-yellow">
+                <div class="row">
+                  <div class="col-xs-3">
+                    <i class="fa fa-user fa-5x"></i>
+                  </div>
 
-                <div class="col-xs-9 text-right">
-                  <?php 
-                    $query = "SELECT * FROM users";
-                    $select_all_users = mysqli_query($connection, $query);
-                    $user_count = mysqli_num_rows($select_all_users);
-                    echo "<div class='huge'>{$user_count}</div>"
-                  ?>                
-                  <div> Users</div>
+                  <div class="col-xs-9 text-right">
+                    <?php 
+                      $query = "SELECT * FROM users";
+                      $select_all_users = mysqli_query($connection, $query);
+                      $user_count = mysqli_num_rows($select_all_users);
+                      echo "<div class='huge'>{$user_count}</div>"
+                    ?>                
+                    <div> Users</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
 
             <a href="users.php">
               <div class="panel-footer">
@@ -111,25 +121,28 @@
         </div>
 
         <div class="col-lg-3 col-md-6">
-          <div class="panel panel-red">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-xs-3">
-                  <i class="fa fa-list fa-5x"></i>
-                </div>
-                <div class="col-xs-9 text-right">
-                  <?php 
-                    $query = "SELECT * FROM categories";
-                    $select_all_categories = mysqli_query($connection, $query);
-                    $category_count = mysqli_num_rows($select_all_categories);
-                    echo "<div class='huge'>{$category_count}</div>"
-                  ?>
-                  <div>Categories</div>
+          <div class="panel panel-primary">
+            <a href="comments.php">
+              <div class="panel-heading panel-heading-blue">
+                <div class="row">
+                  <div class="col-xs-3">
+                    <i class="fa fa-comments fa-5x"></i>
+                  </div>
+
+                  <div class="col-xs-9 text-right">
+                    <?php 
+                      $query = "SELECT * FROM comments";
+                      $select_all_comments = mysqli_query($connection, $query);
+                      $comment_count = mysqli_num_rows( $select_all_comments);
+                      echo "<div class='huge'>{$comment_count}</div>"
+                    ?>
+                    <div>Comments</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
 
-            <a href="categories.php">
+            <a href="comments.php">
               <div class="panel-footer">
                 <span class="pull-left">View Details</span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -139,23 +152,23 @@
           </div>
         </div>
       </div>                         
-        <?php 
-          $query = "SELECT * FROM articles WHERE status = 'published' ";
-          $select_all_published_articles = mysqli_query($connection, $query);
-          $article_published_count = mysqli_num_rows($select_all_published_articles);
-                                                                                  
-          $query = "SELECT * FROM articles WHERE status = 'draft' ";
-          $select_all_draft_articles = mysqli_query($connection, $query);
-          $article_draft_count = mysqli_num_rows($select_all_draft_articles);
+      <?php 
+        $query = "SELECT * FROM articles WHERE status = 'published' ";
+        $select_all_published_articles = mysqli_query($connection, $query);
+        $article_published_count = mysqli_num_rows($select_all_published_articles);
+                                                                                
+        $query = "SELECT * FROM articles WHERE status = 'draft' ";
+        $select_all_draft_articles = mysqli_query($connection, $query);
+        $article_draft_count = mysqli_num_rows($select_all_draft_articles);
 
-          $query = "SELECT * FROM comments WHERE status = 'unapproved' ";
-          $unapproved_comments_query = mysqli_query($connection, $query);
-          $unapproved_comment_count = mysqli_num_rows($unapproved_comments_query);
+        $query = "SELECT * FROM comments WHERE status = 'unapproved' ";
+        $unapproved_comments_query = mysqli_query($connection, $query);
+        $unapproved_comment_count = mysqli_num_rows($unapproved_comments_query);
 
-          $query = "SELECT * FROM users WHERE role = 'subscriber'";
-          $select_all_subscribers = mysqli_query($connection, $query);
-          $subscriber_count = mysqli_num_rows($select_all_subscribers);
-        ?>
+        $query = "SELECT * FROM users WHERE role = 'subscriber'";
+        $select_all_subscribers = mysqli_query($connection, $query);
+        $subscriber_count = mysqli_num_rows($select_all_subscribers);
+      ?>
       <div class="row">       
         <script type="text/javascript">
           google.load("visualization", "1.1", {packages:["bar"]});
