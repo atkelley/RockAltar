@@ -22,14 +22,40 @@
   padding: 0px 0px 0px 0px!important;
 }
 
-.profile-title {
+.profile-header, .category-header {
   position: relative;
 }
 
-.profile-status-dropdown {
+.profile-header-dropdown {
   position: absolute;
   right: 0px;
   bottom: 10px;
   font-size: 2rem;
   margin: 0px 0px 0px 0px!important;
+}
+
+.category-header-input, .category-header-button {
+  position: absolute;
+}
+
+.category-header-input {
+  right: 215px;
+  bottom: 0px;
+}
+
+.category-header-button {
+  right: 0px;
+  bottom: 0px;
+}
+
+.category-header > .col-md-6 > h1 {
+  margin-bottom: 0px!important;
+}
+
+.category-header-input > .form-group, .category-header-button > .form-group {
+  margin: 0px 0px 0px 0px!important;
+}
+
+.category-hr {
+  margin-top: 10px!important;
 }

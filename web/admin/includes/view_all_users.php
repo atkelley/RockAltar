@@ -7,6 +7,8 @@
       <th>Last Name</th>
       <th>Email</th>
       <th>Role</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -49,9 +51,7 @@
           // echo "<td><a href='../article.php?id=$id'>$title</a></td>";
         }
 
-        echo "<td><a href='users.php?change_to_admin={$id}'>Admin</a></td>";
-        echo "<td><a href='users.php?change_to_sub={$id}'>Subscriber</a></td>";
-        echo "<td><a href='users.php?source=edit_user&edit_user={$id}'>Edit</a></td>";
+        echo "<td><a href='users.php?source=edit_user&user={$id}'>Edit</a></td>";
         echo "<td><a href='users.php?delete={$id}'>Delete</a></td>";
         echo "</tr>";
       }
@@ -60,19 +60,19 @@
 </table>
                      
 <?php
-  if(isset($_GET['change_to_admin'])) {
-    $id = escape($_GET['change_to_admin']);
-    $query = "UPDATE users SET role = 'admin' WHERE id = $id   ";
-    $change_to_admin_query = mysqli_query($connection, $query);
-    header("Location: users.php");
-  }
+  // if(isset($_GET['change_to_admin'])) {
+  //   $id = escape($_GET['change_to_admin']);
+  //   $query = "UPDATE users SET role = 'admin' WHERE id = $id   ";
+  //   $change_to_admin_query = mysqli_query($connection, $query);
+  //   header("Location: users.php");
+  // }
 
-  if(isset($_GET['change_to_sub'])){
-    $id = escape($_GET['change_to_sub']);
-    $query = "UPDATE users SET role = 'subscriber' WHERE id = $id   ";
-    $change_to_sub_query = mysqli_query($connection, $query);
-    header("Location: users.php"); 
-  }
+  // if(isset($_GET['change_to_sub'])){
+  //   $id = escape($_GET['change_to_sub']);
+  //   $query = "UPDATE users SET role = 'subscriber' WHERE id = $id   ";
+  //   $change_to_sub_query = mysqli_query($connection, $query);
+  //   header("Location: users.php"); 
+  // }
 
   if(isset($_GET['delete'])){
     if(isset($_SESSION['role'])) {

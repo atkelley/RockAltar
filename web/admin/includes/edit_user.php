@@ -1,12 +1,12 @@
 <?php  
-  if(isset($_GET['edit_user'])){
-    $id =  escape($_GET['edit_user']);
+  if(isset($_GET['user'])){
+    $id =  escape($_GET['user']);
     $query = "SELECT * FROM users WHERE id = $id ";
-    $select_users_query = mysqli_query($connection, $query);  
+    $select_user_query = mysqli_query($connection, $query);  
 
-    while($row = mysqli_fetch_assoc($select_users_query)) {
+    while($row = mysqli_fetch_assoc($select_user_query)) {
       $id        = $row['id'];
-      $username       = $row['username'];
+      $username  = $row['username'];
       $password  = $row['password'];
       $firstname = $row['firstname'];
       $lastname  = $row['lastname'];
@@ -16,13 +16,13 @@
     }
 
     if(isset($_POST['edit_user'])) {
-      $firstname   = escape($_POST['firstname']);
-      $lastname    = escape($_POST['lastname']);
-      $role        = escape($_POST['role']);
-      $username      = escape($_POST['username']);
-      $email    = escape($_POST['email']);
-      $password = escape($_POST['password']);
-      $date     = escape(date('d-m-y'));
+      $firstname = escape($_POST['firstname']);
+      $lastname  = escape($_POST['lastname']);
+      $role      = escape($_POST['role']);
+      $username  = escape($_POST['username']);
+      $email     = escape($_POST['email']);
+      $password  = escape($_POST['password']);
+      $date      = escape(date('d-m-y'));
 
       if(!empty($password)) { 
         $query_password = "SELECT password FROM users WHERE id =  $id";
@@ -55,12 +55,12 @@
 
 <form action="" method="post" enctype="multipart/form-data">    
   <div class="form-group">
-    <label for="title">Firstname</label>
+    <label for="title">First Name:</label>
     <input type="text" value="<?php echo $firstname; ?>" class="form-control" name="firstname">
   </div>
 
   <div class="form-group">
-    <label for="status">Lastname</label>
+    <label for="status">Last Name:</label>
     <input type="text" value="<?php echo $lastname; ?>" class="form-control" name="lastname">
   </div>
      
@@ -78,17 +78,17 @@
   </div>
 
   <div class="form-group">
-    <label for="username">Username</label>
+    <label for="username">Username:</label>
     <input type="text" value="<?php echo $username; ?>" class="form-control" name="username">
   </div>
       
   <div class="form-group">
-    <label for="email">Email</label>
+    <label for="email">Email:</label>
     <input type="email" value="<?php echo $email; ?>" class="form-control" name="email">
   </div>
       
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">Password:</label>
     <input type="password" value="<?php //echo $user_password; ?>" class="form-control" name="password">
   </div>
 

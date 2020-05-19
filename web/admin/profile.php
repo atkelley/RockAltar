@@ -50,12 +50,12 @@
       <div class="row">
         <div class="col-md-12">
           <form action="" method="post" enctype="multipart/form-data">   
-            <h1 class="page-header profile-title">Profile
-              <span class="form-group pull-right profile-status-dropdown">
+            <h1 class="page-header profile-header">Profile
+              <span class="form-group pull-right profile-header-dropdown">
                 <select name="role">
                   <option value="subscriber"><?php echo $role; ?></option>
                   <?php 
-                    $status = ($user_role == 'admin') ? "<option value='subscriber'>subscriber</option>" : "<option value='admin'>admin</option>";
+                    $status = ($role == 'admin') ? "<option value='subscriber'>subscriber</option>" : "<option value='admin'>admin</option>";
                     echo $status;
                   ?>
                 </select>

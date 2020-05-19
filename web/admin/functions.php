@@ -1,7 +1,10 @@
 <?php
-  function redirect($location){
-    header("Location:" . $location);
-    exit;
+  function confirm_query($result) {
+    global $connection;
+
+    if(!$result) { 
+      die("Query failed: " . mysqli_error($connection)); 
+    }
   }
 
   function check_method($method = null){
@@ -12,16 +15,27 @@
     return (isset($_SESSION['role'])) ? true : false;
   }
 
+  function escape($string) {
+    global $connection;
+    return mysqli_real_escape_string($connection, trim($string));
+  }
+
+
+
+
+
+  function redirect($location){
+    header("Location:" . $location);
+    exit;
+  }
+
   function logged_in_redirect($redirect_location = null){
     if(logged_in()){
       redirect($redirect_location);
     }
   }
 
-  function escape($string) {
-    global $connection;
-    return mysqli_real_escape_string($connection, trim($string));
-  }
+
 
   function set_message($msg){
     $_SESSION['message'] = (!$msg) ? $msg : "";
@@ -64,12 +78,11 @@
 
   users_online();
 
-  function confirm_query($result) {
-    global $connection;
 
-    if(!$result) { 
-      die("Query failed: " . mysqli_error($connection)); 
-    }
+  function get_categories_count() {
+    global $connection;
+    confirm_query(mysqli_query($connection, "SELECT * FROM categories"));
+    echo mysqli_num_rows(mysqli_query($connection, "SELECT * FROM categories"));
   }
 
   function insert_categories(){
@@ -78,19 +91,26 @@
     if(isset($_POST['submit'])){
       $name = $_POST['name'];
 
-      if($name == "" || empty($name)) {
-        echo "This field should not be empty.";
-      } else {
-        $stmt = mysqli_prepare($connection, "INSERT INTO categories(name) VALUES(?) ");
-        mysqli_stmt_bind_param($stmt, 's', $name);
-        mysqli_stmt_execute($stmt);
+      $stmt = mysqli_prepare($connection, "INSERT INTO categories(name) VALUES(?) ");
+      mysqli_stmt_bind_param($stmt, 's', $name);
+      mysqli_stmt_execute($stmt);
 
-        if(!$stmt) {
-          die('QUERY FAILED'. mysqli_error($connection));
-        }
+      if(!$stmt) {
+        die('Query failed: '. mysqli_error($connection));
       }
 
       mysqli_stmt_close($stmt);
+      header("Location: categories.php");
+    }
+  }
+
+  function delete_categories(){
+    global $connection;
+
+    if(isset($_GET['delete'])){
+      $query = "DELETE FROM categories WHERE id = {$_GET['delete']} ";
+      $delete_query = mysqli_query($connection, $query);
+      header("Location: categories.php");
     }
   }
 
@@ -98,7 +118,7 @@
     global $connection;
 
     $query = "SELECT * FROM categories";
-    $select_categories = mysqli_query($connection,$query);  
+    $select_categories = mysqli_query($connection, $query);  
 
     while($row = mysqli_fetch_assoc($select_categories)) {
       $cat_id = $row['cat_id'];
@@ -109,16 +129,6 @@
       echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
       echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
       echo "</tr>";
-    }
-  }
-
-  function delete_categories(){
-    global $connection;
-
-    if(isset($_GET['delete'])){
-      $query = "DELETE FROM categories WHERE id = {$_GET['delete']} ";
-      $delete_query = mysqli_query($connection,$query);
-      header("Location: categories.php");
     }
   }
 
