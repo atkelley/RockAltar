@@ -177,18 +177,19 @@
     return (mysqli_num_rows($result) > 0) ? true : false;
   }
 
-  function register_user($firstname, $lastname, $username, $email, $password){
+  function register_user($firstname, $lastname, $username, $email, $password, $image){
     global $connection;
 
     $firstname = mysqli_real_escape_string($connection, $firstname);
     $lastname  = mysqli_real_escape_string($connection, $lastname);
     $username  = mysqli_real_escape_string($connection, $username);
     $email     = mysqli_real_escape_string($connection, $email);
+    $image     = mysqli_real_escape_string($connection, $image);
     $password  = mysqli_real_escape_string($connection, $password);
     $password  = password_hash( $password, PASSWORD_BCRYPT, array('cost' => 12));
         
-    $query = "INSERT INTO users (firstname, lastname, username, email, password, role) ";
-    $query .= "VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}', '{$password}', 'subscriber')";
+    $query = "INSERT INTO users (firstname, lastname, username, email, password, role, image) ";
+    $query .= "VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}', '{$password}', 'subscriber', '{$image}')";
     $register_user_query = mysqli_query($connection, $query);
     confirm_query($register_user_query);
   }
@@ -218,6 +219,7 @@
       $db_role      = $row['role'];
 
       if (password_verify($password, $db_password)) {
+        $_SESSION['id']        = $db_id;
         $_SESSION['username']  = $db_username;
         $_SESSION['firstname'] = $db_firstname;
         $_SESSION['lastname']  = $db_lastname;

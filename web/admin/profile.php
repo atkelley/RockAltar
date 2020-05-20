@@ -34,7 +34,7 @@
               firstname      = '{$_POST['firstname']}', 
               lastname       = '{$_POST['lastname']}', 
               email          = '{$_POST['email']}', 
-              role           = '{$_POST['role']}', 
+              image          = '{$_POST['image']}',
               password       = '{$hashed_password}'
               WHERE username = '{$username}' ";
 
@@ -51,48 +51,50 @@
       <div class="row">
         <div class="col-md-12">
           <form method="post" enctype="multipart/form-data">   
-            <h1 class="page-header profile-header">Profile
-              <?php if(is_admin($_SESSION['username'])): ?> 
-                <span class="form-group pull-right profile-header-dropdown">
-                  <label for="role">Role:</label>
-                  <select name="role">
-                    <option value="subscriber"><?php echo $role; ?></option>
-                    <?php 
-                      $status = ($role == 'admin') ? "<option value='subscriber'>subscriber</option>" : "<option value='admin'>admin</option>";
-                      echo $status;
-                    ?>
-                  </select>
-                </span>
-              <?php endif; ?>
-            </h1>
-           
-            <div class="form-group">
-              <label for="">First Name:</label>
-              <input type="text" value="<?php echo $firstname; ?>" class="form-control" name="firstname">
-            </div>
+            <h1 class="page-header profile-header">Profile</h1>
 
-            <div class="form-group">
-              <label for="">Last Name:</label>
-              <input type="text" value="<?php echo $lastname; ?>" class="form-control" name="lastname">
-            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="">Username:</label>
+                  <input type="text" value="<?php echo $username; ?>" class="form-control" name="username" required>
+                </div>
 
-            <div class="form-group">
-              <label for="">Username:</label>
-              <input type="text" value="<?php echo $username; ?>" class="form-control" name="username">
-            </div>
-        
-            <div class="form-group">
-              <label for="">Email:</label>
-              <input type="email" value="<?php echo $email; ?>" class="form-control" name="email">
-            </div>
-      
-            <div class="form-group">
-              <label for="">Password:</label>
-              <input type="password" value="<?php echo $password; ?>" class="form-control" name="password">
-            </div>
+                <div class="form-group">
+                  <label for="">First Name:</label>
+                  <input type="text" value="<?php echo $firstname; ?>" class="form-control" name="firstname" required>
+                </div>
 
-            <div class="form-group">
-              <input class="btn btn-primary" type="submit" name="edit_user" value="Update">
+                <div class="form-group">
+                  <label for="">Last Name:</label>
+                  <input type="text" value="<?php echo $lastname; ?>" class="form-control" name="lastname" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="">Email:</label>
+                  <input type="email" value="<?php echo $email; ?>" class="form-control" name="email" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="image">Image link:</label><br>    
+                  <input value="<?php echo $image; ?>" type="text" class="form-control" name="image">
+                </div>
+          
+                <div class="form-group">
+                  <label for="">Password:</label>
+                  <input type="password" value="<?php echo $password; ?>" class="form-control" name="password" required>
+                </div>
+
+                <div class="form-group">
+                  <input class="btn btn-primary" type="submit" name="edit_user" value="Update">
+                  <a class='btn btn-default' href='index.php'>Cancel</a>
+                </div>
+              </div>
+
+              <div class="col-md-4 text-center">
+                <label for="image">Image:</label><br>  
+                <img class="edit-profile-image" src="<?php echo $image; ?>">
+              </div>
             </div>
           </form>
         </div>

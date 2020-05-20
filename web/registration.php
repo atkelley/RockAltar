@@ -80,7 +80,8 @@
     } 
 
     if(empty($error)){
-      register_user($firstname, $lastname, $username, $email, $password);
+      $image = "https://www.gravatar.com/avatar/" . hash('md4', strtolower($email)) . "?s=350&d=identicon&r=PG";
+      register_user($firstname, $lastname, $username, $email, $password, $image);
       $data['message'] = $username;
       redirect('login.php');
     }

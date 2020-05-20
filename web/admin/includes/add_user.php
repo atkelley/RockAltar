@@ -1,57 +1,67 @@
 <?php
   if(isset($_POST['create_user'])) {
-    $user_firstname    = escape($_POST['user_firstname']);
-    $user_lastname     = escape($_POST['user_lastname']);
-    $user_role         = escape($_POST['user_role']);
-    $username          = escape($_POST['username']);
-    $user_email        = escape($_POST['user_email']);
-    $user_password     = escape($_POST['user_password']);
-    $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));    
-    $query = "INSERT INTO users(user_firstname, user_lastname, user_role,username,user_email,user_password) ";
-    $query .= "VALUES('{$user_firstname}','{$user_lastname}','{$user_role}','{$username}','{$user_email}', '{$user_password}') "; 
+    $username  = escape($_POST['username']);
+    $firstname = escape($_POST['firstname']);
+    $lastname  = escape($_POST['lastname']);
+    $email     = escape($_POST['email']);
+    $image     = (!empty($_POST['image'])) ? escape($_POST['image']) : "https://www.gravatar.com/avatar/" . hash('md4', strtolower($email)) . "?s=350&d=identicon&r=PG";
+    $role      = escape($_POST['role']);
+    $password  = escape($_POST['password']);
+
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));    
+
+    $query = "INSERT INTO users(username, firstname, lastname, email, image, role, password) ";
+    $query .= "VALUES('{$username}', '{$firstname}', '{$lastname}', '{$email}', '{$image}', '{$role}', '{$hashed_password}')"; 
     $create_user_query = mysqli_query($connection, $query);  
-    confirmQuery($create_user_query); 
-    echo "User Created: " . " " . "<a href='users.php'>View Users</a> "; 
+    confirm_query($create_user_query); 
+    header("Location: users.php");
    }  
 ?>
 
-<form method="post" enctype="multipart/form-data">  
-  <h1 class='page-header'>Add User</h1>
+<form method="post" enctype="multipart/form-data">    
+  <h1 class='page-header edit-user-header'>Add User
+    <span class="form-group pull-right edit-user-header-dropdown">
+      <label for="role" class="edit-user-header-label">Role:</label>
+      <select name="role" class="form-control">
+        <option selected value="subscriber">subscriber</option>
+        <option value="admin">admin</option>
+      </select>
+    </span>
+  </h1>
+
   <div class="form-group">
-    <label for="title">Firstname</label>
-    <input type="text" class="form-control" name="user_firstname">
+    <label for="username">Username:</label>
+    <input type="text" class="form-control" name="username" required>
   </div>
 
   <div class="form-group">
-    <label for="post_status">Lastname</label>
-    <input type="text" class="form-control" name="user_lastname">
-  </div>
-     
-  <div class="form-group">
-    <select name="user_role" id="">
-      <option value="subscriber">Select Options</option>
-      <option value="admin">Admin</option>
-      <option value="subscriber">Subscriber</option>
-    </select>
+    <label for="firstname">First Name:</label>
+    <input type="text" class="form-control" name="firstname" required>
   </div>
 
   <div class="form-group">
-    <label for="post_tags">Username</label>
-    <input type="text" class="form-control" name="username">
+    <label for="lastname">Last Name:</label>
+    <input type="text" class="form-control" name="lastname" required>
   </div>
       
   <div class="form-group">
-    <label for="post_content">Email</label>
-    <input type="email" class="form-control" name="user_email">
-  </div>
-      
-  <div class="form-group">
-    <label for="post_content">Password</label>
-    <input type="password" class="form-control" name="user_password">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" name="email" required>
   </div>
 
   <div class="form-group">
-    <input class="btn btn-primary" type="submit" name="create_user" value="Submit">
+    <label for="image">Image Link:</label><br>    
+    <input type="text" class="form-control" name="image">
+  </div>
+      
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" class="form-control" name="password" required>
+  </div>
+
+  <div class="form-group">
+    <input class="btn btn-primary" type="submit" name="create_user" value="Update">
+    <a class='btn btn-default' href='users.php'>Cancel</a>
   </div>
 </form>
     
