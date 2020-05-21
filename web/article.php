@@ -8,14 +8,18 @@
       <?php
         if(isset($_GET['id'])){
           $query = "SELECT articles.title, articles.date, articles.image, articles.content,
-                    articles.description, articles.user, users.firstname, users.lastname 
+                    articles.description, articles.user, users.firstname, users.lastname,
+                    articles.id 
                     FROM articles 
                     INNER JOIN users ON articles.user = users.id
                     WHERE articles.id = " . $_GET['id'];
 
           $select_article_query = mysqli_query($connection, $query);
+          confirm_query($select_article_query);
 
           while($row = mysqli_fetch_assoc($select_article_query)) {
+            $id = $row['id'];
+            increment_views($id);
             $title = $row['title'];
             $author = $row['firstname'] . " " . $row['lastname'];;
             $date = date_create($row['date']);

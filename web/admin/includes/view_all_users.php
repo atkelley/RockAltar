@@ -42,7 +42,7 @@
       <input type="submit" name="submit" class="btn btn-success" value="Apply">
       <a class="btn btn-primary" href="users.php?source=add">Add New</a>
     </div>
-    <br><br><br>
+    <br><br>
 
     <thead>
       <tr>

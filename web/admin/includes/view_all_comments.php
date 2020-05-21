@@ -8,18 +8,18 @@
       switch($bulk_options) {
         case 'approved':     
           $query = "UPDATE comments SET status = '{$bulk_options}' WHERE id = {$commentValueId}  "; 
-          $update_to_approved_status = mysqli_query($connection, $query);         
-          confirmQuery( $update_to_approved_status);   
+          $approve_comment_query = mysqli_query($connection, $query);         
+          confirm_query($approve_comment_query);   
           break;
         case 'unapproved':
-          $query = "UPDATE comments SET status = '{$bulk_options}' WHERE id = {$commentValueId}  ";    
-          $update_to_unapproved_status = mysqli_query($connection, $query);       
-          confirmQuery($update_to_unapproved_status);  
+          $query = "UPDATE comments SET status = '{$bulk_options}' WHERE id = {$commentValueId}";    
+          $unapprove_comment_query = mysqli_query($connection, $query);       
+          confirm_query($unapprove_comment_query);  
           break;
         case 'delete':
-          $query = "DELETE FROM comments WHERE id = {$commentValueId}  ";
-          $update_to_delete = mysqli_query($connection, $query);  
-          confirmQuery($update_to_delete); 
+          $query = "DELETE FROM comments WHERE id = {$commentValueId}";
+          $delete_comment_query = mysqli_query($connection, $query);  
+          confirm_query($delete_comment_query); 
           break;
       }
     } 
@@ -39,10 +39,10 @@
     </div> 
  
     <div class="col-xs-4">
-      <input type="submit" name="submit" class="btn btn-success" value="Apply">
+      <input type="submit" name="submit" class="btn btn-success" value="Apply" <?php echo (!is_admin($_SESSION['username'])) ? "disabled" : "" ?>>
       <a class="btn btn-primary" href="comments.php?source=add">Add New</a>
     </div>
-    <br><br><br>
+    <br><br>
 
     <thead>
       <tr>
@@ -62,6 +62,7 @@
         $query = "SELECT 
                   comments.id,
                   articles.title,
+                  articles.user,
                   comments.post_id,
                   comments.author,
                   comments.email,
@@ -74,14 +75,15 @@
 
         while($row = mysqli_fetch_assoc($select_comments)) {
           $id      = $row['id'];
+          $user    = $row['user'];
           $title   = $row['title'];
           $post_id = $row['post_id'];
           $author  = $row['author'];
           $email   = $row['email'];
           $content = $row['content'];
           $status  = $row['status'];
-          $date    = date_create($row['date']);
-          $date    = date_format($date, "F jS, Y");
+          $date = date("F dS, Y", strtotime($row['date']));
+          $time = date('h:i A', strtotime($row['date']));
 
           echo "<tr>";
           ?><td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $id; ?>'></td><?php
@@ -90,11 +92,13 @@
           echo "<td>$email</td>";
           echo "<td><a href='../article.php?id=$post_id#comments'>$title</a></td>";
           echo "<td>$status</td>";       
-          echo "<td>$date</td>";
-          // echo "<td><a href='comments.php?approve=$id'>Approve</a></td>";
-          // echo "<td><a href='comments.php?unapprove=$id'>Unapprove</a></td>";
-          echo "<td><a class='btn btn-warning' href='comments.php?source=edit&id={$id}'>Edit</a></td>";
-          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'>Delete</a></td>";
+          echo "<td>$date, $time</td>";
+          echo "<td><a class='btn btn-warning' href='comments.php?source=edit&id={$id}'
+          " . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . "
+          >Edit</a></td>";
+          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'
+          " . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . "
+          >Delete</a></td>";
           echo "</tr>";
         }
       ?>
@@ -104,23 +108,26 @@
                      
 <?php
   if(isset($_GET['approve'])){
-    $the_comment_id = escape($_GET['approve']);
-    $query = "UPDATE comments SET comment_status = 'approved' WHERE comment_id = $the_comment_id   ";
+    $id = escape($_GET['approve']);
+    $query = "UPDATE comments SET status = 'approved' WHERE id = $id";
     $approve_comment_query = mysqli_query($connection, $query);
+    confirm_query($approve_comment_query); 
     header("Location: comments.php");
   }
 
   if(isset($_GET['unapprove'])){
-    $the_comment_id = escape($_GET['unapprove']);
-    $query = "UPDATE comments SET comment_status = 'unapproved' WHERE comment_id = $the_comment_id ";
+    $id = escape($_GET['unapprove']);
+    $query = "UPDATE comments SET status = 'unapproved' WHERE id = $id";
     $unapprove_comment_query = mysqli_query($connection, $query);
+    confirm_query($unapprove_comment_query); 
     header("Location: comments.php"); 
   }
 
   if(isset($_GET['delete'])){
-    $the_comment_id = escape($_GET['delete']);
-    $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id} ";
-    $delete_query = mysqli_query($connection, $query);
+    $id = escape($_GET['delete']);
+    $query = "DELETE FROM comments WHERE id = {$id}";
+    $delete_comment_query = mysqli_query($connection, $query);
+    confirm_query($delete_comment_query); 
     header("Location: comments.php");
   }
 ?>     
@@ -129,8 +136,8 @@
   $(document).ready(function(){
     $(".delete_link").on('click', function(){
       $(".modal_delete_link").attr("href", "comments.php?delete=" + $(this).attr("rel"));
-      $("#myModal .modal-body h3").text("Are you sure you want to delete this comment?");
-      $("#myModal").modal('show');
+      $("#deleteModal .modal-body h3").text("Are you sure you want to delete this comment?");
+      $("#deleteModal").modal('show');
     });
   });
 </script>

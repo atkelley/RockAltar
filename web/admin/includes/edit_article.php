@@ -23,7 +23,7 @@
       $content = $row['content'];
     }
 
-    if(isset($_POST['update_article'])) {
+    if(isset($_POST['edit_article'])) {
       $name        = $_POST['name'];
       $title       = $_POST['title'];
       $user        = $_POST['user'];
@@ -55,16 +55,18 @@
 
 <form method="post" enctype="multipart/form-data">    
   <h1 class='page-header edit-article-header'>Edit Article
-    <span class="form-group pull-right edit-article-header-dropdown">
-      <label for="status" class="edit-article-header-label">Status:</label>
-      <select name="status" class="form-control">
-        <option selected value="<?php echo $status; ?>"><?php echo $status; ?></option>
-        <?php 
-          $option = ($status == 'published' ) ? "<option value='draft'>draft</option>" : "<option value='published'>published</option>";
-          echo $option;
-        ?>
-      </select>
-    </span>
+    <?php if(is_admin($_SESSION['username'])): ?>
+      <span class="form-group pull-right edit-article-header-dropdown">
+        <label for="status" class="edit-article-header-label">Status:</label>
+        <select name="status" class="form-control">
+          <option selected value="<?php echo $status; ?>"><?php echo $status; ?></option>
+          <?php 
+            $option = ($status == 'published' ) ? "<option value='draft'>draft</option>" : "<option value='published'>published</option>";
+            echo $option;
+          ?>
+        </select>
+      </span>
+    <?php endif; ?>
   </h1>
 
   <div class="col-md-8">
@@ -161,7 +163,7 @@
   </div>
 
   <div class="form-group">
-    <input class="btn btn-primary" type="submit" name="update_article" value="Update">
+    <input class="btn btn-primary" type="submit" name="edit_article" value="Update">
     <a class='btn btn-default' href='articles.php'>Cancel</a>
   </div>
 </form>

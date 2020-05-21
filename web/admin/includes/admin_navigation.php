@@ -36,7 +36,7 @@
         <li><a href="./users.php"><i class="fa fa-fw fa-users"></i> Users</a></li>
       <?php endif; ?>
       <li><a href="./categories.php"><i class="fa fa-fw fa-archive"></i> Categories</a></li>     
-      <li><a href="./genres.php"><i class="fa fa-fw fa-music"></i> Genres</a></li>         
+      <li><a href="./genres.php"><i class="fa fa-fw fa-music"></i> Genres</a></li>  
       <li><a href="comments.php"><i class="fa fa-fw fa-comments"></i> Comments</a></li>
     </ul>
   </div>

@@ -1,28 +1,27 @@
 <?php
   if(isset($_POST['create_comment'])) {
-    $post_id = escape($_POST['post_id']);
+    $post_id = escape($_POST['article']);
     $author  = escape($_POST['author']);
     $email   = escape($_POST['email']);
     $content = escape($_POST['content']);
-    $status  = escape($_POST['status']);
+    $status  = isset($_POST['status']) ? escape($_POST['status']) : "unapproved";
 
     $query = "INSERT INTO comments(post_id, author, email, content, status, date) ";        
-    $query .= "VALUES({$post_id}, '{$author}', '{$email}', '{$content}', '{$status}', now()) ";    
+    $query .= "VALUES({$post_id}, '{$author}', '{$email}', '{$content}', '{$status}', NOW()) ";    
     $create_comment_query = mysqli_query($connection, $query);  
     confirm_query($create_comment_query);
-    $id = mysqli_insert_id($connection);
-    echo "<p class='bg-success'>Comment Created. <a href='../comment.php?id={$id}'>View Comment </a> or <a href='comments.php'>Edit More Comments</a></p>";
+    header("Location: comments.php");
   } 
 ?>
 
-<form method="post" enctype="multipart/form-data">    
-  <h1 class='page-header comment-header'>Add Comment
+<form method="post">    
+  <h1 class='page-header edit-comment-header'>Add Comment
     <?php if(is_admin($_SESSION['username'])): ?> 
-      <span class="form-group pull-right comment-header-dropdown">
-        <label for="status">Status:</label>
-        <select name="status">   
+      <span class="form-group pull-right edit-comment-header-dropdown">
+        <label for="status" class="edit-comment-header-label">Status:</label>
+        <select name="status" class="form-control">   
+          <option selected value="unapproved">Unapproved</option>
           <option value="approved">Approved</option>
-          <option value="unapproved">Unapproved</option>
         </select>
       </span>
     <?php endif; ?>
@@ -37,6 +36,39 @@
     <label for="email">Email:</label>
     <input type="email" value="<?php echo ($_SESSION['email']) ? $_SESSION['email'] : ''; ?>"  class="form-control" name="email" required>
   </div>
+
+  <div class="form-group">
+    <label for="article">Article:</label>
+    <?php if(is_admin($_SESSION['username'])): ?>
+      <select name="article" class="form-control"><br>     
+        <?php
+          $query = "SELECT * FROM articles WHERE status = 'published'";
+          $select_all_articles = mysqli_query($connection, $query);
+          confirm_query($select_all_articles); 
+
+          while($row = mysqli_fetch_assoc($select_all_articles)) {
+            $id = $row['id'];
+            $title = $row['title'];
+            echo "<option value='{$id}'>{$title}</option>"; 
+          }
+        ?>
+      </select>
+    <?php else: ?>
+      <select name="article" class="form-control"><br>     
+        <?php
+          $query = "SELECT * FROM articles WHERE status = 'published'";
+          $select_user_articles = mysqli_query($connection, $query);
+          confirm_query($select_user_articles); 
+
+          while($row = mysqli_fetch_assoc($select_user_articles)) {
+            $id = $row['id'];
+            $title = substr($row['title'], 0, 50);
+            echo "<option value='{$id}'>{$title}</option>"; 
+          }
+        ?>
+      </select>
+    <?php endif; ?>
+  </div>
         
   <div class="form-group">
     <label for="content">Content:</label>
@@ -45,5 +77,6 @@
 
   <div class="form-group">
     <input class="btn btn-primary" type="submit" name="create_comment" value="Submit">
+    <a class='btn btn-default' href='comments.php'>Cancel</a>
   </div>
 </form>

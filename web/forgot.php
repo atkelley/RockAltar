@@ -62,6 +62,7 @@
           <div class="text-center">
             <?php if(isset($email) && !email_exists($email)): ?>
               <h2>Email not found.</h2>
+              <h3>Please <a href="registration.php">register</a> to create an account.</h3>
             <?php elseif(!isset($emailSent)): ?>
               <h3><i class="fa fa-lock fa-4x"></i></h3>
               <h2 class="text-center">Forgot Password?</h2>

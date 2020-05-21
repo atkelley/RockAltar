@@ -10,14 +10,14 @@
           $per_page = 5;
           $page = (isset($_GET['page'])) ? $_GET['page'] : 1;
           $offset = ($page == 1) ? 0 : ($page * $per_page) - $per_page;
-          $genres = array("rock" => "1", "alternative" => "2", "indie" => "3", "punk" => "4", "metal" => "5");
   
           $query = "SELECT articles.id, articles.title, articles.date, articles.image, articles.content,
                     articles.description, articles.user, users.firstname, users.lastname 
                     FROM articles 
                     INNER JOIN users ON articles.user = users.id
+                    INNER JOIN genres ON genres.name = '{$_GET['genre']}'
                     WHERE articles.status = 'published'
-                    AND articles.genre = ". $genres[$_GET['genre']];
+                    AND articles.genre = genres.id";
   
           $select_published_articles_query = mysqli_query($connection, $query);
           $count = mysqli_num_rows($select_published_articles_query);

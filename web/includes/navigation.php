@@ -30,7 +30,7 @@
           <div class="dropdown-menu">
             <ul class="nav navbar-nav">
               <?php 
-                $query = "SELECT * FROM genres LIMIT 5";
+                $query = "SELECT * FROM genres LIMIT 10";
                 $select_all_genres_query = mysqli_query($connection, $query);
 
                 while($row = mysqli_fetch_assoc($select_all_genres_query)) {
@@ -50,7 +50,7 @@
           <div class="dropdown-menu">
             <ul class="nav navbar-nav">
               <?php 
-                $query = "SELECT * FROM categories LIMIT 5";
+                $query = "SELECT * FROM categories LIMIT 10";
                 $select_all_categories_query = mysqli_query($connection, $query);
 
                 while($row = mysqli_fetch_assoc($select_all_categories_query)) {

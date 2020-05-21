@@ -48,11 +48,11 @@
               <div class="col-xs-4">
                 <input type="submit" name="submit" class="btn btn-success" value="Apply">
               </div>
+              <br><br>
 
               <thead>
                 <tr>
                   <th><input id="selectAllBoxes" type="checkbox"></th>
-                  <th>Id</th>
                   <th>Author</th>
                   <th>Comment</th>
                   <th>Email</th>
@@ -67,9 +67,10 @@
               <tbody>
                 <?php 
                   $query = "SELECT * FROM comments WHERE comment_post_id =" . mysqli_real_escape_string($connection,$_GET['id']). " ";
-                  $select_comments = mysqli_query($connection,$query);  
+                  $select_comments_query = mysqli_query($connection, $query); 
+                  confirm_query($select_comments_query); 
 
-                  while($row = mysqli_fetch_assoc($select_comments)) {
+                  while($row = mysqli_fetch_assoc($select_comments_query)) {
                     $comment_id         = $row['comment_id'];
                     $comment_post_id    = $row['comment_post_id'];
                     $comment_author     = $row['comment_author'];
@@ -84,7 +85,6 @@
                   </td>
 
                 <?php
-                  echo "<td>$comment_id </td>";
                   echo "<td>$comment_author</td>";
                   echo "<td>$comment_content</td>";
                   echo "<td>$comment_email</td>";

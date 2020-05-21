@@ -62,10 +62,10 @@
     </div> 
           
     <div class="col-xs-4">
-      <input type="submit" name="submit" class="btn btn-success" value="Apply">
+      <input type="submit" name="submit" class="btn btn-success" value="Apply" <?php echo (!is_admin($_SESSION['username'])) ? "disabled" : "" ?>>
       <a class="btn btn-primary" href="articles.php?source=add">Add New</a>
     </div>
-    <br><br><br>
+    <br><br>
                 
     <thead>
       <tr>
@@ -87,7 +87,8 @@
       <?php 
         $query = "SELECT articles.id, articles.title, articles.date, 
                   articles.image, articles.user, users.firstname, users.lastname, 
-                  articles.status, articles.views, articles.comments,
+                  articles.status, articles.views, 
+                  (SELECT COUNT(id) FROM comments WHERE articles.id = comments.post_id) AS comments,
                   categories.name AS category, genres.name AS genre
                   FROM articles 
                   INNER JOIN users ON articles.user = users.id
@@ -96,6 +97,7 @@
                   ORDER BY articles.date DESC";
 
         $select_articles = mysqli_query($connection, $query);  
+        confirm_query($select_articles);
 
         while($row = mysqli_fetch_assoc($select_articles)) {
           $id       = $row['id'];
@@ -106,7 +108,7 @@
           $genre    = $row['genre'];
           $status   = $row['status'];
           $image    = $row['image'];
-          $comments = isset($row['comments']) ? $row['comments'] : 0;
+          $comments = $row['comments'];
           $date     = date_create($row['date']);
           $date     = date_format($date, "F jS, Y");
           $views    = $row['views'];
@@ -119,11 +121,11 @@
           echo "<td><a href='../category.php?category=" . strtolower($category) . "'>$category</a></td>";
           echo "<td>$status</td>";
           echo "<td><img width='100' src='$image' alt='image'></td>";
-          echo "<td><a href='post_comments.php?id=$id'>$comments</a></td>";
-          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-default reset_link'>{$views}</a></td>";
+          echo ($comments > 0) ? "<td><a href='article_comments.php?id=$id'>$comments</a></td>" : "<td>$comments</td>";
+          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-default reset_link'" . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . ">{$views}</a></td>";
           echo "<td>$date</td>";
-          echo "<td><a class='btn btn-warning' href='articles.php?source=edit&id={$id}'>Edit</a></td>";
-          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'>Delete</a></td>";
+          echo "<td><a class='btn btn-warning' href='articles.php?source=edit&id={$id}'" . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . ">Edit</a></td>";
+          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'"  . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . ">Delete</a></td>";
           echo "</tr>";
         }
       ?>

@@ -34,6 +34,54 @@
     echo mysqli_num_rows(mysqli_query($connection, "SELECT * FROM " . $table));
   }
 
+  function get_article_comments_count($id) {
+    global $connection;
+    confirm_query(mysqli_query($connection, "SELECT * FROM comments WHERE post_id = " . $id));
+    echo mysqli_num_rows(mysqli_query($connection, "SELECT * FROM comments WHERE post_id = " . $id));
+  }
+
+  function has_articles($id) {
+    global $connection;
+    $query = "SELECT * FROM articles WHERE user = '$id'";
+    $has_articles_query = mysqli_query($connection, $query);
+    confirm_query($has_articles_query);
+    return (mysqli_num_rows($has_articles_query) > 0) ? true : false;
+  }
+
+  function increment_views($id) {
+    global $connection;
+    $query = "UPDATE articles SET views = views + 1 WHERE id = '$id'";
+    $update_views_query = mysqli_query($connection, $query);
+    confirm_query($update_views_query);
+  }
+
+  function insert_into_table($table){
+    global $connection;
+
+    if(isset($_POST['submit'])){
+      $query = "INSERT INTO {$table} (name) VALUES('{$_POST['name']}')";
+      $insert_query = mysqli_query($connection, $query);
+      confirm_query($insert_query);
+      header("Location: {$table}.php");
+    }
+  }
+
+  function delete_from_table($table) {
+    global $connection;
+
+    if(isset($_GET['delete'])){
+      $query = "DELETE FROM {$table} WHERE id = {$_GET['delete']} ";
+      $delete_query = mysqli_query($connection, $query);
+      header("Location: {$table}.php");
+    }
+  }
+
+
+
+
+
+
+
 
 
 
@@ -50,6 +98,8 @@
 
 
 
+
+
   function set_message($msg){
     $_SESSION['message'] = (!$msg) ? $msg : "";
   }
@@ -60,6 +110,9 @@
       unset($_SESSION['message']);
     }
   }
+
+
+
 
   function users_online() {
     if(isset($_GET['onlineusers'])) {
@@ -93,34 +146,11 @@
 
 
 
-  function insert_categories(){
-    global $connection;
 
-    if(isset($_POST['submit'])){
-      $name = $_POST['name'];
 
-      $stmt = mysqli_prepare($connection, "INSERT INTO categories(name) VALUES(?) ");
-      mysqli_stmt_bind_param($stmt, 's', $name);
-      mysqli_stmt_execute($stmt);
 
-      if(!$stmt) {
-        die('Query failed: '. mysqli_error($connection));
-      }
 
-      mysqli_stmt_close($stmt);
-      header("Location: categories.php");
-    }
-  }
 
-  function delete_categories(){
-    global $connection;
-
-    if(isset($_GET['delete'])){
-      $query = "DELETE FROM categories WHERE id = {$_GET['delete']} ";
-      $delete_query = mysqli_query($connection, $query);
-      header("Location: categories.php");
-    }
-  }
 
   function findAllCategories() {
     global $connection;
@@ -153,27 +183,20 @@
 
 
 
+
+  
+
   function username_exists($username){
     global $connection;
-
-    $query = "SELECT username FROM users WHERE username = '$username'";
-    $result = mysqli_query($connection, $query);
-    confirm_query($result);
-
-    if(mysqli_num_rows($result) > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    $username_query = mysqli_query($connection, "SELECT username FROM users WHERE username = '$username'");
+    confirm_query($username_query);
+    return (mysqli_num_rows($username_query) > 0) ? true : false;
   }
 
   function email_exists($email){
     global $connection;
-
-    $query = "SELECT email FROM users WHERE email = '$email'";
-    $result = mysqli_query($connection, $query);
+    $result = mysqli_query($connection, "SELECT email FROM users WHERE email = '$email'");
     confirm_query($result);
-
     return (mysqli_num_rows($result) > 0) ? true : false;
   }
 
