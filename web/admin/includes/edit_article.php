@@ -28,7 +28,7 @@
       $title       = $_POST['title'];
       $user        = $_POST['user'];
       $image       = $_POST['image'];
-      $status      = $_POST['status'];
+      $status      = isset($_POST['status']) ? $_POST['status'] : $status;
       $category    = $_POST['category'];
       $description = $_POST['description'];
       $content     = $_POST['content'];
