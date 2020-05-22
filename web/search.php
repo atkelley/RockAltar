@@ -45,10 +45,15 @@
           $results = mysqli_num_rows($search_query);
           $count  = ceil($results / $per_page); 
   
-          if($count < 1) {
-            echo '<h1 class="text-center"><strong>No articles for "'. $search_term. '" found.</strong></h1>';
+          if($results < 1) {
+            echo '<h1 class="text-center search-title"><strong>No articles for "'. $search_term. '" found</strong></h1>';
           } else {
-            echo '<h1 class="text-center"><strong>'. $results . ' articles for "'. $search_term . '" found.</strong></h1>';
+            if ($results == 1) {
+              echo '<h1 class="text-center search-title"><strong>'. $results . ' article for "'. $search_term . '" found</strong></h1>';
+            } else {
+              echo '<h1 class="text-center search-title"><strong>'. $results . ' articles for "'. $search_term . '" found</strong></h1>';
+            }
+            
             $search_query->data_seek($offset);
   
             for ($i = $offset; $i < $offset + 5; $i++) {

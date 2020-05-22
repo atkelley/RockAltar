@@ -330,7 +330,7 @@ footer {
   margin-left: 10px!important;
 }
 
-.genre-title, .category-title, .author-title {
+.genre-title, .category-title, .author-title, .search-title {
   margin: 50px 0px 0px 0px!important;
   font-family: 'MetalMacabre';
   font-weight: bold!important;
