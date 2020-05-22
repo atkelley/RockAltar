@@ -12,9 +12,12 @@
           $offset = ($page == 1) ? 0 : ($page * $per_page) - $per_page;
   
           $query = "SELECT articles.id, articles.title, articles.date, articles.image, articles.content,
-                    articles.description, articles.user, users.firstname, users.lastname 
+                    articles.description, articles.user, users.firstname, users.lastname,
+                    categories.name AS category, genres.name AS genre
                     FROM articles 
                     INNER JOIN users ON articles.user = users.id
+                    INNER JOIN genres ON articles.genre = genres.id
+                    INNER JOIN categories ON articles.category = categories.id
                     WHERE articles.status = 'published'
                     AND articles.user = " . $_GET['user'];
   
@@ -22,8 +25,12 @@
           $count = mysqli_num_rows($select_published_articles_query);
           $count  = ceil($count / $per_page); 
 
+          $author = get_user($_GET['user']);
+
+          echo "<h1 class='text-center author-title'>" . $author['firstname'] . " " . $author['lastname'] . "'s articles" . 
+          "<img src=" . $author['image'] . " class='author-image'>" . "</h1>";
           if($count < 1) {
-            echo "<h1 class='text-center'>No articles found.</h1>";
+            echo "<h3 class='text-center'>No articles found.</h3>";
           } else {
             $select_published_articles_query->data_seek($offset);
       
@@ -38,12 +45,20 @@
                 $date = date_create($row['date']);
                 $date = date_format($date, "l, F dS, Y");
                 $image = $row['image'];
+                $genre = $row['genre'];
+                $category = $row['category'];
                 $description = (strlen($row['description']) > 200) ? substr($row['description'], 0, strpos($row['description'], ' ', 200)) . "..." : $row['description'];
               ?>
                 <div class="row news-section">
-                  <div class="col-md-6 news-section-left">
+                <div class="col-md-6 news-section-left">
                     <a href="article.php?id=<?php echo $id; ?>">
-                      <img class="img-responsive news-image" src="<?php echo $image;?>" alt="">
+                      <img class="img-responsive news-image" src="<?php echo $image; ?>" alt="">
+                    </a>  
+                    <a href="category.php?category=<?php echo strtolower($category); ?>">
+                      <span class="badge badge-pill badge-category"><?php echo $category; ?></span>
+                    </a>  
+                    <a href="genre.php?genre=<?php echo strtolower($genre); ?>">
+                      <span class="badge badge-pill badge-genre"><?php echo $genre; ?></span>
                     </a>  
                   </div>
                   <div class="col-md-6 news-section-right">

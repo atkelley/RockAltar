@@ -329,3 +329,21 @@ footer {
 .footer-right {
   margin-left: 10px!important;
 }
+
+.genre-title, .category-title, .author-title {
+  margin: 50px 0px 0px 0px!important;
+  font-family: 'MetalMacabre';
+  font-weight: bold!important;
+  text-decoration: underline!important;
+}
+
+.author-title {
+  margin: 30px 0px 0px 0px!important;
+}
+
+.author-image {
+  max-width: 64px!important;
+  height: auto!important;
+  border-radius: 50%!important;
+  border: 6px outset grey;
+}

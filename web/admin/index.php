@@ -40,7 +40,6 @@
                       $articles_count = mysqli_num_rows($select_all_articles);
                       echo "<div class='huge'>{$articles_count}</div>"
                     ?>
-
                     <div>Articles</div>
                   </div>
                 </div>
@@ -69,8 +68,8 @@
                     <?php 
                       $query = "SELECT * FROM categories";
                       $select_all_categories = mysqli_query($connection, $query);
-                      $category_count = mysqli_num_rows($select_all_categories);
-                      echo "<div class='huge'>{$category_count}</div>"
+                      $categories_count = mysqli_num_rows($select_all_categories);
+                      echo "<div class='huge'>{$categories_count}</div>"
                     ?>
                     <div>Categories</div>
                   </div>
@@ -101,8 +100,8 @@
                     <?php 
                       $query = "SELECT * FROM users";
                       $select_all_users = mysqli_query($connection, $query);
-                      $user_count = mysqli_num_rows($select_all_users);
-                      echo "<div class='huge'>{$user_count}</div>"
+                      $users_count = mysqli_num_rows($select_all_users);
+                      echo "<div class='huge'>{$users_count}</div>"
                     ?>                
                     <div> Users</div>
                   </div>
@@ -133,8 +132,8 @@
                     <?php 
                       $query = "SELECT * FROM comments";
                       $select_all_comments = mysqli_query($connection, $query);
-                      $comment_count = mysqli_num_rows( $select_all_comments);
-                      echo "<div class='huge'>{$comment_count}</div>"
+                      $comments_count = mysqli_num_rows( $select_all_comments);
+                      echo "<div class='huge'>{$comments_count}</div>"
                     ?>
                     <div>Comments</div>
                   </div>
@@ -154,33 +153,37 @@
       </div>                         
       <?php 
         $query = "SELECT * FROM articles WHERE status = 'published' ";
-        $select_all_published_articles = mysqli_query($connection, $query);
-        $article_published_count = mysqli_num_rows($select_all_published_articles);
+        $select_all_published_query = mysqli_query($connection, $query);
+        $published_count = mysqli_num_rows($select_all_published_query);
                                                                                 
         $query = "SELECT * FROM articles WHERE status = 'draft' ";
-        $select_all_draft_articles = mysqli_query($connection, $query);
-        $article_draft_count = mysqli_num_rows($select_all_draft_articles);
+        $select_all_draft_query = mysqli_query($connection, $query);
+        $draft_count = mysqli_num_rows($select_all_draft_query);
+
+        $query = "SELECT * FROM comments WHERE status = 'approved' ";
+        $approved_comments_query = mysqli_query($connection, $query);
+        $approved_count = mysqli_num_rows($approved_comments_query);
 
         $query = "SELECT * FROM comments WHERE status = 'unapproved' ";
         $unapproved_comments_query = mysqli_query($connection, $query);
-        $unapproved_comment_count = mysqli_num_rows($unapproved_comments_query);
+        $unapproved_count = mysqli_num_rows($unapproved_comments_query);
 
         $query = "SELECT * FROM users WHERE role = 'subscriber'";
-        $select_all_subscribers = mysqli_query($connection, $query);
-        $subscriber_count = mysqli_num_rows($select_all_subscribers);
+        $select_all_subscribers_query = mysqli_query($connection, $query);
+        $subscribers_count = mysqli_num_rows($select_all_subscribers_query);
       ?>
-      <div class="row">       
+      <div class="row chart-box">       
         <script type="text/javascript">
           google.load("visualization", "1.1", {packages:["bar"]});
           google.setOnLoadCallback(drawChart);
 
           function drawChart() {
-            var data = google.visualization.arrayToDataTable([['Data', 'Count'],
+            var data = google.visualization.arrayToDataTable([['RockAltar Admin Data', 'Count'],
               <?php                     
-                $element_text = ['All Articles','Active Articles','Draft Articles', 'Comments','Pending Comments', 'Users','Subscribers', 'Categories'];       
-                $element_count = [$article_count, $article_published_count, $article_draft_count, $comment_count, $unapproved_comment_count, $user_count, $subscriber_count, $category_count];
+                $element_text = ['All Articles','Active Articles','Draft Articles', 'Comments', 'Approved Comments', 'Pending Comments', 'Users', 'Subscribers', 'Categories'];       
+                $element_count = [$articles_count, $published_count, $draft_count, $comments_count, $approved_count, $unapproved_count, $users_count, $subscribers_count, $categories_count];
 
-                for($i =0;$i < 8; $i++) {
+                for($i = 0; $i < 9; $i++) {
                   echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";
                 }                                            
               ?>
@@ -189,8 +192,9 @@
             var options = {
               chart: {
                 title: '',
-                subtitle: '',
-              }
+                subtitle: ''
+              },
+              legend: { position: "none" },
             };
 
             var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
@@ -198,7 +202,7 @@
           }
         </script>
                                
-        <div id="columnchart_material" style="width: 'auto'; height: 500px;"></div>   
+        <div id="columnchart_material" style="width: 'auto'; height: 450px;"></div>   
       </div>
      </div>
     </div>

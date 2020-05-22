@@ -76,8 +76,14 @@
     }
   }
 
+  function get_user($id) {
+    global $connection;
 
-
+    $query = "SELECT * FROM users WHERE id = '$id'";
+    $user_query = mysqli_query($connection, $query);
+    confirm_query($user_query);
+    return mysqli_fetch_array($user_query);
+  }
 
 
 
