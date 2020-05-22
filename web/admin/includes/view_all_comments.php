@@ -62,7 +62,6 @@
         $query = "SELECT 
                   comments.id,
                   articles.title,
-                  articles.user,
                   comments.post_id,
                   comments.author,
                   comments.email,
@@ -75,7 +74,6 @@
 
         while($row = mysqli_fetch_assoc($select_comments)) {
           $id      = $row['id'];
-          $user    = $row['user'];
           $title   = $row['title'];
           $post_id = $row['post_id'];
           $author  = $row['author'];
@@ -94,10 +92,10 @@
           echo "<td>$status</td>";       
           echo "<td>$date, $time</td>";
           echo "<td><a class='btn btn-warning' href='comments.php?source=edit&id={$id}'
-          " . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . "
+          " . ((!is_admin($_SESSION['username']) && $_SESSION['email'] != $email) ? "disabled" : "") . "
           >Edit</a></td>";
           echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'
-          " . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . "
+          " . ((!is_admin($_SESSION['username']) && $_SESSION['email'] != $email) ? "disabled" : "") . "
           >Delete</a></td>";
           echo "</tr>";
         }
@@ -136,7 +134,7 @@
   $(document).ready(function(){
     $(".delete_link").on('click', function(){
       $(".modal_delete_link").attr("href", "comments.php?delete=" + $(this).attr("rel"));
-      $("#deleteModal .modal-body h3").text("Are you sure you want to delete this comment?");
+      $("#deleteModal .modal-body h3").text("Delete this comment?");
       $("#deleteModal").modal('show');
     });
   });

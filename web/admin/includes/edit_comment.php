@@ -27,15 +27,15 @@
       $author  = escape($_POST['author']);
       $email   = escape($_POST['email']);
       $content = escape($_POST['content']);
-      $status  = escape($_POST['status']);
+      $status  = isset($_POST['status']) ? escape($_POST['status']) : $status;
 
       $query = "UPDATE comments SET 
                 post_id  = '{$post_id}',
                 author   = '{$author}', 
                 email    = '{$email}', 
                 content  = '{$content}',
-                status   = '{$status}',
-                date     = NOW()
+                status = '{$status}',
+                date = NOW() 
                 WHERE id = '{$id}' ";
 
       $edit_comment_query = mysqli_query($connection, $query);
@@ -49,18 +49,16 @@
 
 <form method="post" enctype="multipart/form-data">    
   <h1 class='page-header edit-comment-header'>Edit Comment
-    <?php if(is_admin($_SESSION['username']) || $_SESSION['id'] == $user): ?> 
-      <span class="form-group pull-right edit-comment-header-dropdown">
-        <label for="status" class="edit-comment-header-label">Status:</label>
-        <select name="status" class="form-control">   
-          <option selected value="<?php echo $status; ?>"><?php echo $status; ?></option>
-            <?php
-              $option = ($status == 'approved') ? "<option value='unapproved'>unapproved</option>" : "<option value='approved'>approved</option>";
-              echo $option;
-            ?>
-        </select>
-      </span>
-    <?php endif; ?>
+    <span class="form-group pull-right edit-comment-header-dropdown">
+      <label for="status" class="edit-comment-header-label">Status:</label>
+      <select name="status" class="form-control" <?php echo (is_admin($_SESSION['username']) || $_SESSION['id'] == $user) ? "" : "disabled"; ?>>   
+        <option selected value="<?php echo $status; ?>"><?php echo $status; ?></option>
+          <?php
+            $option = ($status == 'approved') ? "<option value='unapproved'>unapproved</option>" : "<option value='approved'>approved</option>";
+            echo $option;
+          ?>
+      </select>
+    </span>
   </h1>
 
   <div class="form-group">

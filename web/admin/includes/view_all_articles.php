@@ -125,7 +125,7 @@
           echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-default reset_link'" . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . ">{$views}</a></td>";
           echo "<td>$date</td>";
           echo "<td><a class='btn btn-warning' href='articles.php?source=edit&id={$id}'" . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . ">Edit</a></td>";
-          echo "<td><a rel='$id' href='javascript:void(0)' class='btn btn-danger delete_link'"  . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . ">Delete</a></td>";
+          echo "<td><a rel='$id' data-comments='$comments' href='javascript:void(0)' class='btn btn-danger delete_link'"  . ((!is_admin($_SESSION['username']) && $_SESSION['id'] != $user) ? "disabled" : "") . ">Delete</a></td>";
           echo "</tr>";
         }
       ?>
@@ -136,7 +136,16 @@
 <?php 
   if(isset($_GET['delete'])){
     $id = escape($_GET['delete']);
-    $query = "DELETE FROM articles WHERE id = {$id} ";
+
+    if (get_article_comments_count($id) > 0) {
+      $query = "DELETE articles, comments
+                FROM articles
+                INNER JOIN comments ON articles.id = comments.post_id
+                WHERE articles.id = {$id}";
+    } else {
+      $query = "DELETE FROM articles WHERE id = {$id}";
+    }
+
     $delete_query = mysqli_query($connection, $query);
     confirm_query($delete_query);
     header("Location: articles.php");
@@ -154,14 +163,22 @@
 <script>
   $(document).ready(function(){
     $(".delete_link").on('click', function(){
+      let comments = $(this).attr("data-comments");
+      let message = "Delete this article?";
+
+      if (comments > 0) {
+        message = "Delete this article and its " + comments;
+        message += (comments == 1) ? " comment?" : " comments?";
+      }
+      
       $(".modal_delete_link").attr("href", "articles.php?delete=" + $(this).attr("rel"));
-      $("#deleteModal .modal-body h3").text("Are you sure you want to delete this article?");
+      $("#deleteModal .modal-body h3").text(message);
       $("#deleteModal").modal('show');
     });
 
     $(".reset_link").on('click', function(){
       $(".modal_reset_link").attr("href", "articles.php?reset=" + $(this).attr("rel"));
-      $("#resetModal .modal-body h3").text("Are you sure you want to zero the views to this article?");
+      $("#resetModal .modal-body h3").text("Zero the views on this article?");
       $("#resetModal").modal('show');
     });
   });

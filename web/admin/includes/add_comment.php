@@ -16,15 +16,13 @@
 
 <form method="post">    
   <h1 class='page-header edit-comment-header'>Add Comment
-    <?php if(is_admin($_SESSION['username'])): ?> 
-      <span class="form-group pull-right edit-comment-header-dropdown">
-        <label for="status" class="edit-comment-header-label">Status:</label>
-        <select name="status" class="form-control">   
-          <option selected value="unapproved">Unapproved</option>
-          <option value="approved">Approved</option>
-        </select>
-      </span>
-    <?php endif; ?>
+    <span class="form-group pull-right edit-comment-header-dropdown">
+      <label for="status" class="edit-comment-header-label">Status:</label>
+      <select name="status" class="form-control" <?php echo (is_admin($_SESSION['username'])) ? "" : "disabled"; ?>>   
+        <option selected value="unapproved">unapproved</option>
+        <option value="approved">approved</option>
+      </select>
+    </span>
   </h1>
 
   <div class="form-group">
@@ -39,35 +37,19 @@
 
   <div class="form-group">
     <label for="article">Article:</label>
-    <?php if(is_admin($_SESSION['username'])): ?>
-      <select name="article" class="form-control"><br>     
-        <?php
-          $query = "SELECT * FROM articles WHERE status = 'published'";
-          $select_all_articles = mysqli_query($connection, $query);
-          confirm_query($select_all_articles); 
+    <select name="article" class="form-control"><br>     
+      <?php
+        $query = "SELECT * FROM articles WHERE status = 'published'";
+        $select_user_articles = mysqli_query($connection, $query);
+        confirm_query($select_user_articles); 
 
-          while($row = mysqli_fetch_assoc($select_all_articles)) {
-            $id = $row['id'];
-            $title = $row['title'];
-            echo "<option value='{$id}'>{$title}</option>"; 
-          }
-        ?>
-      </select>
-    <?php else: ?>
-      <select name="article" class="form-control"><br>     
-        <?php
-          $query = "SELECT * FROM articles WHERE status = 'published'";
-          $select_user_articles = mysqli_query($connection, $query);
-          confirm_query($select_user_articles); 
-
-          while($row = mysqli_fetch_assoc($select_user_articles)) {
-            $id = $row['id'];
-            $title = substr($row['title'], 0, 50);
-            echo "<option value='{$id}'>{$title}</option>"; 
-          }
-        ?>
-      </select>
-    <?php endif; ?>
+        while($row = mysqli_fetch_assoc($select_user_articles)) {
+          $id = $row['id'];
+          $title = substr($row['title'], 0, 50);
+          echo "<option value='{$id}'>{$title}</option>"; 
+        }
+      ?>
+    </select>
   </div>
         
   <div class="form-group">
