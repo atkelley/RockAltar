@@ -1,9 +1,9 @@
 <?php ob_start();
 
-  $db['db_host'] = "us-cdbr-east-06.cleardb.net";
-  $db['db_user'] = "be41329e6dea79";
-  $db['db_pass'] = "3cc4a440";
-  $db['db_name'] = "heroku_981847eb2ca20f2";
+  $db['db_host'] = "localhost";
+  $db['db_user'] = "root";
+  $db['db_pass'] = "";
+  $db['db_name'] = "rockAltar";
 
   if (getenv("CLEARDB_DATABASE_URL")) {
     $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
