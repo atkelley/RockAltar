@@ -3,11 +3,13 @@
 
 <?php
   logged_in_redirect('admin');
+  $_SESSION['invalid'] = false;
 
   if(check_method('post')){
     if(isset($_POST['username']) && isset($_POST['password'])){
       login_user($_POST['username'], $_POST['password']);
     } else {
+      $_SESSION['invalid'] = true;
       redirect('login.php');
     }
   }
@@ -38,6 +40,12 @@
                     <input name="password" type="password" class="form-control" placeholder="Enter Password">
                   </div>
                 </div>
+
+
+                <div class="form-group  <?php $_SESSION['invalid'] ? 'form-group-error' : 'form-group-valid'">
+                  <p>Invalid username or password.</p>
+                </div>
+
 
                 <div class="form-group form-group-login">
                   <input name="login" class="btn btn-lg btn-primary btn-block" value="Login" type="submit">
