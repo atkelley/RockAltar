@@ -41,11 +41,9 @@
                   </div>
                 </div>
 
-
-                <div class="form-group  <?php $_SESSION['invalid'] ? 'form-group-error' : 'form-group-valid'">
+                <div class="form-group  <?php $_SESSION['invalid'] ? 'form-group-error' : 'form-group-valid' ?>">
                   <p>Invalid username or password.</p>
                 </div>
-
 
                 <div class="form-group form-group-login">
                   <input name="login" class="btn btn-lg btn-primary btn-block" value="Login" type="submit">
