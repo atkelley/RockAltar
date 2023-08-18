@@ -65,22 +65,24 @@
 
       <div class="well">
         <h4>Leave a Comment:</h4>
+        <?php 
+          $author = "";
+          $email = "";
+          if (logged_in()) {
+            $author = $_SESSION['username'];
+            $email = $_SESSION['email'];
+          } 
+        ?>
         <form action="" method="post" role="form">
           <div class="form-group">
             <label for="Author">Author</label>
-            <input type="text" name="comment_author" class="form-control" name="comment_author" required author>
+            <input type="text" name="comment_author" class="form-control" name="comment_author" value="<?php echo $author; ?>" required>
           </div>
 
           <div class="form-group">
             <label for="Author">Email</label>
-            <input type="email" name="comment_email" class="form-control" name="comment_email" required email>
+            <input type="email" name="comment_email" class="form-control" name="comment_email" value="<?php echo $email; ?>" required>
           </div>
-          <?php
-            if (logged_in()) {
-              str_replace("author","value", $_SESSION['username']);
-              str_replace("email","value", $_SESSION['email']);
-            } 
-          ?>
 
           <div class="form-group">
             <label for="comment">Your Comment</label>
