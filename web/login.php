@@ -41,7 +41,7 @@
                   </div>
                 </div>
 
-                <div class="form-group  <?php $_SESSION['invalid'] ? 'form-group-error' : 'form-group-valid' ?>">
+                <div class="form-group <?php echo $_SESSION['invalid'] ? ' form-group-error' : ' form-group-valid' ?>">
                   <p>Invalid username or password.</p>
                 </div>
 
