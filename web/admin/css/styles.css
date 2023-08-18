@@ -114,3 +114,16 @@ a:hover {
 .chart-box {
   margin: 50px 0px!important;
 }
+
+.form-group-error {
+  height: 1.5rem;
+  visibility: visible;
+  font-style: italic;
+  font-size: small;
+  color: red;
+}
+
+.form-group-valid {
+  height: 1.5rem;
+  visibility: hidden;
+}

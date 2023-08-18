@@ -2605,17 +2605,6 @@ input[type="search"] {
 .form-group {
   margin-bottom: 15px;
 }
-.form-group-error {
-  height: 1.5rem;
-  visibility: visible;
-  font-style: italic;
-  font-size: small;
-  color: red;
-}
-.form-group-valid {
-  height: 1.5rem;
-  visibility: hidden;
-}
 .radio,
 .checkbox {
   position: relative;
