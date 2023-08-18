@@ -69,12 +69,12 @@
             <form action="" method="post" role="form">
               <div class="form-group">
                 <label for="Author">Author</label>
-                <input type="text" name="comment_author" class="form-control" name="comment_author">
+                <input type="text" name="comment_author" class="form-control" name="comment_author" placeholder="<?php echo $_SESSION['username'] ?>">
               </div>
 
               <div class="form-group">
                 <label for="Author">Email</label>
-                <input type="email" name="comment_email" class="form-control" name="comment_email">
+                <input type="email" name="comment_email" class="form-control" name="comment_email" placeholder="<?php echo $_SESSION['email'] ?>">
               </div>
 
               <div class="form-group">
