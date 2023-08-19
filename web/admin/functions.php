@@ -233,7 +233,7 @@
 
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
     $select_user_query = mysqli_query($connection, $query);
-    $_SESSION['whatever'] = $select_user_query;
+    $_SESSION['whatever'] = "FUCK YOU";
     
     if (!$select_user_query) {
       $_SESSION['error'] = 'Invalid username or password.';
