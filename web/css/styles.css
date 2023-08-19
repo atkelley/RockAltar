@@ -347,3 +347,10 @@ footer {
   border-radius: 50%!important;
   border: 6px outset grey;
 }
+
+.form-group-error {
+  height: 1.5rem;
+  font-style: italic!important;
+  font-size: small;
+  color: red!important;
+}
