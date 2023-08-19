@@ -41,9 +41,7 @@
 
                 <?php if (isset($_SESSION['error'])) { ?>
                   <p class="form-group-error"><?php echo $_SESSION['error'] ?></p>
-                <?php } 
-                  unset($_SESSION['error'])
-                ?>
+                <?php } ?>
 
                 <div class="form-group form-group-login">
                   <input name="login" class="btn btn-lg btn-primary btn-block" value="Login" type="submit">
