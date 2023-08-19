@@ -17,7 +17,7 @@
       login_user($_POST['username'], $_POST['password']);
     } else {
       // $updated_value = $_COOKIE["count"] + 1;
-      // setcookie($cookie_name, $updated_value);
+      setcookie($cookie_name, $updated_value,  time() + (86400 * 30), "/login");
 
       $_COOKIE["count"]++;
       redirect('login.php');
