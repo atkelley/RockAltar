@@ -233,6 +233,7 @@
 
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
     $select_user_query = mysqli_query($connection, $query);
+    $_SESSION['whatever'] = "FUCK YOU";
     
     if (!$select_user_query) {
       $_SESSION['error'] = 'Invalid username or password.';
@@ -247,7 +248,6 @@
       $db_lastname  = $row['lastname'];
       $db_email     = $row['email'];
       $db_role      = $row['role'];
-      $_SESSION['whatever'] = "FUCK YOU";
 
       if (password_verify($password, $db_password)) {
         $_SESSION['id']        = $db_id;
