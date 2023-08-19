@@ -256,6 +256,7 @@
         $_SESSION['lastname']  = $db_lastname;
         $_SESSION['email']     = $db_email;
         $_SESSION['role']      = $db_role;
+        unset($_SESSION['error']);
 
         $url = getenv("CLEARDB_DATABASE_URL") ? "/admin" : "/RockAltar/web/admin";
         redirect($url);
@@ -263,6 +264,5 @@
         return false;
       }
     }
-
      return true;
   }
