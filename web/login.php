@@ -40,7 +40,7 @@
                 </div>
 
                 <?php if (isset($_SESSION['error'])) { ?>
-                    <p class="form-group has-error"><?php echo $_SESSION['error'] ?></p>
+                  <p class="form-group-error"><?php echo $_SESSION['error'] ?></p>
                 <?php } 
                   unset($_SESSION['error'])
                 ?>
