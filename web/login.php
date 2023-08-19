@@ -44,10 +44,7 @@
                     <?php unset($_SESSION['error']) ?>
                 <?php } ?>
 
-                  <div class="form-group <?php isset($_SESSION["error"]) ? ' form-group-error' : ' form-group-valid' ?>">
-                    <p>Invalid username or password.</p>
-                  </div>
-                  <?php unset($_SESSION["error"]) ?>
+
 
                 <div class="form-group form-group-login">
                   <input name="login" class="btn btn-lg btn-primary btn-block" value="Login" type="submit">
