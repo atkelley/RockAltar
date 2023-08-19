@@ -39,6 +39,8 @@
                   </div>
                 </div>
 
+                <p><?php echo $_SESSION['whatever'] ?></p>
+
                 <?php if (isset($_SESSION['error'])) { ?>
                     <p><?php echo $_SESSION['error'] ?></p>
                     <?php unset($_SESSION['error']) ?>
