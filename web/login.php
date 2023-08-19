@@ -16,7 +16,8 @@
     if(isset($_POST['username']) && isset($_POST['password'])){
       login_user($_POST['username'], $_POST['password']);
     } else {
-      setcookie($cookie_name, $_COOKIE["count"]++);
+      $updated_value = $_COOKIE["count"] + 1;
+      setcookie($cookie_name, $updated_value);
       redirect('login.php');
     }
   }
