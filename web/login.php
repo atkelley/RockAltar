@@ -11,13 +11,12 @@
   setcookie($cookie_name, $cookie_value);
 
   $_SESSION['invalid'] = false;
-  $_SESSION['count'] = 0;
 
   if(check_method('post')){
     if(isset($_POST['username']) && isset($_POST['password'])){
       login_user($_POST['username'], $_POST['password']);
     } else {
-      setcookie($cookie_name, $_COOKIE['count']++);
+      setcookie($cookie_name, $_COOKIE["count"]++);
       redirect('login.php');
     }
   }
@@ -48,7 +47,7 @@
                     <input name="password" type="password" class="form-control" placeholder="Enter Password">
                   </div>
                 </div>
-                <p><?php echo $_COOKIE['count'] ?></p>
+                <p><?php echo $_COOKIE["count"] ?></p>
 
                 <div class="form-group <?php echo $_SESSION['invalid'] ? ' form-group-error' : ' form-group-valid' ?>">
                   <p>Invalid username or password.</p>
