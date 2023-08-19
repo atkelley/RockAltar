@@ -39,9 +39,9 @@
                   </div>
                 </div>
 
-                <?php if (isset($_SESSION['message'])) { ?>
-                    <p class="form-group-error"><?php echo $_SESSION['message'] ?></p>
-                    <?php unset($_SESSION['message']) ?>
+                <?php if (isset($_SESSION['error'])) { ?>
+                    <p><?php echo $_SESSION['error'] ?></p>
+                    <?php unset($_SESSION['error']) ?>
                 <?php } ?>
 
                   <div class="form-group <?php isset($_SESSION["error"]) ? ' form-group-error' : ' form-group-valid' ?>">

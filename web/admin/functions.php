@@ -235,7 +235,7 @@
     $select_user_query = mysqli_query($connection, $query);
     
     if (!$select_user_query) {
-      $_SESSION["error"] = True;
+      $_SESSION['error'] = 'Invalid username or password.';
       die("Query failed: " . mysqli_error($connection));
     }
 
