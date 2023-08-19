@@ -1,25 +1,13 @@
 <?php include "includes/db.php"; ?>
 <?php include "includes/header.php"; ?>
 
-<?php session_start(); ?>
-
 <?php
   logged_in_redirect('admin');
-
-  $cookie_name = "count";
-  $cookie_value = 0;
-  setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/login");
-
-  $_SESSION['invalid'] = false;
 
   if(check_method('post')){
     if(isset($_POST['username']) && isset($_POST['password'])){
       login_user($_POST['username'], $_POST['password']);
     } else {
-      // $updated_value = $_COOKIE["count"] + 1;
-      setcookie($cookie_name, $updated_value,  time() + (86400 * 30), "/login");
-
-      $_COOKIE["count"]++;
       redirect('login.php');
     }
   }
@@ -50,11 +38,18 @@
                     <input name="password" type="password" class="form-control" placeholder="Enter Password">
                   </div>
                 </div>
-                <p><?php echo $_COOKIE["count"] ?></p>
 
-                <div class="form-group <?php echo $_SESSION['invalid'] ? ' form-group-error' : ' form-group-valid' ?>">
-                  <p>Invalid username or password.</p>
-                </div>
+                <?php if (isset($_SESSION['message'])) { ?>
+                    <p class="form-group-error"><?php echo $_SESSION['message'] ?></p>
+                    <?php unset($_SESSION['message']) ?>
+                <?php } ?>
+
+                <?php if(!isset($_POST['username']) || !isset($_POST['password'])) { ?>
+                  <div class="form-group <?php echo $_SESSION['invalid'] ? ' form-group-error' : ' form-group-valid' ?>">
+                    <p>Invalid username or password.</p>
+                  </div>
+                <?php } ?>
+   
 
                 <div class="form-group form-group-login">
                   <input name="login" class="btn btn-lg btn-primary btn-block" value="Login" type="submit">
