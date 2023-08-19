@@ -44,12 +44,10 @@
                     <?php unset($_SESSION['message']) ?>
                 <?php } ?>
 
-                <?php if(!isset($_POST['username']) || !isset($_POST['password'])) { ?>
-                  <div class="form-group <?php echo $_SESSION['invalid'] ? ' form-group-error' : ' form-group-valid' ?>">
+                  <div class="form-group <?php isset($_SESSION["error"]) ? ' form-group-error' : ' form-group-valid' ?>">
                     <p>Invalid username or password.</p>
                   </div>
-                <?php } ?>
-   
+                  <?php unset($_SESSION["error"]) ?>
 
                 <div class="form-group form-group-login">
                   <input name="login" class="btn btn-lg btn-primary btn-block" value="Login" type="submit">
