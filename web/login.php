@@ -5,6 +5,11 @@
 
 <?php
   logged_in_redirect('admin');
+
+  $cookie_name = "count";
+  $cookie_value = 0;
+  setcookie($cookie_name, $cookie_value);
+
   $_SESSION['invalid'] = false;
   $_SESSION['count'] = 0;
 
@@ -12,8 +17,7 @@
     if(isset($_POST['username']) && isset($_POST['password'])){
       login_user($_POST['username'], $_POST['password']);
     } else {
-      $_SESSION['invalid'] = true;
-      $_SESSION['count']++;
+      setcookie($cookie_name, $_COOKIE['count']++);
       redirect('login.php');
     }
   }
@@ -44,7 +48,7 @@
                     <input name="password" type="password" class="form-control" placeholder="Enter Password">
                   </div>
                 </div>
-                <p><?php echo $_SESSION['count'] ?></p>
+                <p><?php echo $_COOKIE['count'] ?></p>
 
                 <div class="form-group <?php echo $_SESSION['invalid'] ? ' form-group-error' : ' form-group-valid' ?>">
                   <p>Invalid username or password.</p>
