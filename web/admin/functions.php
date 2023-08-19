@@ -247,6 +247,7 @@
       $db_lastname  = $row['lastname'];
       $db_email     = $row['email'];
       $db_role      = $row['role'];
+      $_SESSION['whatever'] = "FUCK YOU";
 
       if (password_verify($password, $db_password)) {
         $_SESSION['id']        = $db_id;
@@ -259,7 +260,6 @@
         $url = getenv("CLEARDB_DATABASE_URL") ? "/admin" : "/RockAltar/web/admin";
         redirect($url);
       } else {
-        $_SESSION['whatever'] = "FUCK YOU";
         return false;
       }
     }
