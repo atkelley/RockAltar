@@ -8,7 +8,7 @@
 
   $cookie_name = "count";
   $cookie_value = 0;
-  setcookie($cookie_name, $cookie_value);
+  setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/login");
 
   $_SESSION['invalid'] = false;
 
@@ -16,8 +16,10 @@
     if(isset($_POST['username']) && isset($_POST['password'])){
       login_user($_POST['username'], $_POST['password']);
     } else {
-      $updated_value = $_COOKIE["count"] + 1;
-      setcookie($cookie_name, $updated_value);
+      // $updated_value = $_COOKIE["count"] + 1;
+      // setcookie($cookie_name, $updated_value);
+
+      $_COOKIE["count"]++;
       redirect('login.php');
     }
   }
