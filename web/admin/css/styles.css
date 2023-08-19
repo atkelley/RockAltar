@@ -122,8 +122,3 @@ a:hover {
   font-size: small;
   color: red;
 }
-
-.form-group-valid {
-  height: 1.5rem;
-  visibility: hidden;
-}
