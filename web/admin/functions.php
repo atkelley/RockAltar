@@ -235,6 +235,7 @@
     $select_user_query = mysqli_query($connection, $query);
     
     if (!$select_user_query) {
+      $_SESSION['error'] = 'Invalid username or password.';
       die("Query failed: " . mysqli_error($connection));
     }
 
@@ -258,7 +259,7 @@
         $url = getenv("CLEARDB_DATABASE_URL") ? "/admin" : "/RockAltar/web/admin";
         redirect($url);
       } else {
-        $_SESSION['error'] = 'Invalid username or password.';
+        $_SESSION['whatever'] = "FUCK YOU";
         return false;
       }
     }
