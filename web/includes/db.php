@@ -21,27 +21,9 @@
   foreach($db as $key => $value){
     define(strtoupper($key), $value);
   }
-// mysql://be41329e6dea79:3cc4a440@us-cdbr-east-06.cleardb.net/heroku_981847eb2ca20f2?reconnect=true
 
-  $servername = $db['db_host'];
-  $database = $db['db_name'];
-  $username = $db['db_user'];
-  $password = $db['db_pass'];
-  $sql = "mysql:host=$servername;dbname=$database;";
-  $dsn_Options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
-
-  try {
-    $my_Db_Connection = new PDO($sql, $username, $password, $dsn_Options);
-    echo "Connected successfully";
-   } catch (PDOException $error) {
-    echo 'Connection error: ' . $error->getMessage();
-   }
-
-  // $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-  // $connection = new mysqli($db['db_host'], $db['db_user'], $db['db_pass'], $db['db_name']);
+  $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
   $query = "SET NAMES utf8";
-  $my_Insert_Statement = $my_Db_Connection->prepare($query);
-  $my_Insert_Statement->execute();
-  // mysqli_query($my_Db_Connection, $query);
+  mysqli_query($connection, $query);
 ?>
