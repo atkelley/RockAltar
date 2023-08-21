@@ -39,34 +39,20 @@
       <?php 
         if(isset($_POST['create_comment'])) {
           if (!empty($_POST['comment_author']) && !empty($_POST['comment_email']) && !empty($_POST['comment_content'])) {
-            $id = $_GET['id'];
-            $comment_author = $_POST['comment_author'];
-            $comment_email = $_POST['comment_email'];
-            $comment_content = $_POST['comment_content'];
-
-            // $query = "INSERT INTO comments (
-            //             post_id, 
-            //             author, 
-            //             email, 
-            //             content, 
-            //             status
-            //           ) VALUES (
-            //             :id,
-            //             :comment_author, 
-            //             :comment_email, 
-            //             :comment_content, 
-            //             'unapproved')";
-
-            $statement = $connection->prepare("INSERT INTO comments (post_id, author, email, content, status ) VALUES (?, ?, ?, ?, 'unapproved')");
-            $statement->bindParam('isss', $id, $comment_author, $comment_email, $comment_content);
-            $create_comment_query = $statement->execute();
-
-            // $create_comment_query = mysqli_query($connection, $query);
+            $query = "INSERT INTO comments (
+                        post_id, 
+                        author, 
+                        email, 
+                        content, 
+                        status
+                      ) VALUES (" . $_GET['id'] . "," . $_POST['comment_author'] . "," . $_POST['comment_email'] . "," . $_POST['comment_content'] . ", 'unapproved')";
+                        
+            $create_comment_query = mysqli_query($connection, $query);
 
             if (!$create_comment_query) {
               die("Query failed: " . mysqli_error($connection));
             } else {
-              header("Location: article.php?id={$id}#comments");
+              header("Location: article.php?id={$_GET['id']}#comments");
             }
           }
         }
