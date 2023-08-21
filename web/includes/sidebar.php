@@ -130,7 +130,7 @@
     <div class="row">
       <div class="col-md-5 album-image-box">
         <a href="article.php?id=<?php echo $id; ?>">
-          <img class="img-responsive album-image" src="<?php echo $image; ?>" alt="<?php echo $name; ?>">
+          <img class="img-responsive album-image" src="<?php echo $image; ?>" alt="<?php echo $name[0]; ?>">
         </a>
       </div>
       <div class="col-md-7 album-text">
