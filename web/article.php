@@ -99,7 +99,7 @@
 
       <div id="comments">
         <?php 
-          $query = "SELECT * FROM comments WHERE post_id = " . $_GET['id'] . " AND status = 'approved' ORDER BY date ASC";
+          $query = "SELECT * FROM comments WHERE post_id = " . $_GET['id'] . " AND status = 'approved' ORDER BY date DESC";
           $select_approved_comments_query = mysqli_query($connection, $query);
           
           if(!$select_approved_comments_query) {
@@ -107,8 +107,8 @@
           }
 
           while ($row = mysqli_fetch_array($select_approved_comments_query)) {
-            $comment_date = date("D, F dS, Y", strtotime($row['date']));
-            $comment_time = date('h:i A', strtotime($row['date']));
+            $comment_date = date("D, F jS, Y", strtotime($row['date']));
+            $comment_time = date('g:i A', strtotime($row['date']));
             $comment_content= $row['content'];
             $comment_author = $row['author'];
         ?>
