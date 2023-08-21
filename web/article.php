@@ -49,6 +49,7 @@
               $email = $_POST['comment_email'];
               $content = $_POST['comment_content'];
               $status = 'unapproved';
+              date_default_timezone_set('America/New_York');
               $date = date("Y-m-d H:i:s");
               mysqli_stmt_bind_param($stmt, 'isssss', $id, $author, $email, $content, $status, $date);
 
