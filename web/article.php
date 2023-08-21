@@ -45,11 +45,25 @@
                         email, 
                         content, 
                         status
-                      ) VALUES (" . $_GET['id'] . "," . $_POST['comment_author'] . "," . $_POST['comment_email'] . "," . $_POST['comment_content'] . ", 'unapproved')";
-                        
+                      ) VALUES (
+                        '{$_GET['id']}' ,
+                        '{$_POST['comment_author']}', 
+                        '{$_POST['comment_email']}', 
+                        '{$_POST['comment_content']}', 
+                        'unapproved'
+                      )";
             $create_comment_query = mysqli_query($connection, $query);
 
-            if (!$create_comment_query) {
+            $stmt = $connection->prepare("INSERT INTO `comments` (`post_id`, `author`, `email`, `content`, 'status`) VALUES (?,?,?,?,?)");
+                $stmt->bind_param(1, $_GET['id']);
+                $stmt->bind_param(2, $_POST['comment_author']);
+                $stmt->bind_param(3, $_POST['comment_email']);
+                $stmt->bind_param(4, $_POST['comment_content']);
+                $stmt->bind_param(5, 'unapproved');
+
+                $stmt->execute();
+
+            if (!$stmt->execute()) {
               die("Query failed: " . mysqli_error($connection));
             } else {
               header("Location: article.php?id={$_GET['id']}#comments");
