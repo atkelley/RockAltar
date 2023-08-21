@@ -39,7 +39,7 @@
       <?php 
         if(isset($_POST['create_comment'])) {
           if (!empty($_POST['comment_author']) && !empty($_POST['comment_email']) && !empty($_POST['comment_content'])) {
-            $stmt = $connection->prepare("INSERT INTO comments(post_id, author, email, content, status) VALUES (?,?,?,?,?)");
+            $stmt = $connection->prepare("INSERT INTO comments(post_id, author, email, content, status, date) VALUES (?,?,?,?,?,?)");
 
             if ($stmt === FALSE) {
               echo "Error: " . mysqli_error($connection);
@@ -49,7 +49,8 @@
               $email = $_POST['comment_email'];
               $content = $_POST['comment_content'];
               $status = 'unapproved';
-              mysqli_stmt_bind_param($stmt, 'issss', $id, $author, $email, $content, $status);
+              $date = date("Y-m-d H:i:s");
+              mysqli_stmt_bind_param($stmt, 'issss', $id, $author, $email, $content, $status, $date);
 
               if (!$stmt->execute()) {
                 die("Query failed: " . mysqli_error($connection));
