@@ -41,7 +41,7 @@
   // $connection = new mysqli($db['db_host'], $db['db_user'], $db['db_pass'], $db['db_name']);
 
   $query = "SET NAMES utf8";
-  $my_Db_Connection->prepare($query);
-  $my_Db_Connection->execute();
+  $my_Insert_Statement = $my_Db_Connection->prepare($query);
+  $my_Insert_Statement->execute();
   // mysqli_query($my_Db_Connection, $query);
 ?>
