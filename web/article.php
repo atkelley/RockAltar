@@ -39,35 +39,38 @@
       <?php 
         if(isset($_POST['create_comment'])) {
           if (!empty($_POST['comment_author']) && !empty($_POST['comment_email']) && !empty($_POST['comment_content'])) {
-            $query = "INSERT INTO comments (
-                        post_id, 
-                        author, 
-                        email, 
-                        content, 
-                        status
-                      ) VALUES (
-                        '{$_GET['id']}' ,
-                        '{$_POST['comment_author']}', 
-                        '{$_POST['comment_email']}', 
-                        '{$_POST['comment_content']}', 
-                        'unapproved'
-                      )";
-            $create_comment_query = mysqli_query($connection, $query);
+            // $query = "INSERT INTO comments (
+            //             post_id, 
+            //             author, 
+            //             email, 
+            //             content, 
+            //             status
+            //           ) VALUES (
+            //             '{$_GET['id']}' ,
+            //             '{$_POST['comment_author']}', 
+            //             '{$_POST['comment_email']}', 
+            //             '{$_POST['comment_content']}', 
+            //             'unapproved'
+            //           )";
+            // $create_comment_query = mysqli_query($connection, $query);
 
-            $stmt = $connection->prepare("INSERT INTO `comments` (`post_id`, `author`, `email`, `content`, `status`) VALUES (?,?,?,?,?)");
-                $stmt->bind_param(1, $_GET['id']);
-                $stmt->bind_param(2, $_POST['comment_author']);
-                $stmt->bind_param(3, $_POST['comment_email']);
-                $stmt->bind_param(4, $_POST['comment_content']);
-                $unapproved = 'unapproved';
-                $stmt->bind_param(5, $unapproved);
+            $stmt = $connection->prepare("INSERT INTO comments(post_id, author, email, content, status) VALUES (?,?,?,?,?)");
 
-                $stmt->execute();
-
-            if (!$stmt->execute()) {
-              die("Query failed: " . mysqli_error($connection));
+            if ($stmt === FALSE) {
+              echo "Error: " . mysqli_error($connection);
             } else {
-              header("Location: article.php?id={$_GET['id']}#comments");
+              $id = $_GET['id'];
+              $author = $_POST['comment_author'];
+              $email = $_POST['comment_email'];
+              $content = $_POST['comment_content'];
+              $status = 'unapproved';
+              mysqli_stmt_bind_param($stmt, 'issss', $id, $author, $email, $content, $status);
+
+              if (!$stmt->execute()) {
+                die("Query failed: " . mysqli_error($connection));
+              } else {
+                header("Location: article.php?id={$_GET['id']}#comments");
+              }
             }
           }
         }
