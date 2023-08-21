@@ -90,15 +90,11 @@
             <textarea name="comment_content" class="form-control" rows="3" required></textarea>
           </div>
 
-          <?php if (isset($_SESSION['comment_message'])) { ?>
-          <p id="comment-message" class="fade-out"><?php echo $_SESSION['comment_message'] ?></p>
-            <script>
-              setTimeout(function() {
-                document.getElementById("comment-message").style.display = 'none';
-              }, 5000);
-            </script>
-          <?php } ?>
-
+          <div class="comment-message">
+            <?php if (isset($_SESSION['comment_message'])) { ?>
+              <p class="fade-out"><?php echo $_SESSION['comment_message'] ?></p>
+            <?php } ?>
+          </div>
 
           <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
         </form>
