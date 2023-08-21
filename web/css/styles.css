@@ -354,3 +354,11 @@ footer {
   font-size: small;
   color: red!important;
 }
+
+.comment-message {
+  padding: 15px;
+  border: 1px solid forestgreen;
+  border-radius: 10px;
+  box-shadow: inset 5px 5px green;
+  margin: 10px 0;
+}

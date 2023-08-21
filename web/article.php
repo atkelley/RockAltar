@@ -39,21 +39,6 @@
       <?php 
         if(isset($_POST['create_comment'])) {
           if (!empty($_POST['comment_author']) && !empty($_POST['comment_email']) && !empty($_POST['comment_content'])) {
-            // $query = "INSERT INTO comments (
-            //             post_id, 
-            //             author, 
-            //             email, 
-            //             content, 
-            //             status
-            //           ) VALUES (
-            //             '{$_GET['id']}' ,
-            //             '{$_POST['comment_author']}', 
-            //             '{$_POST['comment_email']}', 
-            //             '{$_POST['comment_content']}', 
-            //             'unapproved'
-            //           )";
-            // $create_comment_query = mysqli_query($connection, $query);
-
             $stmt = $connection->prepare("INSERT INTO comments(post_id, author, email, content, status) VALUES (?,?,?,?,?)");
 
             if ($stmt === FALSE) {
@@ -69,6 +54,7 @@
               if (!$stmt->execute()) {
                 die("Query failed: " . mysqli_error($connection));
               } else {
+                $_SESSION['comment_message'] = "Success! Your comment have been submitted and is currently awaiting approval.";
                 header("Location: article.php?id={$_GET['id']}#comments");
               }
             }
@@ -78,6 +64,9 @@
 
       <div class="well">
         <h4>Leave a Comment:</h4>
+        <?php if (isset($_SESSION['comment_message'])) { ?>
+          <p class="comment-message"><?php echo $_SESSION['comment_message'] ?></p>
+          <?php } ?>
         <?php 
           $author = "";
           $email = "";
