@@ -54,7 +54,7 @@
                       )";
             $create_comment_query = mysqli_query($connection, $query);
 
-            $stmt = $connection->prepare("INSERT INTO `comments` (`post_id`, `author`, `email`, `content`, 'status`) VALUES (?,?,?,?,?)");
+            $stmt = $connection->prepare("INSERT INTO `comments` (`post_id`, `author`, `email`, `content`, `status`) VALUES (?,?,?,?,?)");
                 $stmt->bind_param(1, $_GET['id']);
                 $stmt->bind_param(2, $_POST['comment_author']);
                 $stmt->bind_param(3, $_POST['comment_email']);
