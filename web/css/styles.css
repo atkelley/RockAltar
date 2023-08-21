@@ -372,9 +372,12 @@ footer {
 @keyframes fadeOut {
   0% {
     opacity: 1;
+    width: inherit; 
+    height: inherit;
   }
   100% {
     opacity: 0;
-    display: none;
+    width: 0; 
+    height: 0;
   }
 }
