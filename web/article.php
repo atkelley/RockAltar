@@ -59,12 +59,12 @@
             if ($stmt === FALSE) {
               echo "Error: " . mysqli_error($connection);
             } else {
-              // $id = $_GET['id'];
-              // $author = $_POST['comment_author'];
-              // $email = $_POST['comment_email'];
-              // $content = $_POST['comment_content'];
-              // $status = 'unapproved';
-              mysqli_stmt_bind_param($stmt, 'issss', $_GET['id'], $_POST['comment_author'], $_POST['comment_email'], $_POST['comment_comment'], 'unapproved');
+              $id = $_GET['id'];
+              $author = $_POST['comment_author'];
+              $email = $_POST['comment_email'];
+              $content = $_POST['comment_content'];
+              $status = 'unapproved';
+              mysqli_stmt_bind_param($stmt, 'issss', $id, $author, $email, $content, $status);
 
               if (!$stmt->execute()) {
                 die("Query failed: " . mysqli_error($connection));
