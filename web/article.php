@@ -57,6 +57,7 @@
                 die("Query failed: " . mysqli_error($connection));
               } else {
                 $_SESSION['comment_message'] = "Success! Your comment has been submitted and is currently awaiting approval.";
+                $_SESSION['comment_message_start_time'] = time();
                 header("Location: article.php?id={$_GET['id']}#comments");
               }
             }
@@ -93,10 +94,10 @@
           <div class="comment-message">
             <?php if (isset($_SESSION['comment_message'])) { ?>
               <p class="fade-out"><?php echo $_SESSION['comment_message'] ?></p>
-              <?php $startTime = time(); ?>
               <?php 
-                if ((time() - $startTime) > 5) {
+                if ((time() - $_SESSION['comment_message_start_time']) > 5) {
                   unset($_SESSION['comment_message']);
+                  unset($_SESSION['comment_message_start_time']);
                 }
               ?>
             <?php } ?>
