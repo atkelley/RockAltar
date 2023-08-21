@@ -64,9 +64,6 @@
 
       <div class="well">
         <h4>Leave a Comment:</h4>
-        <?php if (isset($_SESSION['comment_message'])) { ?>
-          <p class="comment-message"><?php echo $_SESSION['comment_message'] ?></p>
-          <?php } ?>
         <?php 
           $author = "";
           $email = "";
@@ -90,6 +87,11 @@
             <label for="comment">Your Comment</label>
             <textarea name="comment_content" class="form-control" rows="3" required></textarea>
           </div>
+
+          <?php if (isset($_SESSION['comment_message'])) { ?>
+          <p class="comment-message"><?php echo $_SESSION['comment_message'] ?></p>
+          <?php } ?>
+          
           <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
         </form>
       </div>
