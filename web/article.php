@@ -59,7 +59,8 @@
                 $stmt->bind_param(2, $_POST['comment_author']);
                 $stmt->bind_param(3, $_POST['comment_email']);
                 $stmt->bind_param(4, $_POST['comment_content']);
-                $stmt->bind_param(5, 'unapproved');
+                $unapproved = 'unapproved';
+                $stmt->bind_param(5, $unapproved);
 
                 $stmt->execute();
 
