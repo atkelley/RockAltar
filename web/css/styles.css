@@ -360,6 +360,20 @@ footer {
   border: 1px solid forestgreen;
   border-radius: 15px;
   box-shadow: 5px 5px 5px green;
-  margin: 15px 0;
+  margin: 20px 0 25px 0;
   background-color: white;
+}
+
+.fade-out {
+  animation: fadeOut ease 5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

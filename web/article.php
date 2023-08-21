@@ -54,7 +54,7 @@
               if (!$stmt->execute()) {
                 die("Query failed: " . mysqli_error($connection));
               } else {
-                $_SESSION['comment_message'] = "Success! Your comment have been submitted and is currently awaiting approval.";
+                $_SESSION['comment_message'] = "Success! Your comment has been submitted and is currently awaiting approval.";
                 header("Location: article.php?id={$_GET['id']}#comments");
               }
             }
@@ -89,9 +89,9 @@
           </div>
 
           <?php if (isset($_SESSION['comment_message'])) { ?>
-          <p class="comment-message"><?php echo $_SESSION['comment_message'] ?></p>
+          <p class="comment-message fade-out"><?php echo $_SESSION['comment_message'] ?></p>
           <?php } ?>
-          
+
           <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
         </form>
       </div>
