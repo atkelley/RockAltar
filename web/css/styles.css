@@ -355,7 +355,7 @@ footer {
   color: red!important;
 }
 
-.comment-message {
+#comment-message {
   padding: 10px;
   border: 1px solid forestgreen;
   border-radius: 15px;
@@ -365,19 +365,15 @@ footer {
 }
 
 .fade-out {
-  animation: fadeOut ease 10s;
+  animation: fadeOut ease 5s;
   animation-fill-mode: forwards;
 }
 
 @keyframes fadeOut {
   0% {
     opacity: 1;
-    width: inherit; 
-    height: inherit;
   }
   100% {
     opacity: 0;
-    width: 0; 
-    height: 0;
   }
 }
