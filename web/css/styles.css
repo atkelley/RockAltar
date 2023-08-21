@@ -365,7 +365,7 @@ footer {
 }
 
 .fade-out {
-  animation: fadeOut ease 5s;
+  animation: fadeOut ease 10s;
   animation-fill-mode: forwards;
 }
 
@@ -375,5 +375,6 @@ footer {
   }
   100% {
     opacity: 0;
+    display: none;
   }
 }
