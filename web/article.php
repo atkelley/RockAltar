@@ -91,9 +91,9 @@
           </div>
 
           <div class="comment-message">
-            <?php $startTime = time(); ?>
             <?php if (isset($_SESSION['comment_message'])) { ?>
               <p class="fade-out"><?php echo $_SESSION['comment_message'] ?></p>
+              <?php $startTime = time(); ?>
               <?php 
                 if ((time() - $startTime) > 5) {
                   unset($_SESSION['comment_message']);
