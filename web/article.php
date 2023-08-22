@@ -91,7 +91,7 @@
           </div>
 
           <div class="comment-message">
-            <?php if (isset($_SESSION['comment_submitted']) && (time() - $_SESSION['comment_submitted'] < 5) { ?>
+            <?php if (isset($_SESSION['comment_submitted']) && (time() - $_SESSION['comment_submitted'] < 5)) { ?>
               <p class="fade-out">Success! Your comment has been submitted and is currently awaiting approval.</p>
               <?php unset($_SESSION['comment_submitted']); ?>
             <?php } ?>
