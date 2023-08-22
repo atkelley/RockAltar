@@ -56,9 +56,7 @@
               if (!$stmt->execute()) {
                 die("Query failed: " . mysqli_error($connection));
               } else {
-                $_SESSION['comment_message'] = "Success! Your comment has been submitted and is currently awaiting approval.";
-                $_SESSION['comment_message_start_time'] = time();
-                $whatever = time();
+                $_SESSION['comment_submitted'] = True;
                 header("Location: article.php?id={$_GET['id']}#comments");
               }
             }
@@ -92,18 +90,10 @@
             <textarea name="comment_content" class="form-control" rows="3" required></textarea>
           </div>
 
-          <div><?php echo $whatever ?></div>
-          <div><?php echo time() ?></div>
-
           <div class="comment-message">
-            <?php if (isset($_SESSION['comment_message'])) { ?>
-              <p class="fade-out"><?php echo $_SESSION['comment_message'] ?></p>
-              <?php 
-                if ((time() - $_SESSION['comment_message_start_time']) > 5) {
-                  unset($_SESSION['comment_message']);
-                  unset($_SESSION['comment_message_start_time']);
-                }
-              ?>
+            <?php if (isset($_SESSION['comment_submitted'])) { ?>
+              <p class="fade-out">Success! Your comment has been submitted and is currently awaiting approval.</p>
+              <?php unset($_SESSION['comment_submitted']); ?>
             <?php } ?>
           </div>
 
