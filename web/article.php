@@ -57,7 +57,7 @@
                 die("Query failed: " . mysqli_error($connection));
               } else {
                 $_SESSION['comment_submitted'] = True;
-                header("Location: article.php?id={$_GET['id']}#comments");
+                // header("Location: article.php?id={$_GET['id']}#comments");
               }
             }
           }
