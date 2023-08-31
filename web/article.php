@@ -89,6 +89,8 @@
             <label for="comment">Your Comment</label>
             <textarea name="comment_content" class="form-control" rows="3" required></textarea>
           </div>
+          <p>TIME SUBMITTED: <?php $_SESSION['comment_submitted'] ?></p>
+          <p>TIME REMAINING: <?php time() - $_SESSION['comment_submitted'] ?></p>
 
           <div class="comment-message">
             <?php if (isset($_SESSION['comment_submitted']) && (time() - $_SESSION['comment_submitted'] < 5)) { ?>
