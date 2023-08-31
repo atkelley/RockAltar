@@ -355,20 +355,21 @@ footer {
   color: red!important;
 }
 
-.comment-message {
+.comment-message-box {
   height: 60px;
 }
 
-.fade-out {
+#comment-message {
   border-radius: 15px;
   border: 1px solid forestgreen;
   box-shadow: 5px 5px 5px green;
   background-color: white;
-  
-  padding: 10px;
   margin: 10px 0 15px 0;
-  
-  animation: fadeOut ease 10s;
+  padding: 10px;
+}
+
+.fade-out {
+  animation: fadeOut ease 5s;
   animation-fill-mode: forwards;
 }
 

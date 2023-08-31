@@ -89,12 +89,25 @@
             <label for="comment">Your Comment</label>
             <textarea name="comment_content" class="form-control" rows="3" required></textarea>
           </div>
-          <p>TIME SUBMITTED: <?php $_SESSION['comment_submitted'] ?></p>
-          <p>TIME REMAINING: <?php time() - $_SESSION['comment_submitted'] ?></p>
 
-          <div class="comment-message">
-            <?php if (isset($_SESSION['comment_submitted']) && (time() - $_SESSION['comment_submitted'] < 5)) { ?>
-              <p class="fade-out">Success! Your comment has been submitted and is currently awaiting approval.</p>
+          <script> 
+            fadeOut = () => {
+              const commentMessage = document.getElementById('comment-message');
+              if (commentMessage){
+                setTimeout(() => {
+                  commentMessage.classlist.add('fade-out');
+                }, 1000); 
+              }
+            }
+          </script>
+
+
+          <div class="comment-message-box">
+            <?php if (isset($_SESSION['comment_submitted'])) { ?>
+              <script> 
+                document.addEventListener('DOMContentLoaded', () => { fadeOut(); });
+              </script>
+              <p id="comment-message">Success! Your comment has been submitted and is currently awaiting approval.</p>
               <?php unset($_SESSION['comment_submitted']); ?>
             <?php } ?>
           </div>
