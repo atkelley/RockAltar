@@ -90,24 +90,9 @@
             <textarea name="comment_content" class="form-control" rows="3" required></textarea>
           </div>
 
-          <script> 
-            fadeOut = () => {
-              const commentMessage = document.getElementById('comment-message');
-              if (commentMessage){
-                setTimeout(() => {
-                  commentMessage.classlist.add('fade-out');
-                }, 1000); 
-              }
-            }
-          </script>
-
-
           <div class="comment-message-box">
             <?php if (isset($_COOKIE['comment_submitted'])) { ?>
-              <script> 
-                document.addEventListener('DOMContentLoaded', () => { fadeOut(); });
-              </script>
-              <p id="comment-message" class="fade-out">Success! Your comment has been submitted and is currently awaiting approval.</p>
+              <p class="comment-message">Success! Your comment has been submitted and is currently awaiting approval.</p>
               <?php setcookie("comment_submitted", "", time() - 3600); ?>
             <?php } ?>
           </div>

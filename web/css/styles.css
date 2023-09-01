@@ -359,22 +359,23 @@ footer {
   height: 60px;
 }
 
-#comment-message {
+.comment-message {
   border-radius: 15px;
   border: 1px solid forestgreen;
   box-shadow: 5px 5px 5px green;
   background-color: white;
   margin: 10px 0 15px 0;
   padding: 10px;
-}
 
-.fade-out {
-  animation: fadeOut ease 5s;
+  animation: fadeOut ease 10s;
   animation-fill-mode: forwards;
 }
 
 @keyframes fadeOut {
   0% {
+    opacity: 1;
+  }
+  50% {
     opacity: 1;
   }
   100% {
