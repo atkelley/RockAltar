@@ -56,7 +56,8 @@
               if (!$stmt->execute()) {
                 die("Query failed: " . mysqli_error($connection));
               } else {
-                $_SESSION['comment_submitted'] = time();
+                // $_SESSION['comment_submitted'] = time();
+                setcookie("comment_submitted", time(), time() + 3600);
                 header("Location: article.php?id={$_GET['id']}#comments");
               }
             }
@@ -103,12 +104,12 @@
 
 
           <div class="comment-message-box">
-            <?php if (isset($_SESSION['comment_submitted'])) { ?>
+            <?php if (isset($_COOKIE['comment_submitted'])) { ?>
               <script> 
                 document.addEventListener('DOMContentLoaded', () => { fadeOut(); });
               </script>
               <p id="comment-message">Success! Your comment has been submitted and is currently awaiting approval.</p>
-              <?php unset($_SESSION['comment_submitted']); ?>
+              <?php unset($_COOKIE['comment_submitted']); ?>
             <?php } ?>
           </div>
 
