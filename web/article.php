@@ -1,12 +1,6 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?> 
 <?php  include "includes/navigation.php"; ?>
-
-<?php 
-  if(isset($_COOKIE['comment_submitted'])) {
-    unset($_COOKIE['comment_submitted']); 
-  }
-?>
     
 <div class="container">
   <div class="row">            
@@ -62,7 +56,6 @@
               if (!$stmt->execute()) {
                 die("Query failed: " . mysqli_error($connection));
               } else {
-                // $_SESSION['comment_submitted'] = time();
                 setcookie("comment_submitted", time(), time() + 3600);
                 header("Location: article.php?id={$_GET['id']}#comments");
               }
@@ -115,7 +108,7 @@
                 document.addEventListener('DOMContentLoaded', () => { fadeOut(); });
               </script>
               <p id="comment-message" class="fade-out">Success! Your comment has been submitted and is currently awaiting approval.</p>
-              <?php unset($_COOKIE['comment_submitted']); ?>
+              <?php setcookie("comment_submitted", "", time() - 3600); ?>
             <?php } ?>
           </div>
 
@@ -151,11 +144,11 @@
             <?php echo $comment_content; ?>
           </div>
         </div>
-  <?php } 
-      } else {
-        header("Location: index.php");
-      }
-    ?>
+        <?php } 
+          } else {
+            header("Location: index.php");
+          }
+        ?>
       </div>
     </div>    
     <?php include "includes/sidebar.php";?>
