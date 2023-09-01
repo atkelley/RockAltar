@@ -108,7 +108,7 @@
               <script> 
                 document.addEventListener('DOMContentLoaded', () => { fadeOut(); });
               </script>
-              <p id="comment-message">Success! Your comment has been submitted and is currently awaiting approval.</p>
+              <p id="comment-message" class="fade-out">Success! Your comment has been submitted and is currently awaiting approval.</p>
               <?php unset($_COOKIE['comment_submitted']); ?>
             <?php } ?>
           </div>
