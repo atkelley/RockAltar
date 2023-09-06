@@ -8,7 +8,7 @@ RockAltar uses PHP, HTML with Bootstrap 3 and is deployed through Heroku with th
 
 https://rock-altar-php-project.herokuapp.com/
 
-NOTE: Feel free to peruse the CMS side of Rock Altar by logging in the below credentials:
+NOTE: Feel free to peruse the CMS side of Rock Altar by logging in with the below credentials:
 
 - username: AxlRosenberg
 - password: password
