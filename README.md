@@ -7,3 +7,7 @@ RockAltar also sports a CMS Admin site on the backend for users to create and ma
 RockAltar uses PHP, HTML with Bootstrap 3 and is deployed through Heroku with the ClearDB MySQL plugin on the backend.
 
 https://rock-altar-php-project.herokuapp.com/
+
+NOTE: Feel free to peruse the CMS side of Rock Altar by logging in the below credentials:
+  username: AxlRosenberg
+  password: password
