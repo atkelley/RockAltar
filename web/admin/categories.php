@@ -19,7 +19,7 @@
             <form method="post">
               <div class="form-group">
                 <?php insert_into_table('categories'); ?>
-                <input class="form-control categories-input" type="text" name="name" required>
+                <input class="form-control categories-input" type="text" name="name" placeholder="Enter new category..." required>
                 <input class="btn btn-primary pull-right <?php echo (!is_admin($_SESSION['username']) ? "disabled" : "") ?>" type="submit" name="submit" value="Add New">
               </div>
             </form>
