@@ -5,8 +5,8 @@
   $db['db_pass'] = "";
   $db['db_name'] = "rockAltar";
 
-  if (getenv("CLEARDB_DATABASE_URL")) {
-    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+  if (getenv("JAWSDB_URL")) {
+    $url = parse_url(getenv("JAWSDB_URL"));
 
     if ($url) {
       $db['db_host'] = $url["host"];

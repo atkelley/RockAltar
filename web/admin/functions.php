@@ -258,7 +258,7 @@
         $_SESSION['role']      = $db_role;
         unset($_SESSION['error']);
 
-        $url = getenv("CLEARDB_DATABASE_URL") ? "/admin" : "/RockAltar/web/admin";
+        $url = getenv("JAWSDB_URL") ? "/admin" : "/RockAltar/web/admin";
         redirect($url);
       } else {
         return false;
