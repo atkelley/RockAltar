@@ -1,4 +1,18 @@
-vendor/
-.env
+# Ignore database dumps
+jawsdb_dump.sql
 
+# Ignore local development files or IDE-specific files
+*.env
+*.local
 .vscode/
+
+# Ignore Fly.io or Heroku-related files with sensitive data
+fly.toml
+*.log
+
+# Ignore Dockerfile if it’s only for local use
+Dockerfile
+
+# Ignore other files and directories not required in version control
+node_modules/
+vendor/

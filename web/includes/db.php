@@ -5,17 +5,11 @@
   $db['db_pass'] = "";
   $db['db_name'] = "rockAltar";
 
-  if (getenv("JAWSDB_URL")) {
-    $url = parse_url(getenv("JAWSDB_URL"));
-
-    if ($url) {
-      $db['db_host'] = $url["host"];
-      $db['db_user'] = $url["user"];
-      $db['db_pass'] = $url["pass"];
-      $db['db_name'] = substr($url["path"], 1);
-    } else {
-      die("Unable to connect to site.");
-    }
+  if (getenv("MYSQL_HOST")) {
+    $db['db_host'] = getenv('MYSQL_HOST');
+    $db['db_user'] = getenv('MYSQL_USER');
+    $db['db_pass'] = getenv('MYSQL_PASSWORD');
+    $db['db_name'] = getenv('MYSQL_DATABASE');
   }
 
   foreach($db as $key => $value){

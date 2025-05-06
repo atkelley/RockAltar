@@ -1,0 +1,93 @@
+# flyctl launch added from .gitignore
+**/vendor
+**/.env
+
+**/.vscode
+
+# flyctl launch added from vendor/heroku/heroku-buildpack-php/.gitignore
+vendor/heroku/heroku-buildpack-php/**/.DS_Store
+vendor/heroku/heroku-buildpack-php/**/composer.lock
+vendor/heroku/heroku-buildpack-php/**/vendor
+vendor/heroku/heroku-buildpack-php/**/test/fixtures/repos
+
+# flyctl launch added from vendor/heroku/heroku-buildpack-php/support/devcenter/.gitignore
+!vendor/heroku/heroku-buildpack-php/support/devcenter/**/composer.lock
+vendor/heroku/heroku-buildpack-php/support/devcenter/**/vendor
+
+# flyctl launch added from vendor/heroku/heroku-buildpack-php/test/fixtures/.gitignore
+!vendor/heroku/heroku-buildpack-php/test/fixtures/**/composer.lock
+vendor/heroku/heroku-buildpack-php/test/fixtures/**/vendor
+
+# flyctl launch added from vendor/heroku/heroku-buildpack-php/test/fixtures/ci/phpunit/.gitignore
+vendor/heroku/heroku-buildpack-php/test/fixtures/ci/phpunit/**/.phpunit.result.cache
+
+# flyctl launch added from vendor/heroku/heroku-buildpack-php/test/var/.gitignore
+vendor/heroku/heroku-buildpack-php/test/var/**/log/*
+
+# flyctl launch added from vendor/pimple/pimple/.gitignore
+vendor/pimple/pimple/**/phpunit.xml
+vendor/pimple/pimple/**/.phpunit.result.cache
+vendor/pimple/pimple/**/composer.lock
+vendor/pimple/pimple/vendor
+
+# flyctl launch added from vendor/psr/container/.gitignore
+vendor/psr/container/**/composer.lock
+vendor/psr/container/**/composer.phar
+vendor/psr/container/vendor
+
+# flyctl launch added from vendor/sendgrid/php-http-client/.gitignore
+# Composer
+vendor/sendgrid/php-http-client/**/vendor
+vendor/sendgrid/php-http-client/**/*.phar
+vendor/sendgrid/php-http-client/**/*.lock
+
+# Jetbrains Idea
+vendor/sendgrid/php-http-client/**/*.old
+vendor/sendgrid/php-http-client/**/.idea
+
+# Environment files
+vendor/sendgrid/php-http-client/**/.env.*
+
+# Local configs
+vendor/sendgrid/php-http-client/**/.php_cs
+vendor/sendgrid/php-http-client/**/.php_cs.cache
+vendor/sendgrid/php-http-client/**/phpunit.xml
+
+# Build artifacts
+vendor/sendgrid/php-http-client/**/php-http-client.zip
+
+# flyctl launch added from vendor/silex/silex/.gitignore
+vendor/silex/silex/phpunit.xml
+vendor/silex/silex/vendor
+vendor/silex/silex/build
+vendor/silex/silex/composer.lock
+
+# flyctl launch added from vendor/symfony/deprecation-contracts/.gitignore
+vendor/symfony/deprecation-contracts/**/vendor
+vendor/symfony/deprecation-contracts/**/composer.lock
+vendor/symfony/deprecation-contracts/**/phpunit.xml
+
+# flyctl launch added from vendor/symfony/event-dispatcher-contracts/.gitignore
+vendor/symfony/event-dispatcher-contracts/**/vendor
+vendor/symfony/event-dispatcher-contracts/**/composer.lock
+vendor/symfony/event-dispatcher-contracts/**/phpunit.xml
+
+# flyctl launch added from vendor/symfony/http-client-contracts/.gitignore
+vendor/symfony/http-client-contracts/**/vendor
+vendor/symfony/http-client-contracts/**/composer.lock
+vendor/symfony/http-client-contracts/**/phpunit.xml
+
+# flyctl launch added from vendor/symfony/twig-bridge/.gitignore
+vendor/symfony/twig-bridge/**/vendor
+vendor/symfony/twig-bridge/**/composer.lock
+vendor/symfony/twig-bridge/**/phpunit.xml
+
+# flyctl launch added from vendor/twig/twig/.gitignore
+vendor/twig/twig/doc/_build/vendor
+vendor/twig/twig/doc/_build/output
+vendor/twig/twig/composer.lock
+vendor/twig/twig/phpunit.xml
+vendor/twig/twig/vendor
+vendor/twig/twig/**/.phpunit.result.cache
+
+fly.toml
