@@ -11,15 +11,12 @@
   $user = getenv('MYSQL_USER');
   $password = getenv('MYSQL_PASSWORD');
   $dbname = getenv('MYSQL_DATABASE');
-
-  try {
-      $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      echo "Connected successfully";
-  } catch(PDOException $e) {
-      echo "Connection failed: " . $e->getMessage();
+  
+  $connection = mysqli_connect($host, $user, $password, $dbname);
+  
+  if (!$connection) {
+      die("Database connection failed: " . mysqli_connect_error());
   }
-
   // if (getenv("MYSQL_HOST")) {
   //   $url = parse_url(getenv("JAWSDB_URL"));
 
