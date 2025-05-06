@@ -1,7 +1,7 @@
 <?php 
   include "includes/db.php"; 
-  include "includes/header.php";
-  include "includes/navigation.php";
+  // include "includes/header.php";
+  // include "includes/navigation.php";
 ?>
 
 <div class="jumbotron jumbotron-fluid">
@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<div class="container">
+
   <div class="row">     
     <div class="col-md-8">
       <?php
@@ -104,7 +104,7 @@
       </ul>
     </div>
       
-    <?php include "includes/sidebar.php"; ?>
+    <!-- <?php include "includes/sidebar.php"; ?> -->
   </div>
 
-  <?php include "includes/footer.php"; ?>
+  <!-- <?php include "includes/footer.php"; ?> -->
