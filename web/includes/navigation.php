@@ -1,4 +1,5 @@
 <?php
+  require_once __DIR__ . '/db.php';
   $pdo = $GLOBALS['pdo'];
 
   if(check_method('post')){
