@@ -1,11 +1,8 @@
 <?php ob_start();
-
   // $db['db_host'] = "localhost";
   // $db['db_user'] = "root";
   // $db['db_pass'] = "";
   // $db['db_name'] = "rockAltar";
-
-
 
   $host = getenv('MYSQL_HOST');
   $user = getenv('MYSQL_USER');
@@ -13,9 +10,8 @@
   $dbname = getenv('MYSQL_DATABASE');
 
   try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $GLOBALS['pdo'] = $pdo;
+    $GLOBALS['pdo'] = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    $GLOBALS['pdo']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully";
   } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
