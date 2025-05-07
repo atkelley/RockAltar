@@ -4,8 +4,9 @@ FROM php:8.2-apache
 # Install necessary PHP extensions for MySQL
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Ensure Apache allows access to the /var/www/html directory
-RUN echo "<Directory /var/www/html>" >> /etc/apache2/apache2.conf \
+# Ensure Apache allows access to the /var/www/html/web directory
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/web|' /etc/apache2/sites-available/000-default.conf \
+  && echo "<Directory /var/www/html/web>" >> /etc/apache2/apache2.conf \
   && echo "    Options Indexes FollowSymLinks" >> /etc/apache2/apache2.conf \
   && echo "    AllowOverride All" >> /etc/apache2/apache2.conf \
   && echo "    Require all granted" >> /etc/apache2/apache2.conf \
