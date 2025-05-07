@@ -1,7 +1,4 @@
 <?php
-  require_once __DIR__ . '/db.php';
-  $pdo = $GLOBALS['pdo'];
-
   if(check_method('post')){
     if(isset($_POST['login'])){
       if(isset($_POST['username']) && isset($_POST['password'])){
@@ -34,12 +31,9 @@
             <ul class="nav navbar-nav">
               <?php 
                 $query = "SELECT * FROM genres LIMIT 10";
-                // $select_all_genres_query = mysqli_query($connection, $query);
-                $select_all_genres_query = $pdo->query($query);
+                $select_all_genres_query = mysqli_query($connection, $query);
 
-                // $result = $select_all_genres_query->fetch(PDO::FETCH_ASSOC);
-
-                while($row = $select_all_genres_query->fetch(PDO::FETCH_ASSOC)) {
+                while($row = mysqli_fetch_assoc($select_all_genres_query)) {
                   $id = $row['id'];
                   $name = $row['name'];
                   echo "<li class='nav-item'><a class='dropdown-item' href='genre.php?genre=" . strtolower($name) . "'>{$name}</a></li>";
@@ -57,10 +51,9 @@
             <ul class="nav navbar-nav">
               <?php 
                 $query = "SELECT * FROM categories LIMIT 10";
-                // $select_all_categories_query = mysqli_query($connection, $query);
-                $select_all_categories_query = $pdo->query($query);
+                $select_all_categories_query = mysqli_query($connection, $query);
 
-                while($row = $select_all_categories_query->fetch(PDO::FETCH_ASSOC)) {
+                while($row = mysqli_fetch_assoc($select_all_categories_query)) {
                   $id = $row['id'];
                   $name = $row['name'];
                   echo "<li class='nav-item'><a class='dropdown-item' href='category.php?category=" . strtolower($name) . "'>{$name}</a></li>";
