@@ -1,83 +1,33 @@
-# flyctl launch added from .gitignore
 # Ignore local development files or IDE-specific files
 **/*.env
 **/*.local
 **/.vscode
 
 # Ignore Fly.io or Heroku-related files with sensitive data
-**/fly.toml
-**/*.log
+fly.toml
+*.log
 
-# Ignore Dockerfile if it’s only for local use
-**/Dockerfile
+# Ignore Dockerfile if it’s only for local use (but NOT the production one)
+# Remove this line if you need the Dockerfile in production:
+# Dockerfile
 
-# Ignore other files and directories not required in version control
-**/node_modules
-**/vendor
+# Node modules (if any)
+node_modules
 
-# flyctl launch added from vendor/heroku/heroku-buildpack-php/.gitignore
-vendor/heroku/heroku-buildpack-php/**/.DS_Store
-vendor/heroku/heroku-buildpack-php/**/composer.lock
-vendor/heroku/heroku-buildpack-php/**/vendor
-vendor/heroku/heroku-buildpack-php/**/test/fixtures/repos
+# Vendor directory (we're installing dependencies inside the container)
+vendor/
 
-# flyctl launch added from vendor/heroku/heroku-buildpack-php/support/devcenter/.gitignore
-!vendor/heroku/heroku-buildpack-php/support/devcenter/**/composer.lock
-vendor/heroku/heroku-buildpack-php/support/devcenter/**/vendor
-
-# flyctl launch added from vendor/heroku/heroku-buildpack-php/test/fixtures/.gitignore
-!vendor/heroku/heroku-buildpack-php/test/fixtures/**/composer.lock
-vendor/heroku/heroku-buildpack-php/test/fixtures/**/vendor
-
-# flyctl launch added from vendor/heroku/heroku-buildpack-php/test/fixtures/ci/phpunit/.gitignore
-vendor/heroku/heroku-buildpack-php/test/fixtures/ci/phpunit/**/.phpunit.result.cache
-
-# flyctl launch added from vendor/heroku/heroku-buildpack-php/test/var/.gitignore
-vendor/heroku/heroku-buildpack-php/test/var/**/log/*
-
-# flyctl launch added from vendor/pimple/pimple/.gitignore
-vendor/pimple/pimple/**/phpunit.xml
-vendor/pimple/pimple/**/.phpunit.result.cache
-vendor/pimple/pimple/**/composer.lock
-vendor/pimple/pimple/vendor
-
-# flyctl launch added from vendor/psr/container/.gitignore
-vendor/psr/container/**/composer.lock
-vendor/psr/container/**/composer.phar
-vendor/psr/container/vendor
-
-# flyctl launch added from vendor/sendgrid/php-http-client/.gitignore
-# Composer
-vendor/sendgrid/php-http-client/**/vendor
-vendor/sendgrid/php-http-client/**/*.phar
-vendor/sendgrid/php-http-client/**/*.lock
-
-# Jetbrains Idea
-vendor/sendgrid/php-http-client/**/*.old
-vendor/sendgrid/php-http-client/**/.idea
-
-# Environment files
-vendor/sendgrid/php-http-client/**/.env*.*
-# Local configs
-vendor/sendgrid/php-http-client/**/.php_cs
-vendor/sendgrid/php-http-client/**/.php_cs.cache
-vendor/sendgrid/php-http-client/**/phpunit.xml
+# OS-specific or editor-specific junk files
+**/.DS_Store
 
 # Build artifacts
-vendor/sendgrid/php-http-client/**/php-http-client.zip
+**/*.phar
+**/*.zip
 
-# flyctl launch added from vendor/silex/silex/.gitignore
-vendor/silex/silex/phpunit.xml
-vendor/silex/silex/vendor
-vendor/silex/silex/build
-vendor/silex/silex/composer.lock
+# PHPUnit and config cache files
+**/.phpunit.result.cache
+**/phpunit.xml
+**/.php_cs
+**/.php_cs.cache
 
-
-# flyctl launch added from vendor/symfony/deprecation-contracts/.gitignore
-vendor/symfony/deprecation-contracts/**/vendor
-vendor/symfony/deprecation-contracts/**/composer.lock
-vendor/symfony/deprecation-contracts/**/phpunit.xml
-
-# flyctl launch added from vendor/symfony/event-dispatcher-contracts/.gitignore
-vendor/symfony/event-dispatcher-contracts/**/vendor
-vendor/symfony/event
+# Remove duplicated or overly specific entries below if not applicable

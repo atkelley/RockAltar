@@ -2,7 +2,11 @@
 FROM php:8.2-apache
 
 # Install necessary PHP extensions for MySQL
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zip \
+    && docker-php-ext-install mysqli pdo pdo_mysql
 
 # Ensure Apache allows access to the /var/www/html/web directory
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/web|' /etc/apache2/sites-available/000-default.conf \
@@ -19,6 +23,15 @@ RUN a2enmod rewrite
 # The 'www-data' user needs to be able to read/write to the app files
 RUN chown -R www-data:www-data /var/www/html \
   && chmod -R 755 /var/www/html
+
+# Set working directory to /var/www/html
+WORKDIR /var/www/html
+
+# Copy composer files first and install dependencies
+COPY composer.json composer.lock ./
+RUN curl -sS https://getcomposer.org/installer | php \
+  && php composer.phar install --no-dev --optimize-autoloader \
+  && rm composer.phar
 
 # Copy the app code into the Apache document root
 COPY . /var/www/html/
