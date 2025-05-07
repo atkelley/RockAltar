@@ -7,9 +7,6 @@
 fly.toml
 *.log
 
-# Ignore Dockerfile if it’s only for local use
-Dockerfile
-
 # Ignore other files and directories not required in version control
 node_modules/
 vendor/
