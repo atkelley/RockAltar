@@ -6,7 +6,7 @@
     "symfony/twig-bridge": "^3",
     "vlucas/phpdotenv": "^4.1",
     "phpmailer/phpmailer": "^6.1",
-    "sendgrid/sendgrid": "^7.5"
+    "sendgrid/sendgrid": "^8.1"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "257abec6df4b838f2eb00a73ff5ce1e9",
+    "content-hash": "00b4c102ffe7aa74e7e3bca205d9ea35",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -469,16 +469,16 @@
         },
         {
             "name": "sendgrid/sendgrid",
-            "version": "7.11.5",
+            "version": "8.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sendgrid/sendgrid-php.git",
-                "reference": "1d2fd3b72687fe82264853a8888b014f8f99e81f"
+                "reference": "550c3f606750911a0d8a8d58b7e20b436a2a6180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sendgrid/sendgrid-php/zipball/1d2fd3b72687fe82264853a8888b014f8f99e81f",
-                "reference": "1d2fd3b72687fe82264853a8888b014f8f99e81f",
+                "url": "https://api.github.com/repos/sendgrid/sendgrid-php/zipball/550c3f606750911a0d8a8d58b7e20b436a2a6180",
+                "reference": "550c3f606750911a0d8a8d58b7e20b436a2a6180",
                 "shasum": ""
             },
             "require": {
@@ -486,7 +486,7 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
-                "php": ">=5.6",
+                "php": ">=7.3",
                 "sendgrid/php-http-client": "~3.10",
                 "starkbank/ecdsa": "0.*"
             },
@@ -494,7 +494,8 @@
                 "sendgrid/sendgrid-php": "*"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7.9 || ^6.4.3",
+                "phpstan/phpstan": "^1.5",
+                "phpunit/phpunit": "^9",
                 "squizlabs/php_codesniffer": "3.*",
                 "swaggest/json-diff": "^3.4"
             },
@@ -527,10 +528,9 @@
                 "twilio sendgrid"
             ],
             "support": {
-                "issues": "https://github.com/sendgrid/sendgrid-php/issues",
-                "source": "https://github.com/sendgrid/sendgrid-php/tree/7.11.5"
+                "source": "https://github.com/sendgrid/sendgrid-php/tree/8.1.0"
             },
-            "time": "2022-03-09T20:21:56+00:00"
+            "time": "2023-12-01T05:16:22+00:00"
         },
         {
             "name": "silex/silex",
