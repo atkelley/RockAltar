@@ -1,5 +1,5 @@
-<Directory /var/www/html>
-  Options Indexes FollowSymLinks
-  AllowOverride All
-  Require all granted
-</Directory>
+# Enable URL rewriting
+RewriteEngine On
+
+# Example of a basic rewrite rule
+RewriteRule ^index\.php$ - [L]
