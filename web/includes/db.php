@@ -1,45 +1,33 @@
 <?php ob_start();
-  // $db['db_host'] = "localhost";
-  // $db['db_user'] = "root";
-  // $db['db_pass'] = "";
-  // $db['db_name'] = "rockAltar";
 
-  $host = getenv('MYSQL_HOST');
-  $user = getenv('MYSQL_USER');
-  $password = getenv('MYSQL_PASSWORD');
-  $dbname = getenv('MYSQL_DATABASE');
+  $db['db_host'] = getenv("DB_HOST") ?: "localhost";
+  $db['db_user'] = getenv("DB_USER") ?: "root";
+  $db['db_pass'] = getenv("DB_PASSWORD") ?: "";
+  $db['db_name'] = getenv("DB_NAME") ?: "rockAltar";
 
-  try {
-    $GLOBALS['pdo'] = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-    $GLOBALS['pdo']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully";
-  } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+  if (getenv("JAWSDB_URL")) {
+    $url = parse_url(getenv("JAWSDB_URL"));
+
+    if ($url) {
+      $db['db_host'] = $url["host"];
+      $db['db_user'] = $url["user"];
+      $db['db_pass'] = $url["pass"];
+      $db['db_name'] = substr($url["path"], 1);
+    } else {
+      die("Unable to parse JAWSDB_URL.");
+    }
   }
 
-  // if (getenv("MYSQL_HOST")) {
-  //   $url = parse_url(getenv("JAWSDB_URL"));
+  foreach($db as $key => $value){
+    define(strtoupper($key), $value);
+  }
 
-  //   if ($url) {
-  //     $db['db_host'] = getenv('MYSQL_HOST');
-  //     $db['db_user'] = getenv('MYSQL_USER');
-  //     $db['db_pass'] = getenv('MYSQL_PASSWORD');
-  //     $db['db_name'] = getenv('MYSQL_DATABASE');
+  $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-  //     else {
-  //     die("Unable to connect to site.");
-  //   }
-  //   } else {
-  //     die("Unable to connect to site.");
-  //   }
-  // }
+  if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
 
-  // foreach($db as $key => $value){
-  //   define(strtoupper($key), $value);
-  // }
-
-  // $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-  // $query = "SET NAMES utf8";
-  // mysqli_query($connection, $query);
+  $query = "SET NAMES utf8";
+  mysqli_query($connection, $query);
 ?>

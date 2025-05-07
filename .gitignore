@@ -1,6 +1,3 @@
-# Ignore database dumps
-jawsdb_dump.sql
-
 # Ignore local development files or IDE-specific files
 *.env
 *.local
