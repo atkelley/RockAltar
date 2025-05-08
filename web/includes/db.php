@@ -1,4 +1,5 @@
-<?php ob_start();
+<?php 
+  ob_start();
 
   $db['db_host'] = getenv("DB_HOST") ?: "localhost";
   $db['db_user'] = getenv("DB_USER") ?: "root";
