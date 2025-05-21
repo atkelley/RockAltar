@@ -47,13 +47,18 @@ if (!isAdminPage) {
       let type = $(this).attr("data-type");
       let comments = $(this).attr("data-comments");
       let message = "Delete this " + type;
+      let href = "index.php?page=" + type.replace(" ", "_") + "s&delete=" + $(this).attr("rel");
+
+      if (type == "article comment") {
+        href += "&id=" + $(this).attr("id");
+      }
 
       if (parseInt(comments)) {
         message += " and its " + comments;
         message += (comments == 1) ? " comment" : " comments";
       } 
 
-      $(".modal_delete_link").attr("href", "index.php?page=articles&delete=" + $(this).attr("rel"));
+      $(".modal_delete_link").attr("href", href);
       $("#delete_modal .modal-body h3").text(message + "?");
       $("#delete_modal").modal('show');
     });

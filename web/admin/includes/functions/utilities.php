@@ -110,7 +110,7 @@
       $output .= "<td><a class='btn btn-warning' href='index.php?page=comments&source=edit&id={$id}&type=article'
       " . ((!is_admin($_SESSION['username']) && $_SESSION['email'] != $email) ? "disabled" : "") . "
       >Edit</a></td>";
-      $output .= "<td><a rel='$id' href='javascript:void(0)' id='$post_id' data-type='comment' class='btn btn-danger delete_link'
+      $output .= "<td><a rel='$id' href='javascript:void(0)' id='$post_id' data-type='article comment' class='btn btn-danger delete_link'
       " . ((!is_admin($_SESSION['username']) && $_SESSION['email'] != $email) ? "disabled" : "") . "
       >Delete</a></td>";
       $output .= "</tr>";

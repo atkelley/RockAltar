@@ -1,5 +1,10 @@
 # Enable URL rewriting
 RewriteEngine On
 
-# Example of a basic rewrite rule
-RewriteRule ^index\.php$ - [L]
+# If the request is to an existing file or directory, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Otherwise, route to index.php
+RewriteRule ^ index.php [QSA,L]
