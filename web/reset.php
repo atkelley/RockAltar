@@ -1,8 +1,8 @@
-<?php include "includes/db.php"; ?>
-<?php include "includes/header.php"; ?>
-<?php include "includes/navigation-special.php"; ?>
+<?php 
+  include "includes/config/db.php"; 
+  include "includes/layout/header.php";
+  include "includes/layout/navigation-special.php";
 
-<?php
   if(!isset($_GET['email']) && !isset($_GET['token'])){
     redirect('index');
   }

@@ -1,6 +1,8 @@
-<?php include "includes/db.php"; ?>
-<?php include "includes/header.php"; ?>
-<?php include "includes/navigation-special.php"; ?>
+<?php 
+  include "includes/config/db.php"; 
+  include "includes/layout/header.php";
+  include "includes/layout/navigation-special.php";
+?>
 
 <div class="container thank-container">
   <div class="row">

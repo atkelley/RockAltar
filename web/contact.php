@@ -1,8 +1,7 @@
-<?php include "includes/db.php"; ?>
-<?php include "includes/header.php"; ?>
-<?php include "includes/navigation-special.php"; ?>
- 
 <?php 
+  include "includes/config/db.php"; 
+  include "includes/layout/header.php";
+  include "includes/layout/navigation-special.php";
   require '../vendor/autoload.php';
 
   if(isset($_POST['submit'])) {
@@ -44,11 +43,11 @@
 
             <div class="form-group">
               <label for="subject" class="sr-only">Subject</label>
-              <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter subject">
+              <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter subject" required>
             </div>
 
             <div class="form-group">
-              <textarea class="form-control" name="body" id="body" cols="50" rows="10"></textarea>
+              <textarea class="form-control" name="body" id="body" cols="50" rows="10" required></textarea>
             </div>
       
             <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block contact-button" value="Submit">

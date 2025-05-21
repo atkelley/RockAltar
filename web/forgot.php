@@ -1,13 +1,10 @@
-<?php include "includes/db.php"; ?>
-<?php include "includes/header.php"; ?>
-<?php include "includes/navigation-special.php"; ?>
-
-<?php
-  use PHPMailer\PHPMailer\PHPMailer;
-  use PHPMailer\PHPMailer\SMTP;
-  use PHPMailer\PHPMailer\Exception;
-
-  require 'classes/Config.php';
+<?php 
+  include "includes/config/db.php"; 
+  include "includes/layout/header.php";
+  include "includes/layout/navigation-special.php";
+  include "includes/functions/utilities.php";
+  include "includes/functions/queries.php";
+  include "includes/functions/auth.php";
   require '../vendor/autoload.php';
 
   if(!isset($_GET['forgot'])){
@@ -17,39 +14,7 @@
   if(check_method('post')){
     if(isset($_POST['email'])) {
       $email = $_POST['email'];
-      $length = 50;
-      $token = bin2hex(openssl_random_pseudo_bytes($length));
-
-      if(email_exists($email)){
-        if($stmt = mysqli_prepare($connection, "UPDATE users SET token='{$token}' WHERE email= ?")){
-          mysqli_stmt_bind_param($stmt, "s", $email);
-          mysqli_stmt_execute($stmt);
-          mysqli_stmt_close($stmt);
-
-          $mail = new PHPMailer(true);
-          $mail->isSMTP();
-          $mail->Host = Config::SMTP_HOST;
-          $mail->Username = Config::SMTP_USER;
-          $mail->Password = Config::SMTP_PASSWORD;
-          $mail->Port = Config::SMTP_PORT;
-          $mail->SMTPSecure = 'tls';
-          $mail->SMTPAuth = true;
-          $mail->isHTML(true);
-          $mail->CharSet = 'UTF-8';
-
-          $mail->setFrom('info@rockaltar.com', 'Rock Altar Notification');
-          $mail->addAddress($email);
-          $mail->Subject = 'Reset Your Rock Altar Password';
-          $mail->Body = '<br><p>Please click to reset your password:<br><br> 
-          <a href="http://rock-altar-php-project.herokuapp.com/reset.php?email=' . $email . '&token=' . $token . ' ">http://rock-altar-php-project.herokuapp.com/reset.php?email=' . $email . '&token=' . $token . '</a></p>';
-
-          if($mail->send()){
-            $emailSent = true;
-          } else{
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
-          }
-        }
-      } 
+      $emailSent = update_user_token($email);
     }
   }
 ?>
